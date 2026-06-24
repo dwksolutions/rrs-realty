@@ -1,12 +1,10 @@
 ---
 const { current = '' } = Astro.props;
-const link = (href, label, key) =>
-  `<a href="${href}"${current === key ? ' aria-current="page"' : ''}>${label}</a>`;
 ---
 <header class="site">
   <div class="wrap nav">
     <a class="brand" href="/" aria-label="RRS Realty Group, home">
-      <img class="logo" src="/logo.png" width="46" height="47" alt="RRS Realty Group" />
+      <img class="logo" src="/logo.png" width="46" height="47" alt="" />
       <span class="bs">Southeast Wisconsin</span>
     </a>
     <nav class="nav-links" id="navlinks" aria-label="Primary">

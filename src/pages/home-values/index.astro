@@ -1,13 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { cities } from '../../data/cities.js';
+import { citiesByCounty } from '../../data/cities.js';
 
-const byCounty = {};
-for (const c of cities) {
-  (byCounty[c.county] ||= []).push(c);
-}
-const counties = Object.keys(byCounty).sort();
-for (const k of counties) byCounty[k].sort((a, b) => a.name.localeCompare(b.name));
+const counties = citiesByCounty();
 
 const title = 'Southeast Wisconsin Market Data by City | RRS Realty Group';
 const description = 'Explore home values and market trends across Southeast Wisconsin: median sale prices, days on market, and price per square foot by city. Get a free local home valuation.';
@@ -23,11 +18,11 @@ const description = 'Explore home values and market trends across Southeast Wisc
 
   <section class="section" style="padding-top:44px">
     <div class="wrap" style="max-width:60rem">
-      {counties.map((county) => (
+      {counties.map((group) => (
         <div class="mkt-group">
-          <h2>{county}</h2>
+          <h2>{group.county}</h2>
           <div class="mkt-pills">
-            {byCounty[county].map((c) => (
+            {group.cities.map((c) => (
               <a href={`/home-values/${c.slug}/`}>{c.name}</a>
             ))}
           </div>
