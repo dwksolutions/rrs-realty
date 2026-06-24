@@ -1,13 +1,61 @@
 // Market data for the /home-values/ pages.
 //
-// If a RentCast API key is present at build time (env var RENTCAST_API_KEY),
-// we fetch live ZIP-level sale stats. Otherwise we return clearly-labeled
-// sample figures so the pages still build and look complete.
+// Numbers come from src/data/market-data.csv, a simple file you maintain by hand.
+// Every so often, look up each city on Redfin, Zillow, or Realtor.com and paste
+// the latest figures into that CSV, then deploy. No API key, no live calls.
 //
-// To go live: create a free key at https://www.rentcast.io, then add
-// RENTCAST_API_KEY in Vercel (Project Settings -> Environment Variables) and redeploy.
+// If a city in cities.js has no row in the CSV yet, we show a rough estimate
+// (flagged isEstimate) so the page still looks complete.
 
-const RENTCAST_ENDPOINT = 'https://api.rentcast.io/v1/markets';
+// Vite inlines the CSV contents as a string at build time.
+import csvText from '../data/market-data.csv?raw';
+
+function num(v) {
+  if (v == null || v === '') return null;
+  const n = Number(String(v).replace(/[^0-9.]/g, ''));
+  return isNaN(n) ? null : n;
+}
+
+function loadRows() {
+  const lines = csvText.split(/\r?\n/).filter((l) => l.trim() && !l.trim().startsWith('#'));
+  const header = lines.shift().split(',').map((h) => h.trim());
+  const idx = (name) => header.indexOf(name);
+  const map = {};
+  for (const line of lines) {
+    const cells = line.split(',');
+    const slug = (cells[idx('slug')] || '').trim();
+    if (!slug) continue;
+    map[slug] = {
+      medianPrice: num(cells[idx('medianPrice')]),
+      pricePerSqft: num(cells[idx('pricePerSqft')]),
+      daysOnMarket: num(cells[idx('daysOnMarket')]),
+      activeListings: num(cells[idx('activeListings')]),
+      updated: (cells[idx('updated')] || '').trim(),
+    };
+  }
+  return map;
+}
+
+const ROWS = loadRows();
+
+function parseMonth(s) {
+  const m = /^(\d{4})-(\d{1,2})/.exec(s || '');
+  if (!m) return new Date();
+  return new Date(Number(m[1]), Number(m[2]) - 1, 1);
+}
+
+function estimate(city) {
+  const base = city.samplePrice || 300000;
+  const seed = parseInt(String(city.zip).slice(-2), 10) || 25;
+  return {
+    medianPrice: base,
+    pricePerSqft: Math.round(base / (1500 + (seed % 10) * 45)),
+    daysOnMarket: 18 + (seed % 28),
+    activeListings: 28 + (seed % 70),
+    updated: new Date(),
+    isEstimate: true,
+  };
+}
 
 export function fmtPrice(n) {
   if (n == null || isNaN(n)) return 'N/A';
@@ -19,52 +67,15 @@ export function fmtNum(n) {
   return Math.round(n).toLocaleString('en-US');
 }
 
-function sampleStats(city) {
-  const base = city.samplePrice || 300000;
-  // Derive stable, plausible figures from the ZIP so each city differs run-to-run.
-  const seed = parseInt(String(city.zip).slice(-2), 10) || 25;
-  const pricePerSqft = Math.round(base / (1500 + (seed % 10) * 45));
-  const daysOnMarket = 18 + (seed % 28);
-  const activeListings = 28 + (seed % 70);
+export function getMarketStats(city) {
+  const row = ROWS[city.slug];
+  if (!row || row.medianPrice == null) return estimate(city);
   return {
-    medianPrice: base,
-    pricePerSqft,
-    daysOnMarket,
-    activeListings,
-    updated: new Date(),
-    isSample: true,
+    medianPrice: row.medianPrice,
+    pricePerSqft: row.pricePerSqft,
+    daysOnMarket: row.daysOnMarket,
+    activeListings: row.activeListings,
+    updated: parseMonth(row.updated),
+    isEstimate: false,
   };
-}
-
-export async function getMarketStats(city) {
-  const apiKey =
-    (typeof process !== 'undefined' && process.env && process.env.RENTCAST_API_KEY) ||
-    (import.meta && import.meta.env && import.meta.env.RENTCAST_API_KEY);
-
-  if (!apiKey) return sampleStats(city);
-
-  try {
-    const url = `${RENTCAST_ENDPOINT}?zipCode=${encodeURIComponent(city.zip)}&dataType=Sale`;
-    const res = await fetch(url, {
-      headers: { 'X-Api-Key': apiKey, accept: 'application/json' },
-    });
-    if (!res.ok) throw new Error('RentCast responded ' + res.status);
-    const data = await res.json();
-    const s = data.saleData || data;
-
-    const medianPrice = s.medianPrice ?? s.averagePrice;
-    if (medianPrice == null) throw new Error('no price field in response');
-
-    return {
-      medianPrice,
-      pricePerSqft: s.medianPricePerSquareFoot ?? s.averagePricePerSquareFoot ?? null,
-      daysOnMarket: s.medianDaysOnMarket ?? s.averageDaysOnMarket ?? null,
-      activeListings: s.totalListings ?? s.newListings ?? null,
-      updated: new Date(),
-      isSample: false,
-    };
-  } catch (e) {
-    console.warn(`[marketData] RentCast fetch failed for ${city.name} (${city.zip}): ${e.message}. Falling back to sample data.`);
-    return sampleStats(city);
-  }
 }

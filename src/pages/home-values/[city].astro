@@ -27,9 +27,9 @@ const description = `See current ${city.name}, Wisconsin home values and real es
 
   <section class="section" style="padding-top:40px">
     <div class="wrap">
-      {stats.isSample && (
+      {stats.isEstimate && (
         <div class="sample-banner" style="max-width:52rem;margin-left:auto;margin-right:auto">
-          <b>Sample data shown.</b> Connect your free RentCast API key to display live {city.name} market figures here. (See the launch guide.)
+          <b>Estimated figures.</b> Current market data for {city.name} hasn't been added yet. Get matched with a local agent below for real, up-to-date numbers.
         </div>
       )}
 
@@ -57,7 +57,7 @@ const description = `See current ${city.name}, Wisconsin home values and real es
       </div>
 
       <p class="data-note" style="text-align:center">
-        Market data via <a href="https://www.rentcast.io" rel="nofollow">RentCast</a> · ZIP {city.zip} · Updated {updated}
+        Aggregate market data for ZIP {city.zip}, compiled from public real estate sources · Updated {updated}
       </p>
     </div>
   </section>
