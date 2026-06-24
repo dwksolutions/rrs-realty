@@ -12,7 +12,7 @@ Missing features and pages, ranked by impact. Check off as completed.
 ## Content and SEO (the traffic engine)
 - [ ] Dedicated Sellers page (/sell/) and Buyers page (/buy/)
 - [ ] More local guides (only 4 exist; aim for 10-15 targeted ones)
-- [ ] FAQ page with FAQ structured data
+- [ ] FAQ structured data (FAQPage JSON-LD) on the How It Works FAQ section, and/or a dedicated /faq/ page. Can earn rich results in Google and helps it understand the pages. Claude can build this, no input needed.
 - [ ] Real Contact page (/contact/) with email, phone, hours, service area
 
 ## Admin and operations
@@ -35,6 +35,11 @@ Missing features and pages, ranked by impact. Check off as completed.
 - [ ] Formspree auto-reply to submitters ("a real person will reach out")
 
 ## Trust and polish
+- [ ] Google Business Profile (biggest local-SEO + indexing-trust lever). Create at business.google.com:
+      name "RRS Realty Group"; category Real estate agency / agent; set up as a service-area business
+      covering the 8 Southeast Wisconsin counties (no storefront needed); website rrsrealtygroup.com;
+      add phone + hours once available; write the description; add a logo and a few photos; then verify.
+      (needs input: phone, hours, possibly an address)
 - [ ] Founder/team bios on About (currently generic)
 - [ ] Social media links in footer (needs input: accounts)
 - [ ] Real business address if applicable (needs input)
