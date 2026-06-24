@@ -143,7 +143,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 .cta .btn-primary{font-size:17px;padding:16px 30px}
 
 /* PROSE (blog posts + legal) */
-.prose{max-width:54rem;margin:0 auto;padding:8px 0 20px}
+.prose{max-width:calc(54rem + 48px);margin:0 auto;padding:8px 24px 20px}
 .prose h2{font-size:1.7rem;margin:2em 0 .5em}
 .prose h3{font-size:1.3rem;margin:1.6em 0 .4em}
 .prose p{margin:0 0 1.1em;font-size:17.5px;color:var(--ink-soft)}
