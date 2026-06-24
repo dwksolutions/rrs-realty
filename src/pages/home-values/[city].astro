@@ -35,19 +35,19 @@ const description = `See current ${city.name}, Wisconsin home values and real es
 
       <div class="stat-grid">
         <div class="stat">
-          <p class="label">Median sale price</p>
+          <p class="label">Median list price</p>
           <p class="value">{fmtPrice(stats.medianPrice)}</p>
-          <p class="sub">Typical sold price in {city.zip}</p>
+          <p class="sub">Median asking price in {city.zip}</p>
         </div>
         <div class="stat">
           <p class="label">Days on market</p>
           <p class="value">{fmtNum(stats.daysOnMarket)}</p>
-          <p class="sub">Median time to sell</p>
+          <p class="sub">Median for current listings</p>
         </div>
         <div class="stat">
           <p class="label">Price / sq ft</p>
           <p class="value">{fmtPrice(stats.pricePerSqft)}</p>
-          <p class="sub">Median, recent sales</p>
+          <p class="sub">Median list, per sq ft</p>
         </div>
         <div class="stat">
           <p class="label">Active listings</p>
@@ -57,7 +57,7 @@ const description = `See current ${city.name}, Wisconsin home values and real es
       </div>
 
       <p class="data-note" style="text-align:center">
-        Aggregate market data for ZIP {city.zip}, compiled from public real estate sources · Updated {updated}
+        Listing data for ZIP {city.zip} via <a href="https://www.realtor.com/research/data/" rel="nofollow">Realtor.com</a> · Updated {updated}
       </p>
     </div>
   </section>
@@ -99,7 +99,7 @@ const description = `See current ${city.name}, Wisconsin home values and real es
   </section>
 
   <p class="disclaimer wrap">
-    Market statistics shown are aggregate, ZIP-level figures for general informational purposes and are not an appraisal or valuation of any specific property. Home values vary by condition, location, and features. For a valuation of your home, consult a licensed real estate professional.
+    Market statistics shown are aggregate, ZIP-level listing figures for general informational purposes and are not an appraisal or valuation of any specific property. They reflect homes currently or recently listed, not closed sales, and vary by condition, location, and features. For a valuation of your home, consult a licensed real estate professional.
   </p>
   <div style="height:64px"></div>
 </Layout>
