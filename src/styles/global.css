@@ -212,6 +212,9 @@ footer ul a:hover{color:#fff}
 .mkt-pills{display:flex;flex-wrap:wrap;gap:10px}
 .mkt-pills a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:14.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;transition:border-color .15s ease,color .15s ease}
 .mkt-pills a:hover{border-color:var(--brick);color:var(--brick)}
+.county-cities{line-height:1.9}
+.county-cities a{color:var(--ink-soft);text-decoration:none}
+.county-cities a:hover{color:var(--brick);text-decoration:underline}
 @media (max-width:760px){
   .stat-grid{grid-template-columns:repeat(2,1fr)}
 }

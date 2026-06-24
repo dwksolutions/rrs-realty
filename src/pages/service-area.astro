@@ -1,16 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { citiesByCounty } from '../data/cities.js';
 
-const counties = [
-  { name: 'Milwaukee County', cities: 'Milwaukee · Wauwatosa · West Allis · Greenfield · Oak Creek · Franklin · Hales Corners · Cudahy · South Milwaukee · Glendale · Whitefish Bay · Shorewood' },
-  { name: 'Waukesha County', cities: 'Waukesha · New Berlin · Brookfield · Menomonee Falls · Pewaukee · Muskego · Delafield · Hartland · Elm Grove · Mukwonago' },
-  { name: 'Ozaukee County', cities: 'Cedarburg · Mequon · Grafton · Port Washington · Saukville' },
-  { name: 'Washington County', cities: 'West Bend · Germantown · Hartford · Jackson · Slinger' },
-  { name: 'Racine County', cities: 'Racine · Mount Pleasant · Caledonia · Burlington · Sturtevant' },
-  { name: 'Kenosha County', cities: 'Kenosha · Pleasant Prairie · Somers · Twin Lakes' },
-  { name: 'Walworth County', cities: 'Lake Geneva · Elkhorn · Delavan · Whitewater · East Troy' },
-  { name: 'Jefferson County', cities: 'Watertown · Fort Atkinson · Jefferson · Lake Mills' },
-];
+// Driven entirely by src/data/cities.js so the areas we serve always match the
+// cities that have a market-data page. Add a city there and it appears here too.
+const counties = citiesByCounty();
 ---
 <Layout
   current="area"
@@ -48,10 +42,14 @@ const counties = [
       </div>
 
       <div class="why-grid">
-        {counties.map((c) => (
+        {counties.map((group) => (
           <div class="why-card">
-            <h3>{c.name}</h3>
-            <p>{c.cities}</p>
+            <h3>{group.county}</h3>
+            <p class="county-cities">
+              {group.cities.map((c, i) => (
+                <Fragment>{i > 0 ? ' · ' : ''}<a href={`/home-values/${c.slug}/`}>{c.name}</a></Fragment>
+              ))}
+            </p>
           </div>
         ))}
       </div>

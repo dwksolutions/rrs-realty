@@ -2,11 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import LeadForm from '../components/LeadForm.astro';
 import { getCollection } from 'astro:content';
+import { getCity } from '../data/cities.js';
 
 const posts = (await getCollection('guides', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date - a.data.date)
   .slice(0, 3);
 const thumbs = ['', 'b2', 'b3'];
+
+// Featured cities for the "where we work" strip, pulled from the single
+// source so we never show a city without a market-data page.
+const featuredCities = ['milwaukee', 'wauwatosa', 'brookfield', 'waukesha', 'new-berlin', 'mequon', 'cedarburg', 'menomonee-falls', 'oak-creek', 'franklin', 'west-bend', 'germantown', 'racine', 'kenosha', 'lake-geneva', 'watertown']
+  .map(getCity)
+  .filter(Boolean);
 ---
 <Layout current="home">
   <!-- HERO -->
@@ -67,7 +74,7 @@ const thumbs = ['', 'b2', 'b3'];
         <h2>Built for Southeast Wisconsin</h2>
         <p class="intro">From the lakefront to the Kettle Moraine, we match homeowners and buyers across the eight counties of Southeast Wisconsin with agents who live and work here.</p>
         <ul class="cities">
-          <li>Milwaukee</li><li>Waukesha</li><li>New Berlin</li><li>Brookfield</li><li>Wauwatosa</li><li>West Allis</li><li>Racine</li><li>Kenosha</li><li>Mukwonago</li><li>Oak Creek</li><li>Menomonee Falls</li><li>Cedarburg</li><li>Pewaukee</li><li>Muskego</li><li>Franklin</li><li>Germantown</li>
+          {featuredCities.map((c) => <li>{c.name}</li>)}
         </ul>
       </div>
       <div class="map-card">

@@ -1,190 +1,91 @@
-// Southeast Wisconsin cities for the /home-values/ programmatic pages.
-// Each city generates /home-values/<slug>/. samplePrice is a rough median used
-// only for the sample fallback when no RentCast API key is configured.
+// SINGLE SOURCE OF TRUTH for service area + market data.
+//
+// HARD RULE: the Service Area page (/service-area/) and the Market Data pages
+// (/home-values/) are BOTH generated from this list. Every city here gets a
+// market-data page AND is shown as an area we serve. To add or remove a city,
+// edit ONLY this file. Do not hardcode cities anywhere else, or the two will drift.
+//
+// samplePrice is a rough median used only for the sample fallback when no
+// RentCast API key is configured.
 
 export const cities = [
-  {
-    slug: 'milwaukee',
-    name: 'Milwaukee',
-    county: 'Milwaukee County',
-    zip: '53202',
-    samplePrice: 205000,
-    nearby: ['wauwatosa', 'west-allis', 'shorewood', 'oak-creek'],
-    blurb: "Wisconsin's largest city blends historic neighborhoods, lakefront living, and some of the most affordable urban housing in the Midwest. Values vary widely by neighborhood, from the East Side and Bay View to the far northwest, so a local read matters more here than almost anywhere.",
-  },
-  {
-    slug: 'wauwatosa',
-    name: 'Wauwatosa',
-    county: 'Milwaukee County',
-    zip: '53213',
-    samplePrice: 375000,
-    nearby: ['milwaukee', 'west-allis', 'brookfield'],
-    blurb: "Tosa pairs walkable village charm with strong schools and quick access to downtown Milwaukee, which keeps demand steady and inventory tight. Classic bungalows and Tudors hold their value well here.",
-  },
-  {
-    slug: 'west-allis',
-    name: 'West Allis',
-    county: 'Milwaukee County',
-    zip: '53214',
-    samplePrice: 245000,
-    nearby: ['milwaukee', 'wauwatosa', 'greenfield'],
-    blurb: "A practical, well-located suburb just southwest of Milwaukee, West Allis offers solid starter homes and a lower price point than its northern neighbors, making it popular with first-time buyers.",
-  },
-  {
-    slug: 'brookfield',
-    name: 'Brookfield',
-    county: 'Waukesha County',
-    zip: '53045',
-    samplePrice: 455000,
-    nearby: ['wauwatosa', 'new-berlin', 'pewaukee', 'menomonee-falls'],
-    blurb: "One of the metro's premier suburbs, Brookfield is known for top-rated schools, larger lots, and an upscale retail corridor. Demand consistently outpaces supply for move-in-ready homes.",
-  },
-  {
-    slug: 'new-berlin',
-    name: 'New Berlin',
-    county: 'Waukesha County',
-    zip: '53151',
-    samplePrice: 400000,
-    nearby: ['brookfield', 'waukesha', 'muskego', 'greenfield'],
-    blurb: "New Berlin offers a quieter, suburban feel with larger properties and strong schools, sitting conveniently between Milwaukee and Waukesha. It draws buyers who want space without a long commute.",
-  },
-  {
-    slug: 'waukesha',
-    name: 'Waukesha',
-    county: 'Waukesha County',
-    zip: '53188',
-    samplePrice: 340000,
-    nearby: ['new-berlin', 'pewaukee', 'brookfield'],
-    blurb: "The county seat balances a historic downtown with newer subdivisions and a range of price points, making it one of the more accessible Waukesha County markets for buyers.",
-  },
-  {
-    slug: 'menomonee-falls',
-    name: 'Menomonee Falls',
-    county: 'Waukesha County',
-    zip: '53051',
-    samplePrice: 400000,
-    nearby: ['brookfield', 'germantown', 'wauwatosa'],
-    blurb: "A growing northwest suburb with a mix of established neighborhoods and new construction, Menomonee Falls pairs good schools with strong employer presence, supporting steady demand.",
-  },
-  {
-    slug: 'oak-creek',
-    name: 'Oak Creek',
-    county: 'Milwaukee County',
-    zip: '53154',
-    samplePrice: 360000,
-    nearby: ['milwaukee', 'franklin'],
-    blurb: "One of the fastest-growing communities in the metro's south end, Oak Creek has added significant new construction and retail, attracting buyers who want newer homes near the lakefront and the airport.",
-  },
-  {
-    slug: 'franklin',
-    name: 'Franklin',
-    county: 'Milwaukee County',
-    zip: '53132',
-    samplePrice: 420000,
-    nearby: ['oak-creek', 'muskego', 'greenfield'],
-    blurb: "Franklin offers newer, larger homes and a suburban, green feel on Milwaukee County's southern edge, with prices reflecting its desirable schools and lower-density layout.",
-  },
-  {
-    slug: 'greenfield',
-    name: 'Greenfield',
-    county: 'Milwaukee County',
-    zip: '53220',
-    samplePrice: 310000,
-    nearby: ['west-allis', 'new-berlin', 'franklin'],
-    blurb: "Centrally located and value-friendly, Greenfield is a dependable mid-market suburb with easy freeway access and a steady supply of ranch and split-level homes popular with downsizers.",
-  },
-  {
-    slug: 'mequon',
-    name: 'Mequon',
-    county: 'Ozaukee County',
-    zip: '53092',
-    samplePrice: 600000,
-    nearby: ['cedarburg', 'shorewood'],
-    blurb: "Mequon is one of the region's most affluent communities, known for large wooded lots, lakefront estates, and acreage. It sits at the top end of the metro market and rewards careful, local pricing.",
-  },
-  {
-    slug: 'cedarburg',
-    name: 'Cedarburg',
-    county: 'Ozaukee County',
-    zip: '53012',
-    samplePrice: 475000,
-    nearby: ['mequon', 'grafton'],
-    blurb: "Famous for its preserved historic downtown and small-town character, Cedarburg commands a premium for charm and schools, with limited inventory keeping well-kept homes in high demand.",
-  },
-  {
-    slug: 'grafton',
-    name: 'Grafton',
-    county: 'Ozaukee County',
-    zip: '53024',
-    samplePrice: 410000,
-    nearby: ['cedarburg', 'mequon'],
-    blurb: "Grafton offers Ozaukee County quality of life at a slightly more accessible price than Cedarburg or Mequon, with a walkable downtown and a mix of established and newer neighborhoods.",
-  },
-  {
-    slug: 'shorewood',
-    name: 'Shorewood',
-    county: 'Milwaukee County',
-    zip: '53211',
-    samplePrice: 415000,
-    nearby: ['milwaukee', 'wauwatosa', 'mequon'],
-    blurb: "A compact, walkable lakeside village just north of Milwaukee, Shorewood is prized for its schools, vintage homes, and easy access to the lakefront, which keeps demand strong and supply scarce.",
-  },
-  {
-    slug: 'pewaukee',
-    name: 'Pewaukee',
-    county: 'Waukesha County',
-    zip: '53072',
-    samplePrice: 480000,
-    nearby: ['waukesha', 'brookfield'],
-    blurb: "Anchored by Pewaukee Lake, this market blends waterfront and near-water homes with newer subdivisions, and the lake premium can push values well above the county average.",
-  },
-  {
-    slug: 'muskego',
-    name: 'Muskego',
-    county: 'Waukesha County',
-    zip: '53150',
-    samplePrice: 440000,
-    nearby: ['new-berlin', 'franklin', 'waukesha'],
-    blurb: "Muskego offers lake access, larger lots, and a semi-rural feel while staying within reach of Milwaukee and Waukesha employers, appealing to buyers who want space and water nearby.",
-  },
-  {
-    slug: 'racine',
-    name: 'Racine',
-    county: 'Racine County',
-    zip: '53403',
-    samplePrice: 215000,
-    nearby: ['kenosha', 'mount-pleasant'],
-    blurb: "A Lake Michigan city with a walkable downtown and historic housing stock, Racine remains one of the most affordable lakefront markets in the region, with prices well below the Milwaukee suburbs.",
-  },
-  {
-    slug: 'mount-pleasant',
-    name: 'Mount Pleasant',
-    county: 'Racine County',
-    zip: '53406',
-    samplePrice: 300000,
-    nearby: ['racine', 'kenosha'],
-    blurb: "Mount Pleasant has drawn major investment and new development in recent years, and its newer subdivisions and suburban setting carry a premium over neighboring Racine.",
-  },
-  {
-    slug: 'kenosha',
-    name: 'Kenosha',
-    county: 'Kenosha County',
-    zip: '53142',
-    samplePrice: 265000,
-    nearby: ['racine', 'pleasant-prairie'],
-    blurb: "On the Illinois border, Kenosha attracts both local buyers and commuters to northern Illinois, offering lakefront character and relative affordability that supports steady demand.",
-  },
-  {
-    slug: 'pleasant-prairie',
-    name: 'Pleasant Prairie',
-    county: 'Kenosha County',
-    zip: '53158',
-    samplePrice: 345000,
-    nearby: ['kenosha', 'racine'],
-    blurb: "Pleasant Prairie pairs newer construction, parks, and retail with proximity to the Illinois line, making it a popular choice for commuters who want a suburban, master-planned feel.",
-  },
+  // ---- Milwaukee County ----
+  { slug: 'milwaukee', name: 'Milwaukee', county: 'Milwaukee County', zip: '53202', samplePrice: 205000, nearby: ['wauwatosa', 'west-allis', 'shorewood', 'oak-creek'], blurb: "Wisconsin's largest city blends historic neighborhoods, lakefront living, and some of the most affordable urban housing in the Midwest. Values vary widely by neighborhood, so a local read matters more here than almost anywhere." },
+  { slug: 'wauwatosa', name: 'Wauwatosa', county: 'Milwaukee County', zip: '53213', samplePrice: 375000, nearby: ['milwaukee', 'west-allis', 'brookfield'], blurb: "Tosa pairs walkable village charm with strong schools and quick access to downtown Milwaukee, which keeps demand steady and inventory tight. Classic bungalows and Tudors hold their value well here." },
+  { slug: 'west-allis', name: 'West Allis', county: 'Milwaukee County', zip: '53214', samplePrice: 245000, nearby: ['milwaukee', 'wauwatosa', 'greenfield'], blurb: "A practical, well-located suburb just southwest of Milwaukee, West Allis offers solid starter homes and a lower price point than its northern neighbors, making it popular with first-time buyers." },
+  { slug: 'greenfield', name: 'Greenfield', county: 'Milwaukee County', zip: '53220', samplePrice: 310000, nearby: ['west-allis', 'new-berlin', 'franklin'], blurb: "Centrally located and value-friendly, Greenfield is a dependable mid-market suburb with easy freeway access and a steady supply of ranch and split-level homes popular with downsizers." },
+  { slug: 'oak-creek', name: 'Oak Creek', county: 'Milwaukee County', zip: '53154', samplePrice: 360000, nearby: ['milwaukee', 'franklin', 'south-milwaukee'], blurb: "One of the fastest-growing communities in the metro's south end, Oak Creek has added significant new construction and retail, attracting buyers who want newer homes near the lakefront and the airport." },
+  { slug: 'franklin', name: 'Franklin', county: 'Milwaukee County', zip: '53132', samplePrice: 420000, nearby: ['oak-creek', 'muskego', 'greenfield'], blurb: "Franklin offers newer, larger homes and a suburban, green feel on Milwaukee County's southern edge, with prices reflecting its desirable schools and lower-density layout." },
+  { slug: 'shorewood', name: 'Shorewood', county: 'Milwaukee County', zip: '53211', samplePrice: 415000, nearby: ['milwaukee', 'whitefish-bay', 'glendale'], blurb: "A compact, walkable lakeside village just north of Milwaukee, Shorewood is prized for its schools, vintage homes, and easy access to the lakefront, which keeps demand strong and supply scarce." },
+  { slug: 'whitefish-bay', name: 'Whitefish Bay', county: 'Milwaukee County', zip: '53217', samplePrice: 525000, nearby: ['shorewood', 'glendale', 'milwaukee'], blurb: "An established North Shore suburb known for top schools and stately homes, Whitefish Bay commands some of the highest prices in Milwaukee County and rarely stays on the market long." },
+  { slug: 'glendale', name: 'Glendale', county: 'Milwaukee County', zip: '53209', samplePrice: 300000, nearby: ['whitefish-bay', 'shorewood', 'milwaukee'], blurb: "Glendale offers a convenient North Shore location with retail, parks, and a mix of mid-century and updated homes at a more accessible price than its lakeside neighbors." },
+  { slug: 'hales-corners', name: 'Hales Corners', county: 'Milwaukee County', zip: '53130', samplePrice: 335000, nearby: ['greenfield', 'franklin', 'muskego'], blurb: "A small, quiet village on the southwest edge of the county, Hales Corners pairs a tight-knit community feel with easy access to both Milwaukee and Waukesha County." },
+  { slug: 'cudahy', name: 'Cudahy', county: 'Milwaukee County', zip: '53110', samplePrice: 220000, nearby: ['south-milwaukee', 'milwaukee', 'oak-creek'], blurb: "A lakeside south-suburban community with affordable, character-rich housing, Cudahy appeals to buyers looking for value within easy reach of downtown Milwaukee." },
+  { slug: 'south-milwaukee', name: 'South Milwaukee', county: 'Milwaukee County', zip: '53172', samplePrice: 235000, nearby: ['cudahy', 'oak-creek', 'milwaukee'], blurb: "South Milwaukee offers walkable neighborhoods, lakefront parks, and some of the most affordable homes in the county, making it a steady choice for first-time and budget-minded buyers." },
+
+  // ---- Waukesha County ----
+  { slug: 'waukesha', name: 'Waukesha', county: 'Waukesha County', zip: '53188', samplePrice: 340000, nearby: ['new-berlin', 'pewaukee', 'brookfield'], blurb: "The county seat balances a historic downtown with newer subdivisions and a range of price points, making it one of the more accessible Waukesha County markets for buyers." },
+  { slug: 'brookfield', name: 'Brookfield', county: 'Waukesha County', zip: '53045', samplePrice: 455000, nearby: ['wauwatosa', 'new-berlin', 'pewaukee', 'elm-grove'], blurb: "One of the metro's premier suburbs, Brookfield is known for top-rated schools, larger lots, and an upscale retail corridor. Demand consistently outpaces supply for move-in-ready homes." },
+  { slug: 'new-berlin', name: 'New Berlin', county: 'Waukesha County', zip: '53151', samplePrice: 400000, nearby: ['brookfield', 'waukesha', 'muskego', 'greenfield'], blurb: "New Berlin offers a quieter, suburban feel with larger properties and strong schools, sitting conveniently between Milwaukee and Waukesha. It draws buyers who want space without a long commute." },
+  { slug: 'menomonee-falls', name: 'Menomonee Falls', county: 'Waukesha County', zip: '53051', samplePrice: 400000, nearby: ['brookfield', 'germantown', 'hartland'], blurb: "A growing northwest suburb with a mix of established neighborhoods and new construction, Menomonee Falls pairs good schools with a strong employer presence, supporting steady demand." },
+  { slug: 'pewaukee', name: 'Pewaukee', county: 'Waukesha County', zip: '53072', samplePrice: 480000, nearby: ['waukesha', 'brookfield', 'delafield'], blurb: "Anchored by Pewaukee Lake, this market blends waterfront and near-water homes with newer subdivisions, and the lake premium can push values well above the county average." },
+  { slug: 'muskego', name: 'Muskego', county: 'Waukesha County', zip: '53150', samplePrice: 440000, nearby: ['new-berlin', 'franklin', 'mukwonago'], blurb: "Muskego offers lake access, larger lots, and a semi-rural feel while staying within reach of Milwaukee and Waukesha employers, appealing to buyers who want space and water nearby." },
+  { slug: 'delafield', name: 'Delafield', county: 'Waukesha County', zip: '53018', samplePrice: 525000, nearby: ['hartland', 'pewaukee', 'waukesha'], blurb: "A scenic Lake Country community with a charming downtown and several lakes, Delafield sits at the upper end of the county market and draws buyers seeking waterfront and executive homes." },
+  { slug: 'hartland', name: 'Hartland', county: 'Waukesha County', zip: '53029', samplePrice: 470000, nearby: ['delafield', 'pewaukee', 'menomonee-falls'], blurb: "Part of Waukesha County's Lake Country, Hartland combines a walkable village center with strong schools and newer subdivisions, keeping demand healthy across price points." },
+  { slug: 'elm-grove', name: 'Elm Grove', county: 'Waukesha County', zip: '53122', samplePrice: 575000, nearby: ['brookfield', 'wauwatosa', 'new-berlin'], blurb: "A small, leafy, high-end village bordering Brookfield, Elm Grove is prized for its schools and established homes, and limited turnover keeps prices among the highest in the area." },
+  { slug: 'mukwonago', name: 'Mukwonago', county: 'Waukesha County', zip: '53149', samplePrice: 410000, nearby: ['muskego', 'waukesha', 'east-troy'], blurb: "On the county's rural southern edge, Mukwonago offers lake access, larger parcels, and a small-town feel with newer construction, appealing to buyers who want room to spread out." },
+
+  // ---- Ozaukee County ----
+  { slug: 'mequon', name: 'Mequon', county: 'Ozaukee County', zip: '53092', samplePrice: 600000, nearby: ['cedarburg', 'grafton', 'whitefish-bay'], blurb: "Mequon is one of the region's most affluent communities, known for large wooded lots, lakefront estates, and acreage. It sits at the top end of the metro market and rewards careful, local pricing." },
+  { slug: 'cedarburg', name: 'Cedarburg', county: 'Ozaukee County', zip: '53012', samplePrice: 475000, nearby: ['mequon', 'grafton', 'saukville'], blurb: "Famous for its preserved historic downtown and small-town character, Cedarburg commands a premium for charm and schools, with limited inventory keeping well-kept homes in high demand." },
+  { slug: 'grafton', name: 'Grafton', county: 'Ozaukee County', zip: '53024', samplePrice: 410000, nearby: ['cedarburg', 'mequon', 'port-washington'], blurb: "Grafton offers Ozaukee County quality of life at a slightly more accessible price than Cedarburg or Mequon, with a walkable downtown and a mix of established and newer neighborhoods." },
+  { slug: 'port-washington', name: 'Port Washington', county: 'Ozaukee County', zip: '53074', samplePrice: 360000, nearby: ['grafton', 'saukville', 'cedarburg'], blurb: "A historic Lake Michigan harbor town, Port Washington pairs waterfront charm and a lively downtown with a range of homes, drawing buyers who want lakeside character at a fair price." },
+  { slug: 'saukville', name: 'Saukville', county: 'Ozaukee County', zip: '53080', samplePrice: 330000, nearby: ['port-washington', 'grafton', 'cedarburg'], blurb: "A small village just inland from Port Washington, Saukville offers some of the more affordable homes in Ozaukee County while keeping easy access to the lakefront and I-43." },
+
+  // ---- Washington County ----
+  { slug: 'west-bend', name: 'West Bend', county: 'Washington County', zip: '53090', samplePrice: 340000, nearby: ['germantown', 'hartford', 'jackson'], blurb: "The Washington County seat offers a full-service downtown, parks, and a broad mix of housing at prices below the Milwaukee suburbs, making it a value anchor for the county." },
+  { slug: 'germantown', name: 'Germantown', county: 'Washington County', zip: '53022', samplePrice: 400000, nearby: ['menomonee-falls', 'jackson', 'west-bend'], blurb: "Bordering Waukesha and Milwaukee counties, Germantown blends newer subdivisions, good schools, and convenient highway access, attracting commuters who want suburban space." },
+  { slug: 'hartford', name: 'Hartford', county: 'Washington County', zip: '53027', samplePrice: 350000, nearby: ['west-bend', 'slinger', 'jackson'], blurb: "A small city on the county's western side, Hartford offers a historic downtown and newer neighborhoods at an accessible price, popular with buyers wanting a quieter pace." },
+  { slug: 'jackson', name: 'Jackson', county: 'Washington County', zip: '53037', samplePrice: 380000, nearby: ['west-bend', 'germantown', 'slinger'], blurb: "Jackson pairs a village feel with newer construction and quick access to West Bend and the Milwaukee metro, drawing families who want space and a short commute." },
+  { slug: 'slinger', name: 'Slinger', county: 'Washington County', zip: '53086', samplePrice: 390000, nearby: ['hartford', 'jackson', 'west-bend'], blurb: "A growing village near the junction of US-41 and SR-60, Slinger offers newer homes, good schools, and an easy commute, making it one of the county's faster-moving markets." },
+
+  // ---- Racine County ----
+  { slug: 'racine', name: 'Racine', county: 'Racine County', zip: '53403', samplePrice: 215000, nearby: ['mount-pleasant', 'caledonia', 'sturtevant'], blurb: "A Lake Michigan city with a walkable downtown and historic housing stock, Racine remains one of the most affordable lakefront markets in the region, with prices well below the Milwaukee suburbs." },
+  { slug: 'mount-pleasant', name: 'Mount Pleasant', county: 'Racine County', zip: '53406', samplePrice: 300000, nearby: ['racine', 'sturtevant', 'caledonia'], blurb: "Mount Pleasant has drawn major investment and new development in recent years, and its newer subdivisions and suburban setting carry a premium over neighboring Racine." },
+  { slug: 'caledonia', name: 'Caledonia', county: 'Racine County', zip: '53108', samplePrice: 320000, nearby: ['racine', 'mount-pleasant', 'oak-creek'], blurb: "Sitting between Racine and Milwaukee County, Caledonia offers larger lots and a semi-rural feel with convenient access to both metros, appealing to space-minded commuters." },
+  { slug: 'burlington', name: 'Burlington', county: 'Racine County', zip: '53105', samplePrice: 320000, nearby: ['racine', 'east-troy', 'mount-pleasant'], blurb: "Known as Chocolate City, Burlington offers a historic downtown, riverfront, and small-town character at an accessible price on the county's western side." },
+  { slug: 'sturtevant', name: 'Sturtevant', county: 'Racine County', zip: '53177', samplePrice: 270000, nearby: ['mount-pleasant', 'racine', 'caledonia'], blurb: "A small village with a convenient rail and highway location between Racine and the interstate, Sturtevant offers affordable homes and easy regional access." },
+
+  // ---- Kenosha County ----
+  { slug: 'kenosha', name: 'Kenosha', county: 'Kenosha County', zip: '53142', samplePrice: 265000, nearby: ['pleasant-prairie', 'somers', 'racine'], blurb: "On the Illinois border, Kenosha attracts both local buyers and commuters to northern Illinois, offering lakefront character and relative affordability that supports steady demand." },
+  { slug: 'pleasant-prairie', name: 'Pleasant Prairie', county: 'Kenosha County', zip: '53158', samplePrice: 345000, nearby: ['kenosha', 'somers', 'racine'], blurb: "Pleasant Prairie pairs newer construction, parks, and retail with proximity to the Illinois line, making it a popular choice for commuters who want a suburban, master-planned feel." },
+  { slug: 'somers', name: 'Somers', county: 'Kenosha County', zip: '53171', samplePrice: 320000, nearby: ['kenosha', 'pleasant-prairie', 'racine'], blurb: "Just north of Kenosha, Somers offers a quieter, semi-rural setting with newer homes and university proximity, attracting buyers who want space near the lakefront cities." },
+  { slug: 'twin-lakes', name: 'Twin Lakes', county: 'Kenosha County', zip: '53181', samplePrice: 300000, nearby: ['kenosha', 'lake-geneva', 'pleasant-prairie'], blurb: "A western Kenosha County village built around its lakes, Twin Lakes draws both year-round residents and second-home buyers looking for affordable waterfront and recreation." },
+
+  // ---- Walworth County ----
+  { slug: 'lake-geneva', name: 'Lake Geneva', county: 'Walworth County', zip: '53147', samplePrice: 450000, nearby: ['elkhorn', 'delavan', 'twin-lakes'], blurb: "A premier resort town on Geneva Lake, Lake Geneva commands a strong premium for waterfront and near-lake homes and draws second-home buyers from Chicago and Milwaukee alike." },
+  { slug: 'elkhorn', name: 'Elkhorn', county: 'Walworth County', zip: '53121', samplePrice: 350000, nearby: ['lake-geneva', 'delavan', 'whitewater'], blurb: "The Walworth County seat offers a classic small-city downtown and a more affordable inland alternative to the lake towns, popular with local families and commuters." },
+  { slug: 'delavan', name: 'Delavan', county: 'Walworth County', zip: '53115', samplePrice: 315000, nearby: ['lake-geneva', 'elkhorn', 'whitewater'], blurb: "Built around Delavan Lake, this market mixes affordable in-town homes with lakefront and recreational properties, offering value relative to nearby Lake Geneva." },
+  { slug: 'whitewater', name: 'Whitewater', county: 'Walworth County', zip: '53190', samplePrice: 280000, nearby: ['elkhorn', 'delavan', 'fort-atkinson'], blurb: "A university town on the Walworth and Jefferson county line, Whitewater offers some of the area's most affordable homes along with steady rental demand from the campus." },
+  { slug: 'east-troy', name: 'East Troy', county: 'Walworth County', zip: '53120', samplePrice: 360000, nearby: ['mukwonago', 'burlington', 'elkhorn'], blurb: "A village on the county's northern edge near the Kettle Moraine, East Troy offers a rural feel, larger lots, and an easy reach toward both Milwaukee and the lake towns." },
+
+  // ---- Jefferson County ----
+  { slug: 'watertown', name: 'Watertown', county: 'Jefferson County', zip: '53094', samplePrice: 285000, nearby: ['lake-mills', 'jefferson', 'fort-atkinson'], blurb: "Straddling the Jefferson and Dodge county line, Watertown is one of the larger inland markets in the area, offering historic homes and newer builds at accessible prices." },
+  { slug: 'fort-atkinson', name: 'Fort Atkinson', county: 'Jefferson County', zip: '53538', samplePrice: 290000, nearby: ['jefferson', 'lake-mills', 'whitewater'], blurb: "A riverside city with a walkable downtown, Fort Atkinson offers small-city amenities and affordable housing, drawing buyers who want value with character." },
+  { slug: 'jefferson', name: 'Jefferson', county: 'Jefferson County', zip: '53549', samplePrice: 280000, nearby: ['fort-atkinson', 'watertown', 'lake-mills'], blurb: "The county seat sits at the meeting of the Rock and Crawfish rivers, offering an affordable small-town market central to the Madison and Milwaukee metros." },
+  { slug: 'lake-mills', name: 'Lake Mills', county: 'Jefferson County', zip: '53551', samplePrice: 350000, nearby: ['jefferson', 'watertown', 'fort-atkinson'], blurb: "Built around Rock Lake and a charming town square, Lake Mills is a sought-after small market halfway between Madison and Milwaukee, with lake homes pushing values higher." },
 ];
 
 export function getCity(slug) {
   return cities.find((c) => c.slug === slug) || null;
+}
+
+// Cities grouped by county, county names sorted, cities sorted within each.
+export function citiesByCounty() {
+  const groups = {};
+  for (const c of cities) (groups[c.county] ||= []).push(c);
+  for (const k of Object.keys(groups)) groups[k].sort((a, b) => a.name.localeCompare(b.name));
+  return Object.keys(groups)
+    .sort()
+    .map((county) => ({ county, cities: groups[county] }));
 }
