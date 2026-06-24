@@ -6,7 +6,7 @@
 
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/rrs-realty   # e.g. janedoe/rrs-realty
+  repo: dwksolutions/rrs-realty
   branch: main
 
 # Where uploaded images go
