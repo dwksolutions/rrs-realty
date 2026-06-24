@@ -24,6 +24,18 @@ const { heading = 'Find Your Agent', sub = "Takes under 2 minutes. We'll reach o
     <input id="zip" name="zip" type="text" required inputmode="numeric" placeholder="53151" />
   </div>
   <div class="field">
+    <label for="homeType">Type of Home</label>
+    <select id="homeType" name="homeType">
+      <option value="">Select a type…</option>
+      <option>Single-family home</option>
+      <option>Condo</option>
+      <option>Townhouse</option>
+      <option>Multi-family</option>
+      <option>Land / lot</option>
+      <option>Other</option>
+    </select>
+  </div>
+  <div class="field">
     <label for="timeline">Timeline</label>
     <select id="timeline" name="timeline" required>
       <option value="">When are you looking to move?</option>
@@ -35,12 +47,24 @@ const { heading = 'Find Your Agent', sub = "Takes under 2 minutes. We'll reach o
     </select>
   </div>
   <div class="field">
+    <label for="budget">Budget</label>
+    <select id="budget" name="budget">
+      <option value="">Select a price range…</option>
+      <option>Under $200k</option>
+      <option>$200k–$300k</option>
+      <option>$300k–$400k</option>
+      <option>$400k–$500k</option>
+      <option>$500k–$750k</option>
+      <option>$750k+</option>
+    </select>
+  </div>
+  <div class="field">
     <label for="email">Email</label>
     <input id="email" name="email" type="email" required placeholder="you@email.com" />
   </div>
   <div class="field">
-    <label for="phone">Phone (Optional)</label>
-    <input id="phone" name="phone" type="tel" placeholder="(262) 555-0142" />
+    <label for="phone">Phone</label>
+    <input id="phone" name="phone" type="tel" required placeholder="(262) 555-0142" />
   </div>
   <div class="field">
     <label for="message">Anything We Should Know? (Optional)</label>
