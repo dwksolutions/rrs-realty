@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "import:market": "node scripts/import-rdc.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
     "deploy": "vercel --prod --yes"
   },
   "dependencies": {
