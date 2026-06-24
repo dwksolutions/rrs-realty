@@ -15,9 +15,15 @@ Missing features and pages, ranked by impact. Check off as completed.
 - [ ] FAQ page with FAQ structured data
 - [ ] Real Contact page (/contact/) with email, phone, hours, service area
 
+## Admin and operations
+- [x] Control Room dashboard hub at /hq/ (private, noindex)
+- [x] Move CMS off /admin to /studio (bot avoidance)
+- [x] Security headers (vercel.json)
+- [ ] Finish blog editor login: GitHub OAuth so /studio/ can publish (needs input: create GitHub OAuth app)
+
 ## Technical and measurement
-- [ ] Analytics (Plausible or Google Analytics 4)
-- [ ] Conversion tracking (event on form submit)
+- [~] Analytics: GA4 scaffolded + consent-gated; paste Measurement ID into GA_ID in src/layouts/Layout.astro to activate (needs input: G-XXXX id)
+- [ ] Conversion tracking (event on form submit, after GA4 is live)
 - [ ] Google Search Console: verify domain + submit sitemap (needs input: verification)
 - [ ] Custom 404 page (on-brand, links back)
 - [ ] Formspree auto-reply to submitters ("a real person will reach out")
