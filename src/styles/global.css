@@ -186,3 +186,35 @@ footer ul a:hover{color:#fff}
   .nav-cta .btn-ghost{display:none}
   .lead-card{padding:22px}
 }
+
+/* HOME VALUES (programmatic city pages) */
+.breadcrumb{font-size:13px;color:var(--muted);margin:0 0 14px}
+.breadcrumb a{color:var(--brick);text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.sample-banner{background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:14px;color:var(--ink-soft);margin-bottom:26px}
+.sample-banner b{color:var(--ink)}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 18px;text-align:center;box-shadow:var(--shadow)}
+.stat .label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.stat .value{font-family:"Spectral",Georgia,serif;font-weight:700;font-size:2rem;color:var(--ink);margin:0 0 6px;line-height:1.05}
+.stat .sub{font-size:12.5px;color:var(--muted);margin:0}
+.data-note{font-size:13px;color:var(--muted);margin-top:22px}
+.data-note a{color:var(--brick)}
+.context-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;box-shadow:var(--shadow);max-width:52rem;margin:0 auto}
+.context-card h2{font-size:1.5rem;margin-bottom:12px}
+.context-card p{color:var(--ink-soft);font-size:16px;margin:0;line-height:1.65}
+.nearby-links{display:flex;flex-wrap:wrap;gap:10px 14px;justify-content:center}
+.nearby-links a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:500;color:var(--ink-soft);text-decoration:none}
+.nearby-links a:hover{border-color:var(--brick);color:var(--brick)}
+.disclaimer{display:block;max-width:52rem;margin:48px auto 0;font-size:12.5px;color:var(--muted);line-height:1.6}
+.hv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.hv-card{display:flex;flex-direction:column;gap:4px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;text-decoration:none;box-shadow:var(--shadow);transition:transform .15s ease,box-shadow .15s ease}
+.hv-card:hover{transform:translateY(-2px);border-color:var(--brick)}
+.hv-city{font-family:"Spectral",Georgia,serif;font-weight:700;font-size:1.25rem;color:var(--ink)}
+.hv-county{font-size:13px;color:var(--muted)}
+.hv-more{margin-top:8px;font-size:13.5px;font-weight:600;color:var(--brick)}
+@media (max-width:760px){
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .hv-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:480px){.hv-grid{grid-template-columns:1fr}}

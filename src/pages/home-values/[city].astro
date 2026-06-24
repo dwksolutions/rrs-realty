@@ -1,0 +1,105 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { cities, getCity } from '../../data/cities.js';
+import { getMarketStats, fmtPrice, fmtNum } from '../../lib/marketData.js';
+
+export async function getStaticPaths() {
+  return cities.map((city) => ({ params: { city: city.slug }, props: { city } }));
+}
+
+const { city } = Astro.props;
+const stats = await getMarketStats(city);
+const updated = stats.updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+const nearby = (city.nearby || []).map(getCity).filter(Boolean);
+
+const title = `${city.name}, WI Home Values & Market Trends | RRS Realty Group`;
+const description = `See current ${city.name}, Wisconsin home values and real estate market trends: median sale price, days on market, and price per square foot. Get a free home valuation from a local agent.`;
+---
+<Layout current="" title={title} description={description}>
+  <section class="page-head" style="padding-bottom:8px">
+    <div class="wrap" style="max-width:52rem">
+      <p class="breadcrumb"><a href="/">Home</a> › <a href="/home-values/">Home values</a> › {city.name}</p>
+      <h1>{city.name}, WI home values &amp; market trends</h1>
+      <p>A snapshot of the {city.name} real estate market in {city.county}. For what <em>your</em> specific home is worth, get matched with a local agent below.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="wrap">
+      {stats.isSample && (
+        <div class="sample-banner" style="max-width:52rem;margin-left:auto;margin-right:auto">
+          <b>Sample data shown.</b> Connect your free RentCast API key to display live {city.name} market figures here. (See the launch guide.)
+        </div>
+      )}
+
+      <div class="stat-grid">
+        <div class="stat">
+          <p class="label">Median sale price</p>
+          <p class="value">{fmtPrice(stats.medianPrice)}</p>
+          <p class="sub">Typical sold price in {city.zip}</p>
+        </div>
+        <div class="stat">
+          <p class="label">Days on market</p>
+          <p class="value">{fmtNum(stats.daysOnMarket)}</p>
+          <p class="sub">Median time to sell</p>
+        </div>
+        <div class="stat">
+          <p class="label">Price / sq ft</p>
+          <p class="value">{fmtPrice(stats.pricePerSqft)}</p>
+          <p class="sub">Median, recent sales</p>
+        </div>
+        <div class="stat">
+          <p class="label">Active listings</p>
+          <p class="value">{fmtNum(stats.activeListings)}</p>
+          <p class="sub">Homes currently for sale</p>
+        </div>
+      </div>
+
+      <p class="data-note" style="text-align:center">
+        Market data via <a href="https://www.rentcast.io" rel="nofollow">RentCast</a> · ZIP {city.zip} · Updated {updated}
+      </p>
+    </div>
+  </section>
+
+  <section class="section area" style="padding-top:56px">
+    <div class="wrap">
+      <div class="context-card">
+        <h2>About the {city.name} market</h2>
+        <p>{city.blurb}</p>
+      </div>
+
+      {nearby.length > 0 && (
+        <div style="text-align:center;margin-top:34px">
+          <p class="eyebrow" style="margin-bottom:10px">Nearby markets</p>
+          <div class="nearby-links">
+            {nearby.map((n) => (
+              <a href={`/home-values/${n.slug}/`}>{n.name} home values →</a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:64px">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Free home valuation</p>
+        <h2 style="font-size:clamp(2rem,3.6vw,2.6rem)">What's your {city.name} home actually worth?</h2>
+        <p class="intro">Market averages are a starting point, but your home's real value depends on its condition, updates, and exact location. Get matched with a vetted {city.name}-area agent for a free, no-obligation valuation of your specific home.</p>
+        <ul class="hero-trust" style="margin-top:8px">
+          <li><span class="dot"></span> A real local agent, not an algorithm</li>
+          <li><span class="dot"></span> Free &amp; no obligation</li>
+          <li><span class="dot"></span> Based on your home's actual details</li>
+        </ul>
+      </div>
+      <LeadForm heading={`Get your ${city.name} home valued`} sub="A local agent will prepare your free valuation." />
+    </div>
+  </section>
+
+  <p class="disclaimer wrap">
+    Market statistics shown are aggregate, ZIP-level figures for general informational purposes and are not an appraisal or valuation of any specific property. Home values vary by condition, location, and features. For a valuation of your home, consult a licensed real estate professional.
+  </p>
+  <div style="height:64px"></div>
+</Layout>

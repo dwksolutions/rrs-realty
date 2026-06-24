@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { cities } from '../../data/cities.js';
+
+const sorted = [...cities].sort((a, b) => a.name.localeCompare(b.name));
+const title = 'Southeast Wisconsin Home Values by City | RRS Realty Group';
+const description = 'Explore home values and market trends across Southeast Wisconsin: median sale prices, days on market, and price per square foot by city. Get a free local home valuation.';
+---
+<Layout current="values" title={title} description={description}>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Market data</p>
+      <h1>Southeast Wisconsin Home Values</h1>
+      <p>Median prices and market trends by city. Pick your town for a local snapshot, then get a free valuation of your specific home.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:44px">
+    <div class="wrap">
+      <div class="hv-grid">
+        {sorted.map((c) => (
+          <a class="hv-card" href={`/home-values/${c.slug}/`}>
+            <span class="hv-city">{c.name}</span>
+            <span class="hv-county">{c.county}</span>
+            <span class="hv-more">View home values →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>Want Your Home's Real Value?</h2>
+      <p>Market averages are a starting point. Get matched with a local agent for a free, no-obligation valuation of your specific home.</p>
+      <a class="btn btn-primary" href="/get-started/">Find my agent →</a>
+    </div>
+  </section>
+</Layout>
