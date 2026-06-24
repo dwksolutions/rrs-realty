@@ -8,9 +8,45 @@ const {
   title = 'RRS Realty Group — Trusted Southeast Wisconsin Real Estate Agents',
   description = 'Get matched with a vetted, licensed local real estate agent in Southeast Wisconsin. Free for homeowners and buyers. No obligation, no pressure.',
   current = '',
+  ogType = 'website',
+  image = '/logo.png',
+  publishedTime,
+  jsonLd = [],
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+const origin = new URL(Astro.site).origin;
+
+const counties = [
+  'Milwaukee County', 'Waukesha County', 'Ozaukee County', 'Washington County',
+  'Racine County', 'Kenosha County', 'Walworth County', 'Jefferson County',
+];
+
+const business = {
+  '@type': 'RealEstateAgent',
+  '@id': origin + '/#business',
+  name: 'RRS Realty Group',
+  description: 'Connects Southeast Wisconsin homeowners and buyers with vetted, licensed local real estate agents. Free agent matching, no obligation.',
+  url: origin,
+  logo: ogImage,
+  image: ogImage,
+  email: 'rrsrealtygroup@gmail.com',
+  priceRange: 'Free',
+  address: { '@type': 'PostalAddress', addressRegion: 'WI', addressCountry: 'US' },
+  areaServed: counties.map((name) => ({ '@type': 'AdministrativeArea', name: name + ', Wisconsin' })),
+  knowsAbout: ['Real estate', 'Selling a home', 'Buying a home', 'Home valuation', 'Choosing a real estate agent', 'Southeast Wisconsin housing market'],
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': origin + '/#website',
+  name: 'RRS Realty Group',
+  url: origin,
+  publisher: { '@id': origin + '/#business' },
+};
+
+const schemaGraph = { '@context': 'https://schema.org', '@graph': [business, website, ...jsonLd] };
 ---
 <!doctype html>
 <html lang="en">
@@ -23,12 +59,19 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
   <meta name="robots" content="index, follow, max-image-preview:large" />
 
   <!-- Open Graph -->
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={ogType} />
   <meta property="og:site_name" content="RRS Realty Group" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:alt" content="RRS Realty Group — Southeast Wisconsin real estate agent matching" />
+  {publishedTime && <meta property="article:published_time" content={publishedTime} />}
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,16 +82,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
   <link rel="apple-touch-icon" href="/logo.png" />
   <meta name="theme-color" content="#15315E" />
 
-  <!-- Local business structured data -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "RealEstateAgent",
-    "name": "RRS Realty Group",
-    "description": "Connects Southeast Wisconsin homeowners and buyers with vetted local real estate agents.",
-    "areaServed": "Southeast Wisconsin",
-    "url": "https://www.rrsrealtygroup.com",
-    "email": "rrsrealtygroup@gmail.com"
-  })} />
+  <!-- Structured data (business + website + any page-specific schema) -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
 </head>
 <body>
   <Header current={current} />

@@ -13,11 +13,42 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const origin = new URL(Astro.site).origin;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const iso = post.data.date.toISOString();
+const imageUrl = new URL('/logo.png', Astro.site).href;
+
+const blogPosting = {
+  '@type': 'BlogPosting',
+  '@id': canonical + '#article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: iso,
+  dateModified: iso,
+  author: { '@type': 'Organization', name: 'RRS Realty Group', url: origin },
+  publisher: { '@id': origin + '/#business' },
+  mainEntityOfPage: canonical,
+  image: imageUrl,
+  articleSection: post.data.category,
+  inLanguage: 'en-US',
+};
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: origin + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: origin + '/guides/' },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
+  ],
+};
 ---
 <Layout
   current="guides"
   title={`${post.data.title} | RRS Realty Group`}
   description={post.data.description}
+  ogType="article"
+  publishedTime={iso}
+  jsonLd={[blogPosting, breadcrumb]}
 >
   <article>
     <section class="page-head" style="padding-bottom:0">
