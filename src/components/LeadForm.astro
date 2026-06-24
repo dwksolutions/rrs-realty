@@ -43,8 +43,8 @@ const { heading = 'Find Your Agent', sub = "Takes under 2 minutes. A real person
       </select>
     </div>
     <div class="field">
-      <label for="budget">Budget</label>
-      <select id="budget" name="budget">
+      <label id="priceLabel" for="priceRange">Expected Price</label>
+      <select id="priceRange" name="priceRange">
         <option value="">Select a range…</option>
         <option>Under $200k</option>
         <option>$200k-$300k</option>
@@ -88,3 +88,15 @@ const { heading = 'Find Your Agent', sub = "Takes under 2 minutes. A real person
     Consent is not a condition of any purchase. Msg &amp; data rates may apply; reply STOP to opt out.
   </p>
 </form>
+<script>
+  document.querySelectorAll('.lead-form').forEach((form) => {
+    const label = form.querySelector('#priceLabel');
+    if (!label) return;
+    const apply = () => {
+      const checked = form.querySelector('input[name="intent"]:checked');
+      label.textContent = checked && checked.value === 'Buying' ? 'Budget' : 'Expected Price';
+    };
+    form.querySelectorAll('input[name="intent"]').forEach((r) => r.addEventListener('change', apply));
+    apply();
+  });
+</script>
