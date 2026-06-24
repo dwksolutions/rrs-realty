@@ -4,7 +4,7 @@
 // rrsrealtygroup@gmail.com, copy the form's endpoint ID, and paste it below.
 const FORMSPREE_ID = 'xpqgqjab'; // RRS Realty Group lead form → rrsrealtygroup@gmail.com
 const action = `https://formspree.io/f/${FORMSPREE_ID}`;
-const { heading = 'Find Your Agent', sub = "Takes under 2 minutes. We'll reach out with your match." } = Astro.props;
+const { heading = 'Find Your Agent', sub = "Takes under 2 minutes. A real person will personally reach out to talk it through." } = Astro.props;
 ---
 <form class="lead-card lead-form" action={action} method="POST">
   <h2>{heading}</h2>
