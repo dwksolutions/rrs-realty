@@ -1,0 +1,48 @@
+---
+// Cookie consent banner. Hidden once the visitor accepts (stored in localStorage).
+---
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie notice" hidden>
+  <p class="cookie-text">
+    We use cookies to make this site work and to understand how it's used. By using
+    RRSRealtyGroup.com, you agree to our use of cookies. See our
+    <a href="/cookies/">Cookie Policy</a> and <a href="/privacy/">Privacy Policy</a>.
+  </p>
+  <div class="cookie-actions">
+    <a class="btn btn-ghost cookie-btn" href="/cookies/">Learn more</a>
+    <button class="btn btn-primary cookie-btn" type="button" id="cookie-accept">Accept</button>
+  </div>
+</div>
+
+<style>
+  .cookie-banner{
+    position:fixed;left:16px;right:16px;bottom:16px;z-index:100;
+    max-width:760px;margin:0 auto;
+    display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;
+    background:var(--white);border:1px solid var(--line);
+    border-radius:14px;box-shadow:var(--shadow);
+    padding:16px 20px;
+  }
+  .cookie-text{margin:0;flex:1 1 320px;font-size:13.5px;line-height:1.5;color:var(--ink-soft)}
+  .cookie-text a{color:var(--brick);text-decoration:underline;text-underline-offset:2px}
+  .cookie-actions{display:flex;gap:10px;flex:0 0 auto;margin-left:auto}
+  .cookie-btn{padding:10px 18px;font-size:14px}
+  @media (max-width:520px){
+    .cookie-actions{width:100%;margin-left:0}
+    .cookie-btn{flex:1;justify-content:center}
+  }
+</style>
+
+<script>
+  (function () {
+    const KEY = 'rrs-cookie-consent';
+    const banner = document.getElementById('cookie-banner');
+    if (!banner) return;
+    let accepted = false;
+    try { accepted = localStorage.getItem(KEY) === 'accepted'; } catch (e) {}
+    if (!accepted) banner.hidden = false;
+    document.getElementById('cookie-accept')?.addEventListener('click', () => {
+      try { localStorage.setItem(KEY, 'accepted'); } catch (e) {}
+      banner.hidden = true;
+    });
+  })();
+</script>

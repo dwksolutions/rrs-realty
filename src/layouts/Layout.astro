@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import '../styles/global.css';
 
 const {
@@ -55,5 +56,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <slot />
   </main>
   <Footer />
+  <CookieBanner />
 </body>
 </html>
