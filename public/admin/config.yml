@@ -1,0 +1,33 @@
+# Decap CMS configuration — your blog publishing dashboard.
+#
+# Replace YOUR_GITHUB_USERNAME below with the account that owns the repo.
+# This uses the GitHub backend; see README "Step 5" for the one-time
+# OAuth setup that lets you log in and publish without touching code.
+
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/rrs-realty   # e.g. janedoe/rrs-realty
+  branch: main
+
+# Where uploaded images go
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "guides"
+    label: "Guides (Blog Posts)"
+    folder: "src/content/guides"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Short description (for cards & SEO)", name: "description", widget: "text" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["Selling", "Buying", "Pricing", "Market", "Choosing an agent", "Neighborhoods"]
+      - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Hide this post (draft)", name: "draft", widget: "boolean", default: false, required: false }
+      - { label: "Body", name: "body", widget: "markdown" }

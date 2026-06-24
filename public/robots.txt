@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://www.rrsrealtygroup.com/sitemap-index.xml

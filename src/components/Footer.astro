@@ -1,0 +1,38 @@
+---
+// Footer — swap PHONE_PLACEHOLDER and the email in one place if they change.
+const email = 'rrsrealtygroup@gmail.com';
+---
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/" style="text-decoration:none">
+          <span class="mark">RRS</span>
+          <span><span class="bt">RRS Realty Group</span><span class="bs">Southeast Wisconsin</span></span>
+        </a>
+        <p class="blurb">RRS Realty Group connects Southeast Wisconsin homeowners and buyers with vetted, licensed local real estate agents. Free matching, no obligation.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/service-area/">Service area</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/guides/">Local guides</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get started</h4>
+        <ul>
+          <li><a href="/get-started/">Find my agent</a></li>
+          <li><a href={`mailto:${email}`}>{email}</a></li>
+          <li><a href="/privacy/">Privacy policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© {new Date().getFullYear()} RRS Realty Group · Southeast Wisconsin</span>
+      <span>RRSRealtyGroup.com</span>
+    </div>
+  </div>
+</footer>

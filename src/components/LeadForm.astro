@@ -1,0 +1,57 @@
+---
+// LeadForm — wired to Formspree.
+// SETUP: create a free form at https://formspree.io, set its email to
+// rrsrealtygroup@gmail.com, copy the form's endpoint ID, and paste it below.
+const FORMSPREE_ID = 'xpqgqjab'; // RRS Realty Group lead form → rrsrealtygroup@gmail.com
+const action = `https://formspree.io/f/${FORMSPREE_ID}`;
+const { heading = 'Find your agent', sub = "Takes under 2 minutes. We'll reach out with your match." } = Astro.props;
+---
+<form class="lead-card lead-form" action={action} method="POST">
+  <h2>{heading}</h2>
+  <p class="sub">{sub}</p>
+
+  <div class="seg" role="group" aria-label="What do you need help with">
+    <label><input type="radio" name="intent" value="Selling" checked /><span>I'm selling</span></label>
+    <label><input type="radio" name="intent" value="Buying" /><span>I'm buying</span></label>
+  </div>
+
+  <div class="field" style="margin-top:13px">
+    <label for="name">Full name</label>
+    <input id="name" name="name" type="text" required placeholder="Jane Homeowner" />
+  </div>
+  <div class="field">
+    <label for="zip">Property ZIP code</label>
+    <input id="zip" name="zip" type="text" required inputmode="numeric" placeholder="53151" />
+  </div>
+  <div class="field">
+    <label for="timeline">Timeline</label>
+    <select id="timeline" name="timeline" required>
+      <option value="">When are you looking to move?</option>
+      <option value="ASAP — ready now">As soon as possible</option>
+      <option value="1–3 months">In the next 1–3 months</option>
+      <option value="3–6 months">In 3–6 months</option>
+      <option value="6+ months">More than 6 months out</option>
+      <option value="Just exploring">Just exploring my options</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required placeholder="you@email.com" />
+  </div>
+  <div class="field">
+    <label for="phone">Phone (optional)</label>
+    <input id="phone" name="phone" type="tel" placeholder="(262) 555-0142" />
+  </div>
+  <div class="field">
+    <label for="message">Anything we should know? (optional)</label>
+    <textarea id="message" name="message" rows="2" placeholder="Timeline, type of home, neighborhood…"></textarea>
+  </div>
+
+  <!-- routes the notification subject -->
+  <input type="hidden" name="_subject" value="New RRS Realty Group lead" />
+  <!-- simple spam honeypot -->
+  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <button class="btn btn-primary" type="submit">Match me with an agent →</button>
+  <p class="fine">No spam. We share your details only with your matched local agent.</p>
+</form>

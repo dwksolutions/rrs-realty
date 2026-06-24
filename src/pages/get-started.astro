@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LeadForm from '../components/LeadForm.astro';
+---
+<Layout
+  current=""
+  title="Find My Agent — Get Matched in Southeast Wisconsin | RRS Realty Group"
+  description="Tell us about your move and get matched with a vetted local Southeast Wisconsin real estate agent. Free, no obligation, takes under two minutes."
+>
+  <section class="section" style="padding:64px 0">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Get started</p>
+        <h2 style="font-size:clamp(2.1rem,4vw,3rem)">Let's find your local agent</h2>
+        <p class="intro">Fill out the form and we'll match you with a vetted, licensed agent who works your area. It's free, there's no obligation, and it takes under two minutes.</p>
+        <ul class="hero-trust" style="margin-top:8px">
+          <li><span class="dot"></span> Vetted local agents</li>
+          <li><span class="dot"></span> Free for homeowners</li>
+          <li><span class="dot"></span> No obligation, no pressure</li>
+          <li><span class="dot"></span> Serving all of Southeast Wisconsin</li>
+        </ul>
+      </div>
+      <LeadForm heading="Find your agent" sub="Tell us a little about your move." />
+    </div>
+  </section>
+</Layout>

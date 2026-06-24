@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('guides', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date - a.data.date);
+const thumbs = ['', 'b2', 'b3', 'b4'];
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+---
+<Layout
+  current="guides"
+  title="Local Guides — Southeast Wisconsin Real Estate | RRS Realty Group"
+  description="Straight answers to the real estate questions Southeast Wisconsin homeowners and buyers actually ask — selling, pricing, timing, and choosing an agent."
+>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Local guides</p>
+      <h1>Know before you move</h1>
+      <p>Practical, no-nonsense guidance for selling and buying in Southeast Wisconsin. Read first, reach out when you're ready.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:44px">
+    <div class="wrap">
+      <div class="blog-grid">
+        {posts.map((post, i) => (
+          <a class="post" href={`/guides/${post.slug}/`}>
+            <div class={`thumb ${thumbs[i % thumbs.length]}`}><span>{post.data.category}</span></div>
+            <div class="body">
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <div class="more">Read the guide →</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>Have a question we haven't covered?</h2>
+      <p>Get matched with a local agent who can answer it directly — free and with no obligation.</p>
+      <a class="btn btn-primary" href="/get-started/">Find my agent →</a>
+    </div>
+  </section>
+</Layout>

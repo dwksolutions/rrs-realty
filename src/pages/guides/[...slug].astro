@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('guides', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<Layout
+  current="guides"
+  title={`${post.data.title} | RRS Realty Group`}
+  description={post.data.description}
+>
+  <article>
+    <section class="page-head" style="padding-bottom:0">
+      <div class="wrap" style="max-width:46rem">
+        <p class="post-meta">{post.data.category} · {fmt(post.data.date)}</p>
+        <h1>{post.data.title}</h1>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:36px">
+      <div class="prose">
+        <Content />
+
+        <div class="inline-cta">
+          <h3>Talk to a local agent about this</h3>
+          <p>Get matched with a vetted Southeast Wisconsin agent — free, no obligation.</p>
+          <a class="btn btn-primary" href="/get-started/">Find my agent →</a>
+        </div>
+      </div>
+    </section>
+  </article>
+</Layout>
