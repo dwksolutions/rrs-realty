@@ -2,8 +2,14 @@
 import Layout from '../../layouts/Layout.astro';
 import { cities } from '../../data/cities.js';
 
-const sorted = [...cities].sort((a, b) => a.name.localeCompare(b.name));
-const title = 'Southeast Wisconsin Home Values by City | RRS Realty Group';
+const byCounty = {};
+for (const c of cities) {
+  (byCounty[c.county] ||= []).push(c);
+}
+const counties = Object.keys(byCounty).sort();
+for (const k of counties) byCounty[k].sort((a, b) => a.name.localeCompare(b.name));
+
+const title = 'Southeast Wisconsin Market Data by City | RRS Realty Group';
 const description = 'Explore home values and market trends across Southeast Wisconsin: median sale prices, days on market, and price per square foot by city. Get a free local home valuation.';
 ---
 <Layout current="values" title={title} description={description}>
@@ -16,16 +22,17 @@ const description = 'Explore home values and market trends across Southeast Wisc
   </section>
 
   <section class="section" style="padding-top:44px">
-    <div class="wrap">
-      <div class="hv-grid">
-        {sorted.map((c) => (
-          <a class="hv-card" href={`/home-values/${c.slug}/`}>
-            <span class="hv-city">{c.name}</span>
-            <span class="hv-county">{c.county}</span>
-            <span class="hv-more">View home values →</span>
-          </a>
-        ))}
-      </div>
+    <div class="wrap" style="max-width:60rem">
+      {counties.map((county) => (
+        <div class="mkt-group">
+          <h2>{county}</h2>
+          <div class="mkt-pills">
+            {byCounty[county].map((c) => (
+              <a href={`/home-values/${c.slug}/`}>{c.name}</a>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   </section>
 

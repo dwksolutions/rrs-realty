@@ -16,7 +16,7 @@ const nearby = (city.nearby || []).map(getCity).filter(Boolean);
 const title = `${city.name}, WI Home Values & Market Trends | RRS Realty Group`;
 const description = `See current ${city.name}, Wisconsin home values and real estate market trends: median sale price, days on market, and price per square foot. Get a free home valuation from a local agent.`;
 ---
-<Layout current="" title={title} description={description}>
+<Layout current="values" title={title} description={description}>
   <section class="page-head" style="padding-bottom:8px">
     <div class="wrap" style="max-width:52rem">
       <p class="breadcrumb"><a href="/">Home</a> › <a href="/home-values/">Home values</a> › {city.name}</p>
