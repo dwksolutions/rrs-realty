@@ -5,8 +5,8 @@ import CookieBanner from '../components/CookieBanner.astro';
 import '../styles/global.css';
 
 const {
-  title = 'RRS Realty Group — Trusted Southeast Wisconsin Real Estate Agents',
-  description = 'Get personally matched with a vetted, licensed local real estate agent in Southeast Wisconsin. A real person reaches out, listens, and hand-matches you — never a generic queue. Free, no obligation.',
+  title = 'RRS Realty Group, Trusted Southeast Wisconsin Real Estate Agents',
+  description = 'Get personally matched with a vetted, licensed local real estate agent in Southeast Wisconsin. A real person reaches out, listens, and hand-matches you, never a generic queue. Free, no obligation.',
   current = '',
   ogType = 'website',
   image = '/og-image.png',
@@ -66,7 +66,7 @@ const schemaGraph = { '@context': 'https://schema.org', '@graph': [business, web
   <meta property="og:url" content={canonical} />
   <meta property="og:locale" content="en_US" />
   <meta property="og:image" content={ogImage} />
-  <meta property="og:image:alt" content="RRS Realty Group — Southeast Wisconsin real estate agent matching" />
+  <meta property="og:image:alt" content="RRS Realty Group, Southeast Wisconsin real estate agent matching" />
   {publishedTime && <meta property="article:published_time" content={publishedTime} />}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
