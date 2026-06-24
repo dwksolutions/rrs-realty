@@ -19,6 +19,9 @@ Missing features and pages, ranked by impact. Check off as completed.
 - [x] Control Room dashboard hub at /hq/ (private, noindex)
 - [x] Move CMS off /admin to /studio (bot avoidance)
 - [x] Security headers (vercel.json)
+- [x] Password-gate /hq (Vercel edge middleware, Basic Auth)
+- [ ] Set /hq login: add HQ_USER and HQ_PASS env vars in Vercel (Production), then redeploy. Until then /hq returns 401 for everyone.
+- [ ] Optional: extend the same password gate to /studio
 - [ ] Finish blog editor login: GitHub OAuth so /studio/ can publish (needs input: create GitHub OAuth app)
 
 ## Technical and measurement
