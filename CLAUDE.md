@@ -27,6 +27,20 @@ There is no Git-to-Vercel auto-deploy (Free-plan limitation). When the owner say
 - Domain: `rrsrealtygroup.com` is canonical (apex); `www` 301-redirects to it (vercel.json).
 - `gh` CLI lives at `C:\Program Files\GitHub CLI\gh.exe` (not on PATH).
 
+## Setup on a new computer
+Everything needed to build and deploy is in this repo (no API keys, no `.env`).
+On a fresh machine:
+1. Install Node.js (nodejs.org) and Git.
+2. `git clone https://github.com/dwksolutions/rrs-realty.git` and `cd rrs-realty`.
+3. `npm install` (rebuilds `node_modules` from `package-lock.json`).
+4. `npm install -g vercel` (Vercel CLI, used for deploys).
+5. Log in once: `vercel login`. For GitHub pushes, set up Git auth too (install the
+   GitHub CLI and run `gh auth login`, or use SSH / a credential manager).
+6. `npm run dev` to preview locally; `npm run deploy` (or `git push` + `vercel --prod`) to publish.
+
+The Vercel project link (`.vercel/project.json`, committed) makes `vercel --prod` target
+the correct project after you log in, so no re-linking is needed.
+
 ## Market data
 The /home-values/ figures come from `src/data/market-data.csv` (read at build via a
 Vite `?raw` import in `src/lib/marketData.js`). NO API. These are Realtor.com LISTING
