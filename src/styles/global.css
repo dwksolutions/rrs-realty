@@ -1,15 +1,15 @@
 /* ===== RRS Realty Group — design system ===== */
 :root{
-  --ink:#1E3A2F;          /* deep evergreen - primary */
-  --ink-soft:#2E4A3D;
-  --muted:#5C6B62;        /* muted green-gray */
-  --brick:#B4472C;        /* warm brick - CTA accent */
-  --brick-deep:#9A3A22;
-  --cream:#F1EAD9;        /* cream city brick panels */
-  --paper:#FBF8F2;        /* warm off-white page */
+  --ink:#15315E;          /* deep navy - primary (RRS logo) */
+  --ink-soft:#274A82;
+  --muted:#5C6A82;        /* muted blue-gray */
+  --brick:#2456C9;        /* royal blue - CTA accent (RRS logo) */
+  --brick-deep:#1C46A8;
+  --cream:#EAF1FB;        /* soft blue panels */
+  --paper:#F7F9FC;        /* cool off-white page */
   --white:#FFFFFF;
-  --line:rgba(30,58,47,0.14);
-  --shadow:0 1px 2px rgba(30,58,47,.06), 0 12px 28px -12px rgba(30,58,47,.18);
+  --line:rgba(21,49,94,0.14);
+  --shadow:0 1px 2px rgba(21,49,94,.06), 0 12px 28px -12px rgba(21,49,94,.20);
   --r:14px;
   --maxw:1140px;
 }
@@ -27,7 +27,7 @@ img,svg{max-width:100%;display:block}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 .eyebrow{font-family:"Libre Franklin";font-weight:600;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--brick);margin:0 0 14px}
 .btn{display:inline-flex;align-items:center;gap:.5em;font-family:"Libre Franklin";font-weight:600;font-size:16px;border-radius:11px;padding:14px 22px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:transform .15s ease, background .15s ease, box-shadow .15s ease;line-height:1}
-.btn-primary{background:var(--brick);color:#fff;box-shadow:0 8px 18px -8px rgba(180,71,44,.7)}
+.btn-primary{background:var(--brick);color:#fff;box-shadow:0 8px 18px -8px rgba(36,86,201,.6)}
 .btn-primary:hover{background:var(--brick-deep);transform:translateY(-1px)}
 .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
 .btn-ghost:hover{background:#fff}
@@ -37,6 +37,7 @@ img,svg{max-width:100%;display:block}
 header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.brand .logo{height:46px;width:auto;display:block}
 .brand .mark{width:34px;height:34px;border-radius:8px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:"Spectral";font-weight:700;font-size:15px;letter-spacing:.02em}
 .brand .bt{font-family:"Spectral";font-weight:700;font-size:19px;letter-spacing:-.01em;display:block;line-height:1.05;color:var(--ink)}
 .brand .bs{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:1px}
@@ -61,7 +62,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 .page-head p{color:var(--ink-soft);font-size:19px;max-width:38rem;margin:18px auto 0}
 
 /* TRUST BAR */
-.trustbar{background:var(--ink);color:#dfe9e2}
+.trustbar{background:var(--ink);color:#cfe0f7}
 .trustbar .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 40px;padding:18px 24px;text-align:center}
 .trustbar b{color:#fff;font-family:"Spectral";font-weight:600}
 .trustbar span{font-size:14.5px;letter-spacing:.01em}
@@ -91,9 +92,9 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 .post{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-decoration:none;transition:transform .15s ease, box-shadow .15s ease}
 .post:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
 .post .thumb{height:150px;background:linear-gradient(135deg,var(--ink),var(--ink-soft));position:relative}
-.post .thumb.b2{background:linear-gradient(135deg,#6b4a2e,#8a5a30)}
+.post .thumb.b2{background:linear-gradient(135deg,#243a63,#33538a)}
 .post .thumb.b3{background:linear-gradient(135deg,var(--brick),var(--brick-deep))}
-.post .thumb.b4{background:linear-gradient(135deg,#3a5446,#536b5d)}
+.post .thumb.b4{background:linear-gradient(135deg,#2f4a78,#48689c)}
 .post .thumb span{position:absolute;left:14px;bottom:12px;color:#fff;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.92}
 .post .body{padding:20px 20px 22px}
 .post h3{font-size:1.2rem;margin-bottom:8px;color:var(--ink)}
@@ -136,7 +137,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 /* CTA BAND */
 .cta{background:var(--ink);color:#fff;text-align:center;padding:84px 0}
 .cta h2{font-size:clamp(2rem,4vw,2.9rem);color:#fff}
-.cta p{color:#cfe0d6;font-size:18px;margin:16px auto 30px;max-width:34rem}
+.cta p{color:#cdddf3;font-size:18px;margin:16px auto 30px;max-width:34rem}
 .cta .btn-primary{font-size:17px;padding:16px 30px}
 
 /* PROSE (blog posts + legal) */
@@ -155,16 +156,16 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 .inline-cta p{color:var(--ink-soft);margin:0 0 16px}
 
 /* FOOTER */
-footer.site{background:#16291F;color:#a9bcb0;padding:60px 0 28px;font-size:14.5px}
+footer.site{background:#0F2444;color:#9fb2cc;padding:60px 0 28px;font-size:14.5px}
 .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;margin-bottom:38px}
 footer .brand .bt{color:#fff}
-footer .brand .bs{color:#7e988b}
-footer p.blurb{margin:16px 0 0;max-width:32em;color:#9bafa2}
+footer .brand .bs{color:#7e93b3}
+footer p.blurb{margin:16px 0 0;max-width:32em;color:#9aabc6}
 footer h4{font-family:"Libre Franklin";font-weight:600;color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 14px}
 footer ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
 footer ul a{text-decoration:none;color:#a9bcb0}
 footer ul a:hover{color:#fff}
-.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#7e988b;font-size:13px}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:#7e93b3;font-size:13px}
 
 /* RESPONSIVE */
 @media (max-width:900px){

@@ -5,9 +5,9 @@ const link = (href, label, key) =>
 ---
 <header class="site">
   <div class="wrap nav">
-    <a class="brand" href="/">
-      <span class="mark">RRS</span>
-      <span><span class="bt">RRS Realty Group</span><span class="bs">Southeast Wisconsin</span></span>
+    <a class="brand" href="/" aria-label="RRS Realty Group — home">
+      <img class="logo" src="/logo.png" width="46" height="47" alt="RRS Realty Group" />
+      <span class="bs">Southeast Wisconsin</span>
     </a>
     <nav class="nav-links" id="navlinks" aria-label="Primary">
       <a href="/how-it-works/" {...current === 'how' ? { 'aria-current': 'page' } : {}}>How it works</a>
