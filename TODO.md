@@ -27,7 +27,10 @@ Missing features and pages, ranked by impact. Check off as completed.
 ## Technical and measurement
 - [~] Analytics: GA4 scaffolded + consent-gated; paste Measurement ID into GA_ID in src/layouts/Layout.astro to activate (needs input: G-XXXX id)
 - [ ] Conversion tracking (event on form submit, after GA4 is live)
-- [ ] Google Search Console: verify domain + submit sitemap (needs input: verification)
+- [x] Google Search Console: domain verified
+- [x] Sitemap cleaned (/hq excluded, 63 URLs) and live at /sitemap-index.xml
+- [x] IndexNow set up for Bing/Yandex (npm run indexnow after each deploy)
+- [ ] In Search Console: submit sitemap (sitemap-index.xml) and Request Indexing for top pages (home, how-it-works, service-area, a few city pages)
 - [ ] Custom 404 page (on-brand, links back)
 - [ ] Formspree auto-reply to submitters ("a real person will reach out")
 
