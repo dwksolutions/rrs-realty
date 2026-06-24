@@ -149,7 +149,7 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 .prose p{margin:0 0 1.1em;font-size:17.5px;color:var(--ink-soft)}
 .prose ul,.prose ol{margin:0 0 1.2em;padding-left:1.3em;color:var(--ink-soft)}
 .prose li{margin:.4em 0}
-.prose a{color:var(--brick);text-decoration:underline;text-underline-offset:2px}
+.prose a:not(.btn){color:var(--brick);text-decoration:underline;text-underline-offset:2px}
 .prose strong{color:var(--ink)}
 .prose blockquote{border-left:3px solid var(--brick);margin:1.4em 0;padding:.4em 0 .4em 1.2em;color:var(--ink);font-style:italic}
 .post-meta{text-align:center;color:var(--muted);font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
