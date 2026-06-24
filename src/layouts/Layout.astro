@@ -14,6 +14,10 @@ const {
   jsonLd = [],
 } = Astro.props;
 
+// Google Analytics 4. Paste your Measurement ID (looks like G-XXXXXXXXXX) to turn it on.
+// It loads only after the visitor accepts the cookie notice.
+const GA_ID = '';
+
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
 const origin = new URL(Astro.site).origin;
@@ -92,5 +96,25 @@ const schemaGraph = { '@context': 'https://schema.org', '@graph': [business, web
   </main>
   <Footer />
   <CookieBanner />
+  {GA_ID && (
+    <script is:inline define:vars={{ GA_ID }}>
+      (function () {
+        function loadGA() {
+          if (window.__gaLoaded) return;
+          window.__gaLoaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { dataLayer.push(arguments); };
+          gtag('js', new Date());
+          gtag('config', GA_ID);
+        }
+        try { if (localStorage.getItem('rrs-cookie-consent') === 'accepted') loadGA(); } catch (e) {}
+        window.addEventListener('rrs-consent-accepted', loadGA);
+      })();
+    </script>
+  )}
 </body>
 </html>

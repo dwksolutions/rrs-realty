@@ -1,0 +1,71 @@
+---
+// Private control panel. Not linked in the site nav, noindex, blocked in robots.txt.
+// One bookmark that reaches every tool you use to run the site.
+const tools = [
+  { icon: '✍️', title: 'Write and Edit Blog', desc: 'Add or edit guides in the editor.', href: '/studio/' },
+  { icon: '📊', title: 'Analytics', desc: 'Traffic and visitors (Google Analytics).', href: 'https://analytics.google.com/', external: true },
+  { icon: '🔍', title: 'Search Console', desc: 'How Google sees and ranks your site.', href: 'https://search.google.com/search-console', external: true },
+  { icon: '📥', title: 'Lead Inbox', desc: 'Form submissions (Formspree).', href: 'https://formspree.io/forms', external: true },
+  { icon: '▲', title: 'Deployments', desc: 'Builds and domains (Vercel).', href: 'https://vercel.com/workline-iq/rrs-realty', external: true },
+  { icon: '🧰', title: 'Code', desc: 'Source and history on GitHub.', href: 'https://github.com/dwksolutions/rrs-realty', external: true },
+  { icon: '🌐', title: 'Live Site', desc: 'View the public website.', href: '/', external: false },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>RRS Control Room</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@600;700&family=Libre+Franklin:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ink:#15315E;--brick:#2456C9;--muted:#5C6A82;--line:rgba(21,49,94,.14);--bg:#F2F6FC}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Libre Franklin",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:880px;margin:0 auto;padding:48px 24px 64px}
+    .top{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+    .top img{height:44px;width:auto}
+    h1{font-family:"Spectral",Georgia,serif;font-size:1.9rem;margin:0;color:var(--ink)}
+    .sub{color:var(--muted);font-size:15px;margin:2px 0 0}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+    .card{display:flex;flex-direction:column;gap:5px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;text-decoration:none;color:var(--ink);transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+    .card:hover{transform:translateY(-2px);border-color:var(--brick);box-shadow:0 12px 24px -14px rgba(21,49,94,.3)}
+    .ic{font-size:24px;line-height:1}
+    .t{font-weight:600;font-size:16px;margin-top:6px}
+    .d{color:var(--muted);font-size:13px;line-height:1.4}
+    .ext{margin-top:auto;padding-top:8px;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--brick)}
+    .note{margin-top:32px;font-size:13px;color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;line-height:1.6}
+    @media (max-width:680px){.grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:440px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top">
+      <img src="/logo.png" alt="" />
+      <div>
+        <h1>Control Room</h1>
+        <p class="sub">Everything you need to run RRSRealtyGroup.com, in one place.</p>
+      </div>
+    </div>
+    <div class="grid">
+      {tools.map((t) => (
+        <a class="card" href={t.href} target={t.external ? '_blank' : null} rel={t.external ? 'noopener noreferrer' : null}>
+          <span class="ic">{t.icon}</span>
+          <span class="t">{t.title}</span>
+          <span class="d">{t.desc}</span>
+          {t.external && <span class="ext">Opens new tab ↗</span>}
+        </a>
+      ))}
+    </div>
+    <p class="note">
+      Bookmark this page. It is hidden from the site menu and search engines. To change anything publicly,
+      use the blog editor or ask Claude. Keep two-factor authentication on for Google, GitHub, Vercel, and Namecheap.
+    </p>
+  </main>
+</body>
+</html>

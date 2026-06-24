@@ -44,6 +44,7 @@
     document.getElementById('cookie-accept')?.addEventListener('click', () => {
       try { localStorage.setItem(KEY, 'accepted'); } catch (e) {}
       banner.hidden = true;
+      window.dispatchEvent(new Event('rrs-consent-accepted'));
     });
   })();
 </script>
