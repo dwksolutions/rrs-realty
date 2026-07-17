@@ -4,6 +4,8 @@ description: "A full breakdown of what it costs to sell a home in Wisconsin: age
 category: "Selling"
 date: 2026-07-17
 author: "Don"
+hero: "/blog_images/Used/guide-cost-to-sell-a-house-wisconsin.jpg"
+heroAlt: "A real estate yard sign in front of an attractive Southeast Wisconsin home, with a couple standing near the porch"
 cta:
   heading: "Thinking About Selling in Southeast Wisconsin?"
   text: "Get matched with a vetted local listing agent who can prepare a real net sheet for your home. Free, no obligation."

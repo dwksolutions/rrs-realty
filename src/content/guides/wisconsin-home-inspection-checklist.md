@@ -4,6 +4,8 @@ description: "What a home inspection should cover in Wisconsin, and the local tr
 category: "Buying"
 date: 2026-07-17
 author: "Ryan"
+hero: "/blog_images/Used/guide-wisconsin-home-inspection-checklist.jpg"
+heroAlt: "A home inspector with a flashlight and clipboard examining a basement wall near the furnace and water heater"
 cta:
   heading: "Buying a Home in Southeast Wisconsin?"
   text: "Get matched with a local buyer agent who knows the inspection issues common in your area and can guide you through what the report really means. Free, no obligation."
