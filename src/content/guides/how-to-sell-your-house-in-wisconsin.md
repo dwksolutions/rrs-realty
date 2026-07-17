@@ -16,7 +16,7 @@ Before anything else, get clear on when you need to be out and why you're sellin
 
 ## 2. Get a realistic sense of your home's value
 
-The single most important decision in a home sale is the asking price. Price too high and your listing sits, goes stale, and ultimately sells for less than it should. Price it right and you can attract competing offers. A local agent will prepare a comparative market analysis, a look at what similar nearby homes have actually sold for recently, to ground your price in real data rather than hope or a generic online estimate.
+The single most important decision in a home sale is the asking price. Price too high and your listing sits, goes stale, and ultimately sells for less than it should. Price it right and you can attract competing offers. A local agent will prepare a comparative market analysis, a look at what similar nearby homes have actually sold for recently, to ground your price in real data rather than hope or a generic online estimate. You can also browse [current market data for cities across Southeast Wisconsin](/home-values/) to see how homes are priced near you.
 
 ## 3. Prepare the home
 
@@ -44,4 +44,4 @@ Sellers typically pay real estate commissions plus closing costs, which together
 
 > The biggest, most expensive mistakes in a home sale happen before it's even listed: mispricing and skipping preparation. Get those two right and the rest tends to follow.
 
-Selling is very doable, but it rewards local knowledge, pricing, timing, and buyer expectations shift block to block across Southeast Wisconsin. The right local agent earns their keep here.
+Selling is very doable, but it rewards local knowledge, pricing, timing, and buyer expectations shift block to block across Southeast Wisconsin. The right local agent earns their keep here, and we can [match you with a vetted local listing agent](/sell/) when you're ready.

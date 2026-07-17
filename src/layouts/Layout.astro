@@ -12,6 +12,7 @@ const {
   image = '/og-image.png',
   publishedTime,
   jsonLd = [],
+  noindex = false,
 } = Astro.props;
 
 // Google Analytics 4. Paste your Measurement ID (looks like G-XXXXXXXXXX) to turn it on.
@@ -60,7 +61,7 @@ const schemaGraph = { '@context': 'https://schema.org', '@graph': [business, web
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
 
   <!-- Open Graph -->
   <meta property="og:type" content={ogType} />
@@ -90,8 +91,9 @@ const schemaGraph = { '@context': 'https://schema.org', '@graph': [business, web
   <script type="application/ld+json" set:html={JSON.stringify(schemaGraph)} />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <Header current={current} />
-  <main>
+  <main id="main">
     <slot />
   </main>
   <Footer />

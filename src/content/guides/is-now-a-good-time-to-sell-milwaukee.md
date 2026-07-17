@@ -18,7 +18,7 @@ For much of the recent past, Southeast Wisconsin has been a relatively tight mar
 
 ## Why national headlines mislead
 
-National real estate news blends thousands of very different markets into one number. What's happening in Austin or Phoenix tells you almost nothing about Wauwatosa or Cedarburg. Southeast Wisconsin tends to be steadier than the boom-and-bust coastal markets, prices here have generally been more stable, with fewer dramatic swings in either direction. Read local data, not national takes.
+National real estate news blends thousands of very different markets into one number. What's happening in Austin or Phoenix tells you almost nothing about [Wauwatosa](/home-values/wauwatosa/) or [Cedarburg](/home-values/cedarburg/). Southeast Wisconsin tends to be steadier than the boom-and-bust coastal markets, prices here have generally been more stable, with fewer dramatic swings in either direction. Read [local market data](/home-values/), not national takes.
 
 ## Seasonality in Wisconsin
 
@@ -35,6 +35,6 @@ The market sets the backdrop, but your circumstances usually decide the outcome:
 
 ## How to get a real answer
 
-A generic online estimate can't tell you whether now is right, it doesn't know your neighborhood, your home's condition, or what's selling on your street this month. A local agent can give you a grounded read on current demand for homes like yours, recent comparable sales nearby, and what a realistic timeline and price look like right now.
+A generic online estimate can't tell you whether now is right, it doesn't know your neighborhood, your home's condition, or what's selling on your street this month. A [local listing agent](/sell/) can give you a grounded read on current demand for homes like yours, recent comparable sales nearby, and what a realistic timeline and price look like right now.
 
 That conversation costs nothing and carries no obligation, and it's the fastest way to replace "I wonder if it's a good time" with a clear, local answer.

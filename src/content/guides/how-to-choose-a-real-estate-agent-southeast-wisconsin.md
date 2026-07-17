@@ -12,7 +12,7 @@ The agent you choose has more impact on your sale or purchase than almost any ot
 
 ## Start with local experience
 
-The most important quality isn't the size of the brokerage or how many billboards you've seen, it's whether the agent actively works *your* area. Southeast Wisconsin is dozens of micro-markets. Pricing, buyer expectations, and which improvements pay off differ between Wauwatosa, Cedarburg, Kenosha, and the lakefront. An agent who closes deals in your neighborhood every month knows things a distant agent simply can't.
+The most important quality isn't the size of the brokerage or how many billboards you've seen, it's whether the agent actively works *your* area. Southeast Wisconsin is dozens of micro-markets. Pricing, buyer expectations, and which improvements pay off differ between [Wauwatosa](/home-values/wauwatosa/), [Cedarburg](/home-values/cedarburg/), [Kenosha](/home-values/kenosha/), and the lakefront. An agent who closes deals in your neighborhood every month knows things a distant agent simply can't.
 
 Ask directly: *How many homes have you sold in this area in the last year?*
 
@@ -43,4 +43,4 @@ You'll work closely with this person through a stressful, high-stakes process. B
 
 ## A shortcut to a good match
 
-Vetting agents on your own takes time most people don't have. That's exactly the gap RRS Realty Group fills, we connect you with vetted, licensed agents who actively work your Southeast Wisconsin area, so you start from a short list of qualified locals instead of a search-engine guess. It's free, and there's no obligation to hire anyone.
+Vetting agents on your own takes time most people don't have. That's exactly the gap RRS Realty Group fills, we connect you with vetted, licensed agents who actively work your Southeast Wisconsin area, whether you're [selling](/sell/) or [buying](/buy/), so you start from a short list of qualified locals instead of a search-engine guess. It's free, and there's no obligation to hire anyone.
