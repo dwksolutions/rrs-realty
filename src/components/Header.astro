@@ -8,6 +8,8 @@ const { current = '' } = Astro.props;
       <span class="bs">Southeast Wisconsin</span>
     </a>
     <nav class="nav-links" id="navlinks" aria-label="Primary">
+      <a href="/sell/" {...current === 'sell' ? { 'aria-current': 'page' } : {}}>Sell</a>
+      <a href="/buy/" {...current === 'buy' ? { 'aria-current': 'page' } : {}}>Buy</a>
       <a href="/how-it-works/" {...current === 'how' ? { 'aria-current': 'page' } : {}}>How It Works</a>
       <a href="/service-area/" {...current === 'area' ? { 'aria-current': 'page' } : {}}>Service Area</a>
       <a href="/home-values/" {...current === 'values' ? { 'aria-current': 'page' } : {}}>Market Data</a>

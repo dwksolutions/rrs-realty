@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LeadForm from '../components/LeadForm.astro';
+
+// FAQ content drives both the visible cards below and the FAQPage structured
+// data, so the two never drift (Google requires them to match).
+const faqs = [
+  {
+    q: 'Does it cost anything to get matched with a buyer agent?',
+    a: 'No. Our matching service is free to you. A real person connects you with a vetted local buyer agent, and there is no fee to get started and no obligation to keep going.',
+  },
+  {
+    q: 'I am not ready to buy yet. Should I still reach out?',
+    a: 'Yes. Many buyers talk with us months ahead, just to understand neighborhoods, prices, and what their timeline could look like. Getting matched does not commit you to buying anything.',
+  },
+  {
+    q: 'How do you choose which agent to match me with?',
+    a: 'A real person from RRS talks with you first about where you want to live, your budget, and your must-haves. We then connect you with a licensed local agent who knows those specific communities.',
+  },
+  {
+    q: 'Do you help first-time buyers?',
+    a: 'Absolutely. We match first-time buyers with patient, local agents who will walk you through financing, offers, and inspections step by step. Our local guides are a good place to start too.',
+  },
+  {
+    q: 'Which areas do you cover for buyers?',
+    a: 'All eight counties of Southeast Wisconsin, from Milwaukee and Waukesha to Racine, Kenosha, Ozaukee, Washington, Walworth, and Jefferson, including the surrounding communities.',
+  },
+  {
+    q: 'How soon will someone reach out?',
+    a: 'Quickly. A real person from RRS reaches out personally to start the conversation, so you are not left waiting in a queue for a stranger to call.',
+  },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<Layout
+  current="buy"
+  title="Buy a Home in Southeast Wisconsin, Get Matched With a Local Buyer Agent | RRS Realty Group"
+  description="Buying a home in Southeast Wisconsin? Get personally matched with a vetted, licensed local buyer agent. A real person reaches out and hand-matches you. Free, no obligation."
+  jsonLd={[faqSchema]}
+>
+  <section class="section" style="padding:64px 0">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">For buyers</p>
+        <h1 style="font-size:clamp(2.1rem,4vw,3rem)">Buy Your Home With a Local Agent on Your Side</h1>
+        <p class="intro">The right buyer agent knows the streets, the schools, and how to win the home you want. Tell us what you're looking for and a real person from RRS reaches out, listens, and hand-matches you with a vetted local agent. It's free, there's no obligation, and it takes under two minutes.</p>
+        <ul class="hero-trust" style="margin-top:8px">
+          <li><span class="dot"></span> Vetted local buyer agents</li>
+          <li><span class="dot"></span> Free for buyers</li>
+          <li><span class="dot"></span> No obligation</li>
+          <li><span class="dot"></span> Serving all of Southeast Wisconsin</li>
+        </ul>
+      </div>
+      <LeadForm heading="Find Your Next Home" sub="Tell us what you're looking for." intent="Buying" />
+    </div>
+  </section>
+
+  <section class="section area">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">A personal process</p>
+        <h2>How Buying With RRS Works</h2>
+        <p>No anonymous lead queue, no random handoff. A real person guides you from first hello to the right buyer agent.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><h3>Tell Us What You Want</h3><p>Share where you'd like to live, your budget, and your timeline. It takes about a minute and commits you to nothing.</p></div>
+        <div class="step"><div class="num">2</div><h3>We Reach Out and Listen</h3><p>A real person from RRS contacts you to talk it through, your must-haves, your goals, your situation. You're never a file in a queue waiting for a stranger to call.</p></div>
+        <div class="step"><div class="num">3</div><h3>We Match You With a Buyer Agent</h3><p>Based on that conversation, we personally connect you with the right local agent for the areas you're targeting, plus any resources you need. A tailored fit, on your terms.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why buyers use us</p>
+        <h2>Local Knowledge, Without the Legwork</h2>
+        <p>One quick conversation replaces hours of comparing agents and guessing who really knows the neighborhoods you want.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card"><div class="ic">📍</div><h3>Agents Who Know the Neighborhoods</h3><p>We match you with buyer agents who actually work the communities you're targeting, not out-of-town crews two counties over.</p></div>
+        <div class="why-card"><div class="ic">🛡️</div><h3>Vetted and Licensed</h3><p>Every agent we recommend is a licensed Wisconsin professional with a real track record we've checked.</p></div>
+        <div class="why-card"><div class="ic">💸</div><h3>Free for Buyers</h3><p>Our matching service costs you nothing to get connected with the right local agent.</p></div>
+        <div class="why-card"><div class="ic">🔑</div><h3>Great for First-Time Buyers</h3><p>We pair you with patient agents who walk you through financing, offers, and inspections step by step.</p></div>
+        <div class="why-card"><div class="ic">📊</div><h3>Know the Market First</h3><p>Check current list prices and days on market for each city on our Market Data pages before you tour a single home.</p></div>
+        <div class="why-card"><div class="ic">⚡</div><h3>A Real Person, Not a Queue</h3><p>You're never dropped into an anonymous lead pool. We reach out personally, talk it through, and guide you to the right fit.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section area">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Common questions</p>
+        <h2>Buying FAQ</h2>
+      </div>
+      <div class="why-grid">
+        {faqs.map((f) => (
+          <div class="why-card"><h3>{f.q}</h3><p>{f.a}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>Ready to Find Your Home?</h2>
+      <p>Get matched with a trusted Southeast Wisconsin buyer agent today. Free, no obligation, no pressure.</p>
+      <a class="btn btn-primary" href="/get-started/">Find my agent →</a>
+    </div>
+  </section>
+</Layout>

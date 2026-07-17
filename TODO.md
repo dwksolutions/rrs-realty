@@ -10,9 +10,9 @@ Missing features and pages, ranked by impact. Check off as completed.
 - [ ] Agent recruitment page + form ("Are you an agent? Join our network") (needs input: do you recruit publicly?)
 
 ## Content and SEO (the traffic engine)
-- [ ] Dedicated Sellers page (/sell/) and Buyers page (/buy/)
+- [x] Dedicated Sellers page (/sell/) and Buyers page (/buy/), linked in header + footer nav, each with its own lead form (intent preset) and FAQ
 - [ ] More local guides (only 4 exist; aim for 10-15 targeted ones)
-- [ ] FAQ structured data (FAQPage JSON-LD) on the How It Works FAQ section, and/or a dedicated /faq/ page. Can earn rich results in Google and helps it understand the pages. Claude can build this, no input needed.
+- [x] FAQ structured data (FAQPage JSON-LD) on How It Works, plus the new /sell/ and /buy/ FAQs. Visible cards and schema share one data source so they never drift.
 - [ ] Real Contact page (/contact/) with email, phone, hours, service area
 
 ## Admin and operations

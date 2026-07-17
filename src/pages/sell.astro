@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LeadForm from '../components/LeadForm.astro';
+
+// FAQ content drives both the visible cards below and the FAQPage structured
+// data, so the two never drift (Google requires them to match).
+const faqs = [
+  {
+    q: 'What does it cost to sell through RRS Realty Group?',
+    a: 'Our matching service is free to you. There is no fee to get connected with an agent. You and your matched agent agree on the commission before you list anything, and you are never obligated to move forward.',
+  },
+  {
+    q: 'Do I have to list my home right away?',
+    a: 'No. Getting matched does not commit you to listing. Many homeowners talk with us months before they sell, just to understand their options, their likely price, and their timeline. You decide when, or whether, to move.',
+  },
+  {
+    q: 'How do you decide which agent to match me with?',
+    a: 'A real person from RRS talks with you first about your home, your neighborhood, and your goals. We then connect you with a licensed local agent who actually works your area and has a track record we have reviewed.',
+  },
+  {
+    q: 'What is my home worth?',
+    a: 'You can start with our Market Data pages for current median list prices, price per square foot, and days on market in your city. For a real number, your matched agent will prepare a comparative market analysis specific to your home.',
+  },
+  {
+    q: 'What areas do you cover for sellers?',
+    a: 'All eight counties of Southeast Wisconsin, from Milwaukee and Waukesha to Racine, Kenosha, Ozaukee, Washington, Walworth, and Jefferson, including the surrounding communities.',
+  },
+  {
+    q: 'How soon will someone reach out?',
+    a: 'Quickly. A real person from RRS reaches out personally to start the conversation, so you are not left waiting in a queue for a stranger to call.',
+  },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<Layout
+  current="sell"
+  title="Sell Your Home in Southeast Wisconsin, Get Matched With a Local Listing Agent | RRS Realty Group"
+  description="Selling a home in Southeast Wisconsin? Get personally matched with a vetted, licensed local listing agent. A real person reaches out and hand-matches you. Free, no obligation."
+  jsonLd={[faqSchema]}
+>
+  <section class="section" style="padding:64px 0">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">For sellers</p>
+        <h1 style="font-size:clamp(2.1rem,4vw,3rem)">Sell Your Home With the Right Local Agent</h1>
+        <p class="intro">The agent you list with is the single biggest decision in your sale. Tell us about your home and a real person from RRS reaches out, listens, and hand-matches you with a vetted local listing agent who knows your market. It's free, there's no obligation, and it takes under two minutes.</p>
+        <ul class="hero-trust" style="margin-top:8px">
+          <li><span class="dot"></span> Vetted local listing agents</li>
+          <li><span class="dot"></span> Free for sellers</li>
+          <li><span class="dot"></span> No obligation to list</li>
+          <li><span class="dot"></span> Serving all of Southeast Wisconsin</li>
+        </ul>
+      </div>
+      <LeadForm heading="Get Your Home Sold" sub="Tell us about the home you're selling." intent="Selling" />
+    </div>
+  </section>
+
+  <section class="section area">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">A personal process</p>
+        <h2>How Selling With RRS Works</h2>
+        <p>No anonymous lead queue, no random handoff. A real person guides you from first hello to the right listing agent.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><h3>Tell Us About Your Home</h3><p>Share where your home is, your timeline, and what you're hoping to get out of the sale. It takes about a minute and commits you to nothing.</p></div>
+        <div class="step"><div class="num">2</div><h3>We Reach Out and Listen</h3><p>A real person from RRS contacts you to talk it through, your home, your goals, your situation. You're never a file in a queue waiting for a stranger to call.</p></div>
+        <div class="step"><div class="num">3</div><h3>We Match You With a Listing Agent</h3><p>Based on that conversation, we personally connect you with the right local listing agent for your home, plus any resources you need. A tailored fit, on your terms.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why sellers use us</p>
+        <h2>List With Confidence, Not Guesswork</h2>
+        <p>One quick conversation replaces hours of comparing agents and second-guessing who to trust with your biggest asset.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card"><div class="ic">📍</div><h3>Agents Who Know Your Market</h3><p>We match you with listing agents who actually work your area and price your home against real local comparables, not a national average.</p></div>
+        <div class="why-card"><div class="ic">🛡️</div><h3>Vetted and Licensed</h3><p>Every agent we recommend is a licensed Wisconsin professional with a real track record we've checked.</p></div>
+        <div class="why-card"><div class="ic">💸</div><h3>Free to Get Matched</h3><p>Our matching service costs sellers nothing. You and your agent agree on commission before you ever list.</p></div>
+        <div class="why-card"><div class="ic">🤝</div><h3>No Pressure to List</h3><p>Get matched, ask questions, and decide entirely on your own timeline. There's no obligation to sell.</p></div>
+        <div class="why-card"><div class="ic">📊</div><h3>Grounded in Local Data</h3><p>See current list prices, price per square foot, and days on market for your city on our Market Data pages before you decide.</p></div>
+        <div class="why-card"><div class="ic">⚡</div><h3>A Real Person, Not a Queue</h3><p>You're never dropped into an anonymous lead pool. We reach out personally, talk it through, and guide you to the right fit.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section area">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Common questions</p>
+        <h2>Selling FAQ</h2>
+      </div>
+      <div class="why-grid">
+        {faqs.map((f) => (
+          <div class="why-card"><h3>{f.q}</h3><p>{f.a}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>Ready to Sell?</h2>
+      <p>Get matched with a trusted Southeast Wisconsin listing agent today. Free, no obligation, no pressure.</p>
+      <a class="btn btn-primary" href="/get-started/">Find my agent →</a>
+    </div>
+  </section>
+</Layout>

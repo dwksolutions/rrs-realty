@@ -1,10 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// FAQ content drives both the visible cards below and the FAQPage structured
+// data, so the two never drift (Google requires them to match).
+const faqs = [
+  { q: 'Is It Really Free?', a: 'Yes. Our matching service costs homeowners and buyers nothing. There is no fee to get connected with an agent.' },
+  { q: 'Am I Obligated to Anything?', a: 'No. Getting matched does not commit you to listing, buying, or hiring anyone. You are always free to walk away.' },
+  { q: 'Who Are the Agents?', a: 'Licensed Wisconsin real estate professionals who work in your specific area and have a track record we have reviewed.' },
+  { q: 'How Fast Will I Hear Back?', a: 'Quickly. A real person from RRS reaches out personally to start the conversation, so you are not left waiting in a queue for a stranger to pick up.' },
+  { q: 'What Areas Do You Cover?', a: 'All eight counties of Southeast Wisconsin, from Milwaukee and Waukesha to Racine, Kenosha, and the surrounding communities.' },
+  { q: "What If It's Not a Good Fit?", a: 'Just let us know. The goal is the right match for you, not a forced one, there is no pressure to continue.' },
+];
+
+const faqSchema = {
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 <Layout
   current="how"
   title="How RRS Realty Group Works, Get Matched With a Local Agent"
   description="See how RRS Realty Group personally connects Southeast Wisconsin homeowners and buyers with the right local agent, a real conversation and a hand-matched introduction, not a generic lead queue. Free, no obligation."
+  jsonLd={[faqSchema]}
 >
   <section class="page-head">
     <div class="wrap">
@@ -31,12 +52,9 @@ import Layout from '../layouts/Layout.astro';
         <h2>What to Expect</h2>
       </div>
       <div class="why-grid">
-        <div class="why-card"><h3>Is It Really Free?</h3><p>Yes. Our matching service costs homeowners and buyers nothing. There's no fee to get connected with an agent.</p></div>
-        <div class="why-card"><h3>Am I Obligated to Anything?</h3><p>No. Getting matched doesn't commit you to listing, buying, or hiring anyone. You're always free to walk away.</p></div>
-        <div class="why-card"><h3>Who Are the Agents?</h3><p>Licensed Wisconsin real estate professionals who work in your specific area and have a track record we've reviewed.</p></div>
-        <div class="why-card"><h3>How Fast Will I Hear Back?</h3><p>Quickly, a real person from RRS reaches out personally to start the conversation, so you're not left waiting in a queue for a stranger to pick up.</p></div>
-        <div class="why-card"><h3>What Areas Do You Cover?</h3><p>All eight counties of Southeast Wisconsin, from Milwaukee and Waukesha to Racine, Kenosha, and the surrounding communities.</p></div>
-        <div class="why-card"><h3>What If It's Not a Good Fit?</h3><p>Just let us know. The goal is the right match for you, not a forced one, there's no pressure to continue.</p></div>
+        {faqs.map((f) => (
+          <div class="why-card"><h3>{f.q}</h3><p>{f.a}</p></div>
+        ))}
       </div>
     </div>
   </section>
