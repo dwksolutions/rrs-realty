@@ -1,6 +1,7 @@
 ---
 title: "How Much Money Do You Need to Buy a House in Wisconsin?"
-description: "A clear breakdown of the cash it takes to buy a home in Wisconsin: down payment, earnest money, inspection, appraisal, closing costs, and the reserves lenders want to see."
+metaTitle: "How Much Money to Buy a House in WI"
+description: "What it really costs to buy a home in Wisconsin: down payment, earnest money, inspection, appraisal, closing costs, and reserves."
 category: "Buying"
 date: 2026-07-17
 author: "Ryan"

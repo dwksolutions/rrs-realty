@@ -13,10 +13,21 @@ const stats = await getMarketStats(city);
 const updated = stats.updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
 const nearby = (city.nearby || []).map(getCity).filter(Boolean);
 
-const title = `${city.name}, WI Home Values & Market Trends | RRS Realty Group`;
-const description = `See current ${city.name}, Wisconsin home values and real estate market trends: median sale price, days on market, and price per square foot. Get a free home valuation from a local agent.`;
+const title = `${city.name}, WI Home Values | RRS Realty Group`;
+const description = `${city.name}, WI market snapshot: median list price, days on market, and price per sq ft for ZIP ${city.zip}. Get a free local home valuation.`;
+
+const origin = new URL(Astro.site).origin;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: origin + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Market Data', item: origin + '/home-values/' },
+    { '@type': 'ListItem', position: 3, name: city.name, item: canonical },
+  ],
+};
 ---
-<Layout current="values" title={title} description={description}>
+<Layout current="values" title={title} description={description} jsonLd={[breadcrumb]}>
   <section class="page-head" style="padding-bottom:8px">
     <div class="wrap" style="max-width:52rem">
       <p class="breadcrumb"><a href="/">Home</a> › <a href="/home-values/">Market Data</a> › {city.name}</p>

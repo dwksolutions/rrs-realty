@@ -1,5 +1,6 @@
 ---
 title: "How to Choose a Real Estate Agent in Southeast Wisconsin"
+metaTitle: "How to Choose a Real Estate Agent in WI"
 description: "The questions to ask, the red flags to watch for, and why local experience usually beats a big national brand when you're selling or buying in Southeast Wisconsin."
 category: "Choosing an agent"
 date: 2026-05-08

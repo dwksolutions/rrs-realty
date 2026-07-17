@@ -4,6 +4,7 @@ const guides = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    metaTitle: z.string().optional(), // shorter <title> for search results; falls back to title
     description: z.string(),
     category: z.string(),
     date: z.coerce.date(),

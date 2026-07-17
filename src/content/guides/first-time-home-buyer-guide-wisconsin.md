@@ -1,6 +1,7 @@
 ---
 title: "First-Time Home Buyer Guide to Wisconsin: From Preapproval to Closing"
-description: "A step-by-step guide for first-time buyers in Southeast Wisconsin: getting pre-approved, WHEDA down payment help, making an offer, inspection, and what happens at closing."
+metaTitle: "First-Time Home Buyer Guide to Wisconsin"
+description: "A step-by-step guide for first-time buyers in Southeast Wisconsin: pre-approval, WHEDA down payment help, offers, inspection, and closing."
 category: "Buying"
 date: 2026-07-17
 author: "Ryan"

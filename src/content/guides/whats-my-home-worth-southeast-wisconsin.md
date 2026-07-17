@@ -1,5 +1,6 @@
 ---
 title: "What's My Home Worth in Southeast Wisconsin? How Valuation Really Works"
+metaTitle: "What's My Home Worth in Wisconsin?"
 description: "Why online home value estimates are often wrong, what actually determines your home's value, and how to get a price you can trust before you sell."
 category: "Pricing"
 date: 2026-04-22

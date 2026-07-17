@@ -1,6 +1,7 @@
 ---
 title: "Is Now a Good Time to Sell in the Milwaukee Metro?"
-description: "How to think about timing your home sale in Southeast Wisconsin, the factors that actually matter for sellers, and why the right time depends more on you than the headlines."
+metaTitle: "Is Now a Good Time to Sell? (Milwaukee)"
+description: "How to time your home sale in Southeast Wisconsin, and why the right time depends more on your situation than on the headlines."
 category: "Market"
 date: 2026-05-20
 author: "Ryan"

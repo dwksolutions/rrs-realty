@@ -1,6 +1,7 @@
 ---
 title: "How Much Does It Cost to Sell a House in Wisconsin?"
-description: "A full breakdown of what it costs to sell a home in Wisconsin: agent commission, the state transfer fee, prorated taxes, closing costs, prep, and how to estimate your net."
+metaTitle: "Cost to Sell a House in Wisconsin"
+description: "What it costs to sell a home in Wisconsin: agent commission, the state transfer fee, prorated taxes, closing costs, and how to estimate your net."
 category: "Selling"
 date: 2026-07-17
 author: "Don"
