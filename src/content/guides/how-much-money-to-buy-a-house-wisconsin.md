@@ -4,6 +4,8 @@ description: "A clear breakdown of the cash it takes to buy a home in Wisconsin:
 category: "Buying"
 date: 2026-07-17
 author: "Ryan"
+hero: "/blog_images/Used/guide-how-much-money-to-buy-a-house-wisconsin.jpg"
+heroAlt: "A couple at their kitchen table budgeting for a home purchase with a laptop, calculator, notebook, and paperwork"
 cta:
   heading: "Ready to Put a Real Budget Together?"
   text: "Get matched with a local buyer agent and a trusted lender who can turn these ranges into your actual numbers. Free, no obligation."
