@@ -114,7 +114,10 @@ const featuredCities = ['milwaukee', 'wauwatosa', 'brookfield', 'waukesha', 'new
       <div class="blog-grid">
         {posts.map((post, i) => (
           <a class="post" href={`/guides/${post.slug}/`}>
-            <div class={`thumb ${thumbs[i] || ''}`}><span>{post.data.category}</span></div>
+            <div class={`thumb ${post.data.hero ? 'has-img' : (thumbs[i] || '')}`}>
+              {post.data.hero && <img src={post.data.hero} alt={post.data.heroAlt || post.data.title} width="1600" height="900" loading="lazy" />}
+              <span>{post.data.category}</span>
+            </div>
             <div class="body">
               <h3>{post.data.title}</h3>
               <p>{post.data.description}</p>

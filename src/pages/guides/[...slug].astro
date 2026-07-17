@@ -12,12 +12,34 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
-const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
 const origin = new URL(Astro.site).origin;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const iso = post.data.date.toISOString();
-const imageUrl = new URL('/og-image.png', Astro.site).href;
+const updatedIso = (post.data.updated || post.data.date).toISOString();
+const imageUrl = new URL(post.data.hero || '/og-image.png', Astro.site).href;
+
+// Named human author (Person) improves E-E-A-T; publisher stays the org.
+const authorIsOrg = post.data.author === 'RRS Realty Group';
+const author = authorIsOrg
+  ? { '@type': 'Organization', '@id': origin + '/#business' }
+  : { '@type': 'Person', name: post.data.author, url: origin + '/about/' };
+
+// Up to three other published guides for the "Keep Reading" internal-links block.
+const related = (await getCollection('guides', ({ data }) => !data.draft))
+  .filter((p) => p.slug !== post.slug)
+  .sort((a, b) => b.data.date - a.data.date)
+  .slice(0, 3);
+const relThumbs = ['', 'b2', 'b3', 'b4'];
+
+// Per-guide CTA with a sensible fallback.
+const cta = post.data.cta || {
+  heading: 'Talk to a Local Agent About This',
+  text: 'Get matched with a vetted Southeast Wisconsin agent, free, no obligation.',
+  label: 'Find my agent →',
+  href: '/get-started/',
+};
 
 const blogPosting = {
   '@type': 'BlogPosting',
@@ -25,8 +47,8 @@ const blogPosting = {
   headline: post.data.title,
   description: post.data.description,
   datePublished: iso,
-  dateModified: iso,
-  author: { '@type': 'Organization', name: 'RRS Realty Group', url: origin },
+  dateModified: updatedIso,
+  author,
   publisher: { '@id': origin + '/#business' },
   mainEntityOfPage: canonical,
   image: imageUrl,
@@ -47,27 +69,82 @@ const breadcrumb = {
   title={`${post.data.title} | RRS Realty Group`}
   description={post.data.description}
   ogType="article"
+  image={post.data.hero || '/og-image.png'}
   publishedTime={iso}
   jsonLd={[blogPosting, breadcrumb]}
 >
   <article>
     <section class="page-head" style="padding-bottom:0">
       <div class="wrap" style="max-width:54rem">
-        <p class="post-meta">{post.data.category} · {fmt(post.data.date)}</p>
+        <p class="post-meta">
+          By {post.data.author} · {post.data.category} · {fmt(post.data.date)}
+          {post.data.updated && <> · Updated {fmt(post.data.updated)}</>}
+        </p>
         <h1>{post.data.title}</h1>
+        {post.data.reviewedBy && <p class="post-review">Reviewed by {post.data.reviewedBy}</p>}
       </div>
     </section>
+
+    {post.data.hero && (
+      <div class="wrap" style="max-width:54rem">
+        <img
+          class="post-hero"
+          src={post.data.hero}
+          alt={post.data.heroAlt || post.data.title}
+          width="1600"
+          height="900"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    )}
 
     <section class="section" style="padding-top:36px">
       <div class="prose">
         <Content />
 
+        {post.data.sources && post.data.sources.length > 0 && (
+          <div class="sources">
+            <h2>Sources</h2>
+            <ul>
+              {post.data.sources.map((s) => (
+                <li><a href={s.url} target="_blank" rel="noopener nofollow">{s.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div class="inline-cta">
-          <h3>Talk to a Local Agent About This</h3>
-          <p>Get matched with a vetted Southeast Wisconsin agent, free, no obligation.</p>
-          <a class="btn btn-primary" href="/get-started/">Find my agent →</a>
+          <h3>{cta.heading}</h3>
+          <p>{cta.text}</p>
+          <a class="btn btn-primary" href={cta.href}>{cta.label}</a>
         </div>
       </div>
     </section>
+
+    {related.length > 0 && (
+      <section class="section area" style="padding-top:8px">
+        <div class="wrap">
+          <div class="section-head" style="margin-bottom:32px">
+            <h2>Keep Reading</h2>
+          </div>
+          <div class="blog-grid">
+            {related.map((p, i) => (
+              <a class="post" href={`/guides/${p.slug}/`}>
+                <div class={`thumb ${p.data.hero ? 'has-img' : relThumbs[i % relThumbs.length]}`}>
+                  {p.data.hero && <img src={p.data.hero} alt={p.data.heroAlt || p.data.title} width="1600" height="900" loading="lazy" />}
+                  <span>{p.data.category}</span>
+                </div>
+                <div class="body">
+                  <h3>{p.data.title}</h3>
+                  <p>{p.data.description}</p>
+                  <div class="more">Read the guide →</div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
   </article>
 </Layout>

@@ -3,6 +3,9 @@ title: "How to Sell Your House in Wisconsin: A 2026 Step-by-Step Guide"
 description: "From pricing to closing, here's the full timeline of selling a home in Wisconsin, what each step involves, where the money goes, and how to avoid common mistakes."
 category: "Selling"
 date: 2026-06-01
+author: "Don"
+hero: "/blog_images/Used/guide-how-to-sell-your-house-in-wisconsin.jpg"
+heroAlt: "A happy couple standing outside their home with a yard sign and moving boxes on the porch"
 ---
 
 Selling a home in Wisconsin follows a fairly predictable path, but the details matter, and small missteps early on can cost you weeks and thousands of dollars later. Here's the whole process, start to finish, in plain terms.

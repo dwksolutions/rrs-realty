@@ -95,7 +95,10 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 .post .thumb.b2{background:linear-gradient(135deg,#243a63,#33538a)}
 .post .thumb.b3{background:linear-gradient(135deg,var(--brick),var(--brick-deep))}
 .post .thumb.b4{background:linear-gradient(135deg,#2f4a78,#48689c)}
-.post .thumb span{position:absolute;left:14px;bottom:12px;color:#fff;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.92}
+.post .thumb.has-img{background:var(--ink)}
+.post .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.post .thumb.has-img::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(13,24,45,.6),rgba(13,24,45,0) 55%)}
+.post .thumb span{position:absolute;left:14px;bottom:12px;z-index:1;color:#fff;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.92}
 .post .body{padding:20px 20px 22px}
 .post h3{font-size:1.2rem;margin-bottom:8px;color:var(--ink)}
 .post p{color:var(--ink-soft);font-size:14.5px;margin:0}
@@ -157,7 +160,14 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 .prose a:not(.btn){color:var(--brick);text-decoration:underline;text-underline-offset:2px}
 .prose strong{color:var(--ink)}
 .prose blockquote{border-left:3px solid var(--brick);margin:1.4em 0;padding:.4em 0 .4em 1.2em;color:var(--ink);font-style:italic}
+.post-hero{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r);margin:22px auto 4px;box-shadow:var(--shadow)}
 .post-meta{text-align:center;color:var(--muted);font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
+.post-review{text-align:center;color:var(--muted);font-size:13px;font-style:italic;margin:-2px 0 10px}
+.sources{margin:2.4em 0 0;padding-top:1.2em;border-top:1px solid var(--line)}
+.sources h2{font-size:1.15rem;margin:0 0 .5em}
+.sources ul{margin:0;padding-left:1.2em}
+.sources li{font-size:14.5px;color:var(--ink-soft);margin:.35em 0}
+.sources a{color:var(--brick);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
 .inline-cta{background:var(--cream);border-radius:var(--r);padding:26px 28px;margin:2em 0;text-align:center}
 .inline-cta h3{font-size:1.3rem;margin-bottom:8px}
 .inline-cta p{color:var(--ink-soft);margin:0 0 16px}

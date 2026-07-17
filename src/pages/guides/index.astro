@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('guides', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date - a.data.date);
 const thumbs = ['', 'b2', 'b3', 'b4'];
-const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
 ---
 <Layout
   current="guides"
@@ -25,7 +25,10 @@ const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'shor
       <div class="blog-grid">
         {posts.map((post, i) => (
           <a class="post" href={`/guides/${post.slug}/`}>
-            <div class={`thumb ${thumbs[i % thumbs.length]}`}><span>{post.data.category}</span></div>
+            <div class={`thumb ${post.data.hero ? 'has-img' : thumbs[i % thumbs.length]}`}>
+              {post.data.hero && <img src={post.data.hero} alt={post.data.heroAlt || post.data.title} width="1600" height="900" loading="lazy" />}
+              <span>{post.data.category}</span>
+            </div>
             <div class="body">
               <h3>{post.data.title}</h3>
               <p>{post.data.description}</p>
