@@ -4,6 +4,8 @@ description: "A step-by-step guide for first-time buyers in Southeast Wisconsin:
 category: "Buying"
 date: 2026-07-17
 author: "Ryan"
+hero: "/blog_images/Used/guide-first-time-home-buyer-guide-wisconsin.jpg"
+heroAlt: "A young couple sitting together at home, reviewing and signing home purchase paperwork with a laptop open beside them"
 cta:
   heading: "Buying Your First Home in Southeast Wisconsin?"
   text: "Get matched with a patient local buyer agent who will walk you through every step. Free, no obligation."
