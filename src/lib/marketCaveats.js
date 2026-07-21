@@ -28,7 +28,7 @@ const MODEST = 30;
  * rather than print them next to a disclaimer nobody reads.
  */
 export function isVolatileSample(stats) {
-  if (stats.isEstimate) return true;
+  if (!stats) return true;
   return (stats.activeListings || 0) < VOLATILE;
 }
 
@@ -37,7 +37,7 @@ export function isVolatileSample(stats) {
  * Returns null when the sample is healthy enough to need no qualifier.
  */
 export function getSampleCaveat(city, stats) {
-  if (stats.isEstimate || !stats.medianPrice) return null;
+  if (!stats || !stats.medianPrice) return null;
 
   const n = stats.activeListings || 0;
   const zips = stats.zips || [city.zip];

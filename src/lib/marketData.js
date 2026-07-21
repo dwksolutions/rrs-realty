@@ -8,8 +8,8 @@
 // entry or twenty. The pages show that list, since a figure covering 22 Milwaukee
 // ZIPs and one covering a single suburb ZIP deserve different levels of trust.
 //
-// If a city in cities.js has no row in the CSV yet, we show a rough estimate
-// (flagged isEstimate) so the page still looks complete.
+// If a city in cities.js has no row in the CSV, getMarketStats returns null and
+// the page says the data is not available. It never fills the gap with a guess.
 
 // Vite inlines the CSV contents as a string at build time.
 import csvText from '../data/market-data.csv?raw';
@@ -58,20 +58,16 @@ function parseMonth(s) {
   return new Date(Number(m[1]), Number(m[2]) - 1, 1);
 }
 
-function estimate(city) {
-  const base = city.samplePrice || 300000;
-  const seed = parseInt(String(city.zip).slice(-2), 10) || 25;
-  return {
-    medianPrice: base,
-    pricePerSqft: Math.round(base / (1500 + (seed % 10) * 45)),
-    daysOnMarket: 18 + (seed % 28),
-    activeListings: 28 + (seed % 70),
-    priceYoY: null,
-    zips: [city.zip],
-    updated: new Date(),
-    isEstimate: true,
-  };
-}
+// There used to be an estimate() here that manufactured a full set of figures
+// for any city missing from the CSV: it derived a price per square foot by
+// dividing a hand-guessed price, and produced days-on-market and listing counts
+// from arithmetic on the ZIP digits. Those numbers described nothing. They were
+// labelled "estimated figures" on the page, but a made-up number with a
+// disclaimer under it is still a made-up number, and it looked exactly as
+// authoritative as the real ones beside it.
+//
+// A city with no data now returns null and the page says so plainly. If that
+// ever fires, the fix is to import real data, not to invent a placeholder.
 
 // "up 4.6%" / "down 0.3%". Returns null when the source has no year-over-year
 // figure, so the page can leave the tile out rather than show a fake zero.
@@ -92,9 +88,10 @@ export function fmtNum(n) {
   return Math.round(n).toLocaleString('en-US');
 }
 
+// Returns null when we have no real figures for this city.
 export function getMarketStats(city) {
   const row = ROWS[city.slug];
-  if (!row || row.medianPrice == null) return estimate(city);
+  if (!row || row.medianPrice == null) return null;
   return {
     medianPrice: row.medianPrice,
     pricePerSqft: row.pricePerSqft,
@@ -103,6 +100,5 @@ export function getMarketStats(city) {
     priceYoY: row.priceYoY,
     zips: row.zips.length ? row.zips : [city.zip],
     updated: parseMonth(row.updated),
-    isEstimate: false,
   };
 }

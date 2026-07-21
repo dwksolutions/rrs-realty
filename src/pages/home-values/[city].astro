@@ -10,15 +10,17 @@ export async function getStaticPaths() {
 }
 
 const { city } = Astro.props;
+// null when we hold no real figures for this city. Nothing is invented to fill
+// the gap, so every branch below has to cope with there being no numbers.
 const stats = await getMarketStats(city);
-const updated = stats.updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+const updated = stats ? stats.updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) : null;
 const nearby = (city.nearby || []).map(getCity).filter(Boolean);
 // Flags a thin sample so the numbers are not read as more precise than they are.
 const sampleCaveat = getSampleCaveat(city, stats);
 
 // Figures cover every ZIP assigned to this city, which is 22 for Milwaukee and
 // one for most suburbs. The page says which, rather than implying full coverage.
-const zips = stats.zips || [city.zip];
+const zips = stats?.zips?.length ? stats.zips : [city.zip];
 const zipLabel = zips.length === 1 ? `ZIP ${zips[0]}` : `${zips.length} ZIP codes`;
 // Milwaukee spans 22 ZIPs, which is a wall of digits in a footnote. Lead with
 // the biggest few (the list is sorted by listing count) and count the rest.
@@ -26,10 +28,12 @@ const zipsShown = zips.slice(0, 6);
 const zipsRest = zips.length - zipsShown.length;
 // Year over year is the noisiest figure here, so a thin sample hides it entirely
 // rather than presenting a swing that reflects a handful of listings.
-const yoy = isVolatileSample(stats) ? null : fmtYoY(stats.priceYoY);
+const yoy = stats && !isVolatileSample(stats) ? fmtYoY(stats.priceYoY) : null;
 
 const title = `${city.name}, WI Home Values | RRS Realty Group`;
-const description = `${city.name}, WI market snapshot: median list price, days on market, and price per sq ft across ${zipLabel}. Get a free local home valuation.`;
+const description = stats
+  ? `${city.name}, WI market snapshot: median list price, days on market, and price per sq ft across ${zipLabel}. Get a free local home valuation.`
+  : `Get matched with a vetted local real estate agent in ${city.name}, WI for a free, no-obligation valuation of your specific home.`;
 
 const origin = new URL(Astro.site).origin;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -71,7 +75,7 @@ const webPage = {
   about: { '@id': place['@id'] },
   isPartOf: { '@id': origin + '/#website' },
   primaryImageOfPage: new URL('/og-image.png', Astro.site).href,
-  ...(stats.isEstimate ? {} : { dateModified: stats.updated.toISOString() }),
+  ...(stats ? { dateModified: stats.updated.toISOString() } : {}),
 };
 ---
 <Layout current="values" title={title} description={description} jsonLd={[place, webPage, breadcrumb]}>
@@ -79,18 +83,23 @@ const webPage = {
     <div class="wrap" style="max-width:52rem">
       <p class="breadcrumb"><a href="/">Home</a> › <a href="/home-values/">Market Data</a> › {city.name}</p>
       <h1>{city.name}, WI home values &amp; market trends</h1>
-      <p>A market snapshot for the {city.name} area in {city.county}, covering {zipLabel}. These are current <em>listing</em> figures, not closed sales. For what <em>your</em> specific home is worth, get matched with a local agent below.</p>
+      {stats ? (
+        <p>A market snapshot for the {city.name} area in {city.county}, covering {zipLabel}. These are current <em>listing</em> figures, not closed sales. For what <em>your</em> specific home is worth, get matched with a local agent below.</p>
+      ) : (
+        <p>We do not have current listing figures for {city.name} in {city.county} yet. For what <em>your</em> specific home is worth, get matched with a local agent below.</p>
+      )}
     </div>
   </section>
 
   <section class="section" style="padding-top:40px">
     <div class="wrap">
-      {stats.isEstimate && (
+      {!stats && (
         <div class="sample-banner" style="max-width:52rem;margin-left:auto;margin-right:auto">
-          <b>Estimated figures.</b> Current market data for {city.name} hasn't been added yet. Get matched with a local agent below for real, up-to-date numbers.
+          <b>No current figures for {city.name}.</b> We would rather show nothing than an estimate dressed up as data. A local agent can give you real, up to date numbers for your street.
         </div>
       )}
 
+      {stats && (
       <div class={yoy ? 'stat-grid stat-grid-5' : 'stat-grid'}>
         <div class="stat">
           <p class="label">Median list price</p>
@@ -120,13 +129,16 @@ const webPage = {
           <p class="sub">Homes currently for sale</p>
         </div>
       </div>
+      )}
 
       {sampleCaveat && <p class="sample-note">{sampleCaveat}</p>}
 
-      <p class="data-note" style="text-align:center">
-        Covers {zips.length === 1 ? 'ZIP' : 'ZIPs'} {zipsShown.join(', ')}{zipsRest > 0 ? ` and ${zipsRest} more` : ''} ·
-        Listing data via <a href="https://www.realtor.com/research/data/" rel="nofollow">Realtor.com</a> · Updated {updated}
-      </p>
+      {stats && (
+        <p class="data-note" style="text-align:center">
+          Covers {zips.length === 1 ? 'ZIP' : 'ZIPs'} {zipsShown.join(', ')}{zipsRest > 0 ? ` and ${zipsRest} more` : ''} ·
+          Listing data via <a href="https://www.realtor.com/research/data/" rel="nofollow">Realtor.com</a> · Updated {updated}
+        </p>
+      )}
     </div>
   </section>
 
@@ -166,8 +178,10 @@ const webPage = {
     </div>
   </section>
 
+  {stats && (
   <p class="disclaimer wrap">
     Market statistics shown are aggregate listing figures for the ZIP codes noted above, combined across ZIPs and weighted by the number of active listings in each. ZIP code areas are set by the postal service and do not match city limits exactly, so the coverage is an approximation of the {city.name} market rather than an exact match for it. These figures are for general informational purposes and are not an appraisal or valuation of any specific property. They reflect homes currently or recently listed, not closed sales, and vary by condition, location, and features. For a valuation of your home, consult a licensed real estate professional.
   </p>
+  )}
   <div style="height:64px"></div>
 </Layout>
