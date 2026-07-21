@@ -178,6 +178,16 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 .prose a:not(.btn){color:var(--brick);text-decoration:underline;text-underline-offset:2px}
 .prose strong{color:var(--ink)}
 .prose blockquote{border-left:3px solid var(--brick);margin:1.4em 0;padding:.4em 0 .4em 1.2em;color:var(--ink);font-style:italic}
+/* Markdown tables in guides. display:block lets a wide table scroll itself on a
+   phone rather than forcing the whole page sideways; markdown emits a bare
+   <table> with no wrapper to hang that on, and raw HTML around a markdown table
+   stops it being parsed as one. */
+.prose table{display:block;overflow-x:auto;border-collapse:collapse;width:100%;margin:1.5em 0;font-size:15.5px;color:var(--ink-soft);border:1px solid var(--line);border-radius:var(--r)}
+.prose th,.prose td{padding:10px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.prose thead th{background:var(--cream);color:var(--muted);font-size:12.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase}
+.prose tbody tr:last-child td{border-bottom:0}
+.prose td:not(:first-child),.prose th:not(:first-child){text-align:center;font-variant-numeric:tabular-nums}
+.prose table strong{color:var(--brick)}
 .post-hero{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r);margin:22px auto 4px;box-shadow:var(--shadow)}
 .post-meta{text-align:center;color:var(--muted);font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
 .post-review{text-align:center;color:var(--muted);font-size:13px;font-style:italic;margin:-2px 0 10px}
