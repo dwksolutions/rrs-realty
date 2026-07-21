@@ -21,6 +21,7 @@ function loadRows() {
     (map[slug] ||= []).push({
       month: (c[idx('month')] || '').trim(),
       price,
+      pricePerSqft: Number(c[idx('pricePerSqft')]) || null,
       activeListings: Number(c[idx('activeListings')]) || 0,
       zipCount: Number(c[idx('zipCount')]) || 0,
     });
@@ -38,6 +39,49 @@ export function monthLabel(yyyymm, short = false) {
   const m = Number(yyyymm.slice(4)) - 1;
   const name = MONTHS[m] || '';
   return `${short ? name.slice(0, 3) : name} ${y}`;
+}
+
+const median = (arr) => {
+  const s = arr.filter((n) => n != null && !isNaN(n)).sort((a, b) => a - b);
+  if (!s.length) return null;
+  const h = s.length / 2;
+  return s.length % 2 ? s[Math.floor(h)] : Math.round((s[h - 1] + s[h]) / 2);
+};
+
+/**
+ * A trailing figure that describes the market rather than this month's listings.
+ *
+ * WHY MEDIAN AND NOT AVERAGE: the point is to smooth away months where a batch
+ * of unusual listings moved the middle. An average carries those months into the
+ * result, which is the opposite of what is wanted. Delafield's trailing twelve
+ * months average $971,829 and median $886,837, and the gap is entirely the two
+ * spike months. The median ignores them; the average launders them.
+ *
+ * Returns null when there is not a full year of history to trail over.
+ */
+export function getTypical(slug, months = 12) {
+  const all = ROWS[slug];
+  if (!all || all.length < months) return null;
+
+  const window = all.slice(-months);
+  const prices = window.map((p) => p.price);
+  const priorWindow = all.length >= months * 2 ? all.slice(-months * 2, -months) : null;
+  const priorMedian = priorWindow ? median(priorWindow.map((p) => p.price)) : null;
+  const price = median(prices);
+
+  return {
+    price,
+    ppsf: median(window.map((p) => p.pricePerSqft)),
+    low: Math.min(...prices),
+    high: Math.max(...prices),
+    months,
+    current: window[window.length - 1].price,
+    // Trailing year against the year before it. Steadier than comparing one
+    // month to the same month last year, which lets a single odd month on
+    // either end set the headline: Delafield's month-on-month YoY reads +65%
+    // while its trailing-year comparison is a fraction of that.
+    yoy: priorMedian ? price / priorMedian - 1 : null,
+  };
 }
 
 /**

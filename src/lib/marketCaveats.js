@@ -68,9 +68,9 @@ export function getCaveats(city, stats) {
   if (mom != null && Math.abs(mom) >= BIG_SWING) {
     const pct = Math.round(Math.abs(mom) * 100);
     out.push(
-      `The median asking price here ${mom > 0 ? 'rose' : 'fell'} about ${pct}% since last month. This figure ` +
-        `describes the homes currently listed, so it moves when the mix of what is for sale changes, which is ` +
-        `not the same as individual homes changing in value by that much.`
+      `What is listed right now in ${city.name} is asking about ${pct}% ${mom > 0 ? 'more' : 'less'} than last ` +
+        `month, because the mix of homes for sale changed rather than because houses changed in value that fast. ` +
+        `The headline above is a 12-month median for exactly this reason.`
     );
   }
 

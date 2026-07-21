@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { marketCities } from '../../data/cities.js';
 import { getMarketStats, fmtPrice, fmtNum, fmtYoY } from '../../lib/marketData.js';
 import { isVolatileSample } from '../../lib/marketCaveats.js';
+import { getTypical } from '../../lib/marketHistory.js';
 
 // One row per city that has publishable figures. Sorting happens in the browser
 // so the page stays a static file, but every row is rendered server side, which
@@ -13,13 +14,16 @@ const rows = marketCities()
     const stats = getMarketStats(city);
     if (!stats) return null;
     const thin = isVolatileSample(stats);
+    // Same basis as the city pages: a trailing 12-month median, so the table
+    // cannot disagree with the page a reader clicks through to.
+    const typical = getTypical(city.slug, 12);
     return {
       slug: city.slug,
       name: city.name,
       county: city.county.replace(' County', ''),
-      price: stats.medianPrice,
-      yoy: thin ? null : stats.priceYoY,
-      ppsf: stats.pricePerSqft,
+      price: typical ? typical.price : stats.medianPrice,
+      yoy: thin || !typical ? null : typical.yoy,
+      ppsf: typical && typical.ppsf ? typical.ppsf : stats.pricePerSqft,
       dom: stats.daysOnMarket,
       active: stats.activeListings,
       zips: stats.zips.length,
@@ -52,7 +56,7 @@ const breadcrumb = {
     <div class="wrap">
       <p class="breadcrumb"><a href="/">Home</a> › <a href="/home-values/">Market Data</a> › Compare Cities</p>
       <h1>Compare Southeast Wisconsin Home Prices</h1>
-      <p>Every market we track in one table, sorted however you like. These are current <em>listing</em> figures for the ZIP codes covering each city, not closed sales. Click any column heading to sort.</p>
+      <p>Every market we track in one table, sorted however you like. Prices are a 12-month median of <em>asking</em> prices for the ZIP codes covering each city, not closed sales, so a single unusual month cannot move a city up or down the table. Click any column heading to sort.</p>
     </div>
   </section>
 
@@ -73,7 +77,7 @@ const breadcrumb = {
             <tr>
               <th data-sort="name" data-type="text" aria-sort="none">City</th>
               <th data-sort="county" data-type="text" aria-sort="none">County</th>
-              <th data-sort="price" data-type="num" class="num" aria-sort="descending">Median list</th>
+              <th data-sort="price" data-type="num" class="num" aria-sort="descending">Typical list price</th>
               <th data-sort="yoy" data-type="num" class="num" aria-sort="none">Year over year</th>
               <th data-sort="ppsf" data-type="num" class="num" aria-sort="none">$ / sq ft</th>
               <th data-sort="dom" data-type="num" class="num" aria-sort="none">Days on market</th>

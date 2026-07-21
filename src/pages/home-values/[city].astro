@@ -4,7 +4,7 @@ import LeadForm from '../../components/LeadForm.astro';
 import { marketCities, getCity, hasMarketPage } from '../../data/cities.js';
 import { getMarketStats, fmtPrice, fmtNum, fmtYoY } from '../../lib/marketData.js';
 import { getCaveats, isVolatileSample } from '../../lib/marketCaveats.js';
-import { getHistory } from '../../lib/marketHistory.js';
+import { getHistory, getTypical } from '../../lib/marketHistory.js';
 import PriceHistory from '../../components/PriceHistory.astro';
 
 export async function getStaticPaths() {
@@ -32,9 +32,16 @@ const zipLabel = zips.length === 1 ? `ZIP ${zips[0]}` : `${zips.length} ZIP code
 // the biggest few (the list is sorted by listing count) and count the rest.
 const zipsShown = zips.slice(0, 6);
 const zipsRest = zips.length - zipsShown.length;
-// Year over year is the noisiest figure here, so a thin sample hides it entirely
-// rather than presenting a swing that reflects a handful of listings.
-const yoy = stats && !isVolatileSample(stats) ? fmtYoY(stats.priceYoY) : null;
+// The headline is a trailing twelve month median, not this month's figure. One
+// month of a thin market describes whichever homes happen to be listed: ZIP
+// 53018 read $597,450 in November and $1,555,000 in June. The trailing figure
+// describes the market; the current month is shown under it as context, and the
+// gap between them is itself worth seeing.
+const typical = stats ? getTypical(city.slug, 12) : null;
+
+// Year over year now compares the trailing year with the year before it, which
+// no single odd month on either end can dominate.
+const yoy = typical && typical.yoy != null && stats && !isVolatileSample(stats) ? fmtYoY(typical.yoy) : null;
 
 const title = `${city.name}, WI Home Values | RRS Realty Group`;
 const description = stats
@@ -90,7 +97,7 @@ const webPage = {
       <p class="breadcrumb"><a href="/">Home</a> › <a href="/home-values/">Market Data</a> › {city.name}</p>
       <h1>{city.name}, WI home values &amp; market trends</h1>
       {stats ? (
-        <p>A market snapshot for the {city.name} area in {city.county}, covering {zipLabel}. These are current <em>listing</em> figures, not closed sales. For what <em>your</em> specific home is worth, get matched with a local agent below.</p>
+        <p>A market snapshot for the {city.name} area in {city.county}, covering {zipLabel}. Prices are a 12-month median of <em>asking</em> prices, not closed sales, so one unusual month does not set the headline. For what <em>your</em> specific home is worth, get matched with a local agent below.</p>
       ) : (
         <p>We do not have current listing figures for {city.name} in {city.county} yet. For what <em>your</em> specific home is worth, get matched with a local agent below.</p>
       )}
@@ -108,15 +115,19 @@ const webPage = {
       {stats && (
       <div class={yoy ? 'stat-grid stat-grid-5' : 'stat-grid'}>
         <div class="stat">
-          <p class="label">Median list price</p>
-          <p class="value">{fmtPrice(stats.medianPrice)}</p>
-          <p class="sub">Median asking price</p>
+          <p class="label">Typical list price</p>
+          <p class="value">{fmtPrice(typical ? typical.price : stats.medianPrice)}</p>
+          <p class="sub">
+            {typical
+              ? `12-month median · listed now ${fmtPrice(typical.current)}`
+              : 'Median asking price'}
+          </p>
         </div>
         {yoy && (
           <div class="stat">
             <p class="label">Year over year</p>
             <p class="value">{yoy}</p>
-            <p class="sub">Change in median list price</p>
+            <p class="sub">Trailing 12 months vs the 12 before</p>
           </div>
         )}
         <div class="stat">
@@ -126,8 +137,8 @@ const webPage = {
         </div>
         <div class="stat">
           <p class="label">Price / sq ft</p>
-          <p class="value">{fmtPrice(stats.pricePerSqft)}</p>
-          <p class="sub">Median list, per sq ft</p>
+          <p class="value">{fmtPrice(typical && typical.ppsf ? typical.ppsf : stats.pricePerSqft)}</p>
+          <p class="sub">{typical && typical.ppsf ? '12-month median, per sq ft' : 'Median list, per sq ft'}</p>
         </div>
         <div class="stat">
           <p class="label">Active listings</p>
