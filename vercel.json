@@ -11,6 +11,11 @@
       "source": "/home-values/caledonia",
       "destination": "/home-values/",
       "permanent": true
+    },
+    {
+      "source": "/home-values/caledonia/",
+      "destination": "/home-values/",
+      "permanent": true
     }
   ],
   "headers": [
