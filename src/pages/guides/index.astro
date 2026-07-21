@@ -6,11 +6,46 @@ const posts = (await getCollection('guides', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date - a.data.date);
 const thumbs = ['', 'b2', 'b3', 'b4'];
 const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+
+const origin = new URL(Astro.site).origin;
+const guidesUrl = origin + '/guides/';
+
+// Blog + ItemList so search engines read this as the index of the guide set,
+// and each entry resolves to the BlogPosting on the guide's own page.
+const blog = {
+  '@type': 'Blog',
+  '@id': guidesUrl + '#blog',
+  name: 'RRS Realty Group Guides',
+  description: 'Practical guidance for selling and buying a home in Southeast Wisconsin.',
+  url: guidesUrl,
+  publisher: { '@id': origin + '/#business' },
+  inLanguage: 'en-US',
+};
+const itemList = {
+  '@type': 'ItemList',
+  '@id': guidesUrl + '#list',
+  itemListOrder: 'https://schema.org/ItemListOrderDescending',
+  numberOfItems: posts.length,
+  itemListElement: posts.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `${origin}/guides/${p.slug}/`,
+    name: p.data.title,
+  })),
+};
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: origin + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: guidesUrl },
+  ],
+};
 ---
 <Layout
   current="guides"
   title="Southeast Wisconsin Real Estate Guides | RRS Realty Group"
   description="Straight answers to the real estate questions Southeast Wisconsin homeowners and buyers actually ask, selling, pricing, timing, and choosing an agent."
+  jsonLd={[blog, itemList, breadcrumb]}
 >
   <section class="page-head">
     <div class="wrap">

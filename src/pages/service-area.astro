@@ -6,11 +6,21 @@ import ServiceMap from '../components/ServiceMap.astro';
 // Driven entirely by src/data/cities.js so the areas we serve always match the
 // cities that have a market-data page. Add a city there and it appears here too.
 const counties = citiesByCounty();
+
+const origin = new URL(Astro.site).origin;
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: origin + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Service Area', item: origin + '/service-area/' },
+  ],
+};
 ---
 <Layout
   current="area"
   title="Southeast Wisconsin Service Area | RRS Realty Group"
   description="We match homeowners and buyers with local agents across all eight Southeast Wisconsin counties, from Milwaukee and Waukesha to Racine and Kenosha."
+  jsonLd={[breadcrumb]}
 >
   <section class="page-head">
     <div class="wrap">

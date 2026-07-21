@@ -219,6 +219,7 @@ footer ul a:hover{color:#fff}
 .stat .sub{font-size:12.5px;color:var(--muted);margin:0}
 .data-note{font-size:13px;color:var(--muted);margin-top:22px}
 .data-note a{color:var(--brick)}
+.sample-note{max-width:52rem;margin:26px auto 0;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:14px;color:var(--ink-soft);line-height:1.6}
 .context-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;box-shadow:var(--shadow);max-width:52rem;margin:0 auto}
 .context-card h2{font-size:1.5rem;margin-bottom:12px}
 .context-card p{color:var(--ink-soft);font-size:16px;margin:0;line-height:1.65}

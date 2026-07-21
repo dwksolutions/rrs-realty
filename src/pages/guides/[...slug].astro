@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { faqSchema } from '../../lib/faq.js';
 
 export async function getStaticPaths() {
   const posts = await getCollection('guides', ({ data }) => !data.draft);
@@ -63,6 +64,9 @@ const breadcrumb = {
     { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
   ],
 };
+
+// Only guides that actually answer questions on the page get FAQ markup.
+const faq = faqSchema(post.body);
 ---
 <Layout
   current="guides"
@@ -71,7 +75,7 @@ const breadcrumb = {
   ogType="article"
   image={post.data.hero || '/og-image.png'}
   publishedTime={iso}
-  jsonLd={[blogPosting, breadcrumb]}
+  jsonLd={faq ? [blogPosting, breadcrumb, faq] : [blogPosting, breadcrumb]}
 >
   <article>
     <section class="page-head" style="padding-bottom:0">

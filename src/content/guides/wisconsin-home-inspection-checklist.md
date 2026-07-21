@@ -1,7 +1,7 @@
 ---
 title: "Wisconsin Home Inspection Checklist: Basement, Radon, Roof, Furnace, and Sewer"
 metaTitle: "Wisconsin Home Inspection Checklist"
-description: "What a home inspection should cover in Wisconsin, and the local trouble spots that matter most: basement moisture, radon, the roof, the furnace, and the sewer line."
+description: "What a home inspection should cover in Wisconsin, and the local trouble spots that matter most: basement moisture, radon, the roof, and the sewer line."
 category: "Buying"
 date: 2026-07-17
 author: "Ryan"

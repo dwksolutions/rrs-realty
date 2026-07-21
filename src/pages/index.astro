@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import LeadForm from '../components/LeadForm.astro';
 import { getCollection } from 'astro:content';
-import { getCity } from '../data/cities.js';
+import { getCity, citiesByCounty } from '../data/cities.js';
 import ServiceMap from '../components/ServiceMap.astro';
 
 const posts = (await getCollection('guides', ({ data }) => !data.draft))
@@ -15,8 +15,27 @@ const thumbs = ['', 'b2', 'b3'];
 const featuredCities = ['milwaukee', 'wauwatosa', 'brookfield', 'waukesha', 'new-berlin', 'mequon', 'cedarburg', 'menomonee-falls', 'oak-creek', 'franklin', 'west-bend', 'germantown', 'racine', 'kenosha', 'lake-geneva', 'watertown']
   .map(getCity)
   .filter(Boolean);
+
+// What we actually offer, stated explicitly: free agent matching across the same
+// counties cities.js covers, so the service area never drifts from the site.
+const origin = new URL(Astro.site).origin;
+const service = {
+  '@type': 'Service',
+  '@id': origin + '/#service',
+  name: 'Real Estate Agent Matching',
+  serviceType: 'Real estate agent referral and matching',
+  description: 'A real person listens to your goals, then personally connects you with a vetted, licensed local real estate agent in Southeast Wisconsin. Free, with no obligation.',
+  provider: { '@id': origin + '/#business' },
+  areaServed: citiesByCounty().map((g) => ({ '@type': 'AdministrativeArea', name: g.county + ', Wisconsin' })),
+  offers: {
+    '@type': 'Offer',
+    price: 0,
+    priceCurrency: 'USD',
+    description: 'Free for homeowners and buyers, with no obligation.',
+  },
+};
 ---
-<Layout current="home">
+<Layout current="home" jsonLd={[service]}>
   <!-- HERO -->
   <section class="hero">
     <svg class="shore" viewBox="0 0 400 700" fill="none" aria-hidden="true">

@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import LeadForm from '../../components/LeadForm.astro';
 import { cities, getCity } from '../../data/cities.js';
 import { getMarketStats, fmtPrice, fmtNum } from '../../lib/marketData.js';
+import { getSampleCaveat } from '../../lib/marketCaveats.js';
 
 export async function getStaticPaths() {
   return cities.map((city) => ({ params: { city: city.slug }, props: { city } }));
@@ -12,6 +13,8 @@ const { city } = Astro.props;
 const stats = await getMarketStats(city);
 const updated = stats.updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
 const nearby = (city.nearby || []).map(getCity).filter(Boolean);
+// Flags a thin sample so the numbers are not read as more precise than they are.
+const sampleCaveat = getSampleCaveat(city, stats);
 
 const title = `${city.name}, WI Home Values | RRS Realty Group`;
 const description = `${city.name}, WI market snapshot: median list price, days on market, and price per sq ft for ZIP ${city.zip}. Get a free local home valuation.`;
@@ -26,8 +29,39 @@ const breadcrumb = {
     { '@type': 'ListItem', position: 3, name: city.name, item: canonical },
   ],
 };
+
+// Ties the page to the actual place it covers, so the city, its county, and the
+// ZIP are unambiguous rather than inferred from the copy.
+const place = {
+  '@type': 'City',
+  '@id': canonical + '#place',
+  name: `${city.name}, Wisconsin`,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: city.name,
+    addressRegion: 'WI',
+    postalCode: city.zip,
+    addressCountry: 'US',
+  },
+  containedInPlace: {
+    '@type': 'AdministrativeArea',
+    name: `${city.county}, Wisconsin`,
+    containedInPlace: { '@type': 'State', name: 'Wisconsin' },
+  },
+};
+const webPage = {
+  '@type': 'WebPage',
+  '@id': canonical + '#webpage',
+  url: canonical,
+  name: title,
+  description,
+  about: { '@id': place['@id'] },
+  isPartOf: { '@id': origin + '/#website' },
+  primaryImageOfPage: new URL('/og-image.png', Astro.site).href,
+  ...(stats.isEstimate ? {} : { dateModified: stats.updated.toISOString() }),
+};
 ---
-<Layout current="values" title={title} description={description} jsonLd={[breadcrumb]}>
+<Layout current="values" title={title} description={description} jsonLd={[place, webPage, breadcrumb]}>
   <section class="page-head" style="padding-bottom:8px">
     <div class="wrap" style="max-width:52rem">
       <p class="breadcrumb"><a href="/">Home</a> › <a href="/home-values/">Market Data</a> › {city.name}</p>
@@ -66,6 +100,8 @@ const breadcrumb = {
           <p class="sub">Homes currently for sale</p>
         </div>
       </div>
+
+      {sampleCaveat && <p class="sample-note">{sampleCaveat}</p>}
 
       <p class="data-note" style="text-align:center">
         Listing data for ZIP {city.zip} via <a href="https://www.realtor.com/research/data/" rel="nofollow">Realtor.com</a> · Updated {updated}
