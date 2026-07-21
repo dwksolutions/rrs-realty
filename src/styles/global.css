@@ -250,7 +250,12 @@ table.cmp th:hover{color:var(--brick)}
 table.cmp th::after{content:"";opacity:.45;margin-left:6px}
 table.cmp th[aria-sort="ascending"]::after{content:"\2191";opacity:1;color:var(--brick)}
 table.cmp th[aria-sort="descending"]::after{content:"\2193";opacity:1;color:var(--brick)}
-table.cmp td.num,table.cmp th.num{text-align:right;font-variant-numeric:tabular-nums}
+/* Numeric columns are centred rather than right aligned. Right alignment is the
+   usual choice for figures, but every value in a given column here is close to
+   the same width (six or seven digit prices, two or three digit counts), so it
+   bought no extra legibility and left a wide gap between each heading and its
+   own numbers. tabular-nums keeps the digits on a shared grid either way. */
+table.cmp td.num,table.cmp th.num{text-align:center;font-variant-numeric:tabular-nums}
 table.cmp tbody tr:hover{background:var(--cream)}
 table.cmp tbody tr:last-child td{border-bottom:0}
 table.cmp td a{color:var(--brick);text-decoration:none;font-weight:500}
