@@ -63,6 +63,13 @@ box reads as one data point; the same number in a sentence reads as a claim the 
 is making. See `src/lib/marketCaveats.js`. Thin samples suppress the year-over-year
 tile and show a caveat instead.
 
+Two caveats can appear on a page and they catch different things. Sample size catches
+markets with too few listings to mean much. Month-over-month (`priceMoM`) catches a
+market with plenty of listings whose median still lurched, which happens when the MIX
+of homes for sale changes: Delafield's median jumped 64% in June 2026 on 41 listings
+when large lake-country homes came to market. Both figures are correct and both read
+as wrong without the note.
+
 ## Conventions
 - **Headings and nav labels: Title Case** (e.g. "How It Works", "Market Data").
 - **Brand colors:** navy `#15315E` (`--ink`), royal blue `#2456C9` (`--brick`),

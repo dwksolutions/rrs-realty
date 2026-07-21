@@ -87,6 +87,7 @@ const C = {
   name: ci('zip_name'),
   price: ci('median_listing_price'),
   priceYY: ci('median_listing_price_yy'),
+  priceMM: ci('median_listing_price_mm'),
   ppsf: ci('median_listing_price_per_square_foot'),
   dom: ci('median_days_on_market'),
   active: ci('active_listing_count'),
@@ -111,6 +112,7 @@ for (let i = 1; i < lines.length; i++) {
     name: (f[C.name] || '').trim().toLowerCase(),
     price: num(f[C.price]),
     priceYY: num(f[C.priceYY]),
+    priceMM: num(f[C.priceMM]),
     ppsf: num(f[C.ppsf]),
     dom: num(f[C.dom]),
     active: num(f[C.active]) || 0,
@@ -136,9 +138,11 @@ const out = [
   '# Figures are median LISTING (asking) prices and active-listing metrics.',
   '# Each city aggregates every ZIP assigned to it (see scripts/import-rdc.mjs).',
   '# Medians across ZIPs are weighted by active listing count. zips is space separated.',
-  '# Columns: slug,medianPrice,pricePerSqft,daysOnMarket,activeListings,priceYoY,zips,updated',
+  '# priceMoM is month over month: a large swing means the MIX of listed homes',
+  '# changed, not that values moved that fast. The pages say so when it is big.',
+  '# Columns: slug,medianPrice,pricePerSqft,daysOnMarket,activeListings,priceYoY,priceMoM,zips,updated',
   '# To refresh: download a new RDC file and run: node scripts/import-rdc.mjs <path>',
-  'slug,medianPrice,pricePerSqft,daysOnMarket,activeListings,priceYoY,zips,updated',
+  'slug,medianPrice,pricePerSqft,daysOnMarket,activeListings,priceYoY,priceMoM,zips,updated',
 ];
 
 const updated = latestMonth.length === 6 ? `${latestMonth.slice(0, 4)}-${latestMonth.slice(4)}` : '';
@@ -155,12 +159,18 @@ for (const c of cities) {
   const dom = weightedMedian(w('dom'));
   const active = rows.reduce((s, r) => s + r.active, 0);
   const yy = weightedMean(w('priceYY'));
+  const mm = weightedMean(w('priceMM'));
 
   // Biggest ZIP first so the page leads with the most representative one.
   const zipList = rows.slice().sort((a, b) => b.active - a.active).map((r) => r.zip);
 
   out.push(
-    [c.slug, price, ppsf ?? '', dom ?? '', active, yy == null ? '' : yy.toFixed(4), zipList.join(' '), updated].join(',')
+    [
+      c.slug, price, ppsf ?? '', dom ?? '', active,
+      yy == null ? '' : yy.toFixed(4),
+      mm == null ? '' : mm.toFixed(4),
+      zipList.join(' '), updated,
+    ].join(',')
   );
   report.push({ name: c.name, zips: rows.length, active });
 }

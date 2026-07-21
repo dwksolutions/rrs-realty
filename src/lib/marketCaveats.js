@@ -20,6 +20,8 @@
 const VOLATILE = 12;
 // Below this it is usable but deserves an explicit hedge.
 const MODEST = 30;
+// A month-over-month swing this large says the mix of listed homes changed.
+const BIG_SWING = 0.2;
 
 /**
  * True when the sample is so small that derived figures are mostly noise.
@@ -33,30 +35,44 @@ export function isVolatileSample(stats) {
 }
 
 /**
- * An optional sentence about how reliable this city's figures are.
- * Returns null when the sample is healthy enough to need no qualifier.
+ * Sentences about how much weight to put on this city's figures. Returns an
+ * array because a page can need more than one: a thin sample and a big monthly
+ * swing are different warnings and a market can have both.
  */
-export function getSampleCaveat(city, stats) {
-  if (!stats || !stats.medianPrice) return null;
+export function getCaveats(city, stats) {
+  if (!stats || !stats.medianPrice) return [];
 
+  const out = [];
   const n = stats.activeListings || 0;
   const zips = stats.zips || [city.zip];
   const where = zips.length === 1 ? `ZIP ${zips[0]}` : `the ${zips.length} ZIP codes we cover for ${city.name}`;
 
   if (n < VOLATILE) {
-    return (
+    out.push(
       `Only ${n} ${n === 1 ? 'home is' : 'homes are'} listed in ${where} right now, so this median can swing ` +
-      `sharply on a single new listing. Treat it as a rough indicator rather than a firm read on ${city.name} values, ` +
-      `and ask a local agent what is actually selling.`
+        `sharply on a single new listing. Treat it as a rough indicator rather than a firm read on ${city.name} values, ` +
+        `and ask a local agent what is actually selling.`
     );
-  }
-
-  if (n < MODEST) {
-    return (
+  } else if (n < MODEST) {
+    out.push(
       `These figures come from ${n} active listings in ${where}, a modest sample, so read them as a general ` +
-      `direction rather than a precise value.`
+        `direction rather than a precise value.`
     );
   }
 
-  return null;
+  // Sample size alone misses this. Delafield carried 41 listings, comfortably
+  // past every threshold above, while its median jumped 64% in one month
+  // because larger lake-country homes came on the market. The figure is
+  // correct and reads as wrong, so the page explains what moved.
+  const mom = stats.priceMoM;
+  if (mom != null && Math.abs(mom) >= BIG_SWING) {
+    const pct = Math.round(Math.abs(mom) * 100);
+    out.push(
+      `The median asking price here ${mom > 0 ? 'rose' : 'fell'} about ${pct}% since last month. This figure ` +
+        `describes the homes currently listed, so it moves when the mix of what is for sale changes, which is ` +
+        `not the same as individual homes changing in value by that much.`
+    );
+  }
+
+  return out;
 }

@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import LeadForm from '../../components/LeadForm.astro';
 import { cities, getCity } from '../../data/cities.js';
 import { getMarketStats, fmtPrice, fmtNum, fmtYoY } from '../../lib/marketData.js';
-import { getSampleCaveat, isVolatileSample } from '../../lib/marketCaveats.js';
+import { getCaveats, isVolatileSample } from '../../lib/marketCaveats.js';
 
 export async function getStaticPaths() {
   return cities.map((city) => ({ params: { city: city.slug }, props: { city } }));
@@ -15,8 +15,9 @@ const { city } = Astro.props;
 const stats = await getMarketStats(city);
 const updated = stats ? stats.updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) : null;
 const nearby = (city.nearby || []).map(getCity).filter(Boolean);
-// Flags a thin sample so the numbers are not read as more precise than they are.
-const sampleCaveat = getSampleCaveat(city, stats);
+// Flags thin samples and big monthly swings so the numbers are not read as more
+// precise, or more meaningful, than they are.
+const caveats = getCaveats(city, stats);
 
 // Figures cover every ZIP assigned to this city, which is 22 for Milwaukee and
 // one for most suburbs. The page says which, rather than implying full coverage.
@@ -131,7 +132,7 @@ const webPage = {
       </div>
       )}
 
-      {sampleCaveat && <p class="sample-note">{sampleCaveat}</p>}
+      {caveats.map((c) => <p class="sample-note">{c}</p>)}
 
       {stats && (
         <p class="data-note" style="text-align:center">

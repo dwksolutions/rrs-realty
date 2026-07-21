@@ -43,6 +43,7 @@ function loadRows() {
       daysOnMarket: num(cells[idx('daysOnMarket')]),
       activeListings: num(cells[idx('activeListings')]),
       priceYoY: signed(cells[idx('priceYoY')]),
+      priceMoM: signed(cells[idx('priceMoM')]),
       zips: (cells[idx('zips')] || '').trim().split(/\s+/).filter(Boolean),
       updated: (cells[idx('updated')] || '').trim(),
     };
@@ -98,6 +99,7 @@ export function getMarketStats(city) {
     daysOnMarket: row.daysOnMarket,
     activeListings: row.activeListings,
     priceYoY: row.priceYoY,
+    priceMoM: row.priceMoM,
     zips: row.zips.length ? row.zips : [city.zip],
     updated: parseMonth(row.updated),
   };
