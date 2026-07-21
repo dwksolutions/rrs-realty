@@ -213,6 +213,8 @@ footer ul a:hover{color:#fff}
 .sample-banner{background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:14px;color:var(--ink-soft);margin-bottom:26px}
 .sample-banner b{color:var(--ink)}
 .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.stat-grid-5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:1080px){.stat-grid-5{grid-template-columns:repeat(3,1fr)}}
 .stat{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 18px;text-align:center;box-shadow:var(--shadow)}
 .stat .label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 .stat .value{font-family:"Spectral",Georgia,serif;font-weight:700;font-size:2rem;color:var(--ink);margin:0 0 6px;line-height:1.05}
@@ -236,5 +238,5 @@ footer ul a:hover{color:#fff}
 .county-cities a{color:var(--ink-soft);text-decoration:none}
 .county-cities a:hover{color:var(--brick);text-decoration:underline}
 @media (max-width:760px){
-  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .stat-grid,.stat-grid-5{grid-template-columns:repeat(2,1fr)}
 }

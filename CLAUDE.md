@@ -44,9 +44,24 @@ the correct project after you log in, so no re-linking is needed.
 ## Market data
 The /home-values/ figures come from `src/data/market-data.csv` (read at build via a
 Vite `?raw` import in `src/lib/marketData.js`). NO API. These are Realtor.com LISTING
-figures (median list price, $/sqft, days on market, active listings), labeled as such.
+figures (median list price, year-over-year change, $/sqft, days on market, active
+listings), labeled as such.
 To refresh: download "RDC Inventory Core Metrics by ZIP" from realtor.com/research/data,
 then `npm run import:market` (or `node scripts/import-rdc.mjs <path>`), then deploy.
+Each run also writes a dated copy to `src/data/history/`; keep those, they are the
+only way real trends can be shown later (the published file holds one month only).
+
+**Each city aggregates every ZIP assigned to it**, not one hand-picked ZIP. A ZIP
+belongs to exactly one city page (the city that names it in `cities.js`, else its
+`zip_name` city), so pages never double-count. Medians combine weighted by active
+listing count. Milwaukee spans 22 ZIPs; most suburbs have one.
+
+**Do not generate comparative claims from this data** (rankings, "X% above the county
+median", cross-market comparisons). ZIP areas are postal, not municipal, so some
+cities are represented by a ZIP that mostly covers somewhere else. A number in a stat
+box reads as one data point; the same number in a sentence reads as a claim the site
+is making. See `src/lib/marketCaveats.js`. Thin samples suppress the year-over-year
+tile and show a caveat instead.
 
 ## Conventions
 - **Headings and nav labels: Title Case** (e.g. "How It Works", "Market Data").

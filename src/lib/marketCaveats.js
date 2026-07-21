@@ -22,6 +22,17 @@ const VOLATILE = 12;
 const MODEST = 30;
 
 /**
+ * True when the sample is so small that derived figures are mostly noise.
+ * Year-over-year is the worst offender: a 4-listing ZIP produced "+56.2%",
+ * which is a headline number describing nothing. Callers hide such figures
+ * rather than print them next to a disclaimer nobody reads.
+ */
+export function isVolatileSample(stats) {
+  if (stats.isEstimate) return true;
+  return (stats.activeListings || 0) < VOLATILE;
+}
+
+/**
  * An optional sentence about how reliable this city's figures are.
  * Returns null when the sample is healthy enough to need no qualifier.
  */
@@ -29,10 +40,12 @@ export function getSampleCaveat(city, stats) {
   if (stats.isEstimate || !stats.medianPrice) return null;
 
   const n = stats.activeListings || 0;
+  const zips = stats.zips || [city.zip];
+  const where = zips.length === 1 ? `ZIP ${zips[0]}` : `the ${zips.length} ZIP codes we cover for ${city.name}`;
 
   if (n < VOLATILE) {
     return (
-      `Only ${n} ${n === 1 ? 'home is' : 'homes are'} listed in ZIP ${city.zip} right now, so this median can swing ` +
+      `Only ${n} ${n === 1 ? 'home is' : 'homes are'} listed in ${where} right now, so this median can swing ` +
       `sharply on a single new listing. Treat it as a rough indicator rather than a firm read on ${city.name} values, ` +
       `and ask a local agent what is actually selling.`
     );
@@ -40,7 +53,7 @@ export function getSampleCaveat(city, stats) {
 
   if (n < MODEST) {
     return (
-      `These figures come from ${n} active listings in ZIP ${city.zip}, a modest sample, so read them as a general ` +
+      `These figures come from ${n} active listings in ${where}, a modest sample, so read them as a general ` +
       `direction rather than a precise value.`
     );
   }

@@ -2,8 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import LeadForm from '../../components/LeadForm.astro';
 import { cities, getCity } from '../../data/cities.js';
-import { getMarketStats, fmtPrice, fmtNum } from '../../lib/marketData.js';
-import { getSampleCaveat } from '../../lib/marketCaveats.js';
+import { getMarketStats, fmtPrice, fmtNum, fmtYoY } from '../../lib/marketData.js';
+import { getSampleCaveat, isVolatileSample } from '../../lib/marketCaveats.js';
 
 export async function getStaticPaths() {
   return cities.map((city) => ({ params: { city: city.slug }, props: { city } }));
@@ -16,8 +16,20 @@ const nearby = (city.nearby || []).map(getCity).filter(Boolean);
 // Flags a thin sample so the numbers are not read as more precise than they are.
 const sampleCaveat = getSampleCaveat(city, stats);
 
+// Figures cover every ZIP assigned to this city, which is 22 for Milwaukee and
+// one for most suburbs. The page says which, rather than implying full coverage.
+const zips = stats.zips || [city.zip];
+const zipLabel = zips.length === 1 ? `ZIP ${zips[0]}` : `${zips.length} ZIP codes`;
+// Milwaukee spans 22 ZIPs, which is a wall of digits in a footnote. Lead with
+// the biggest few (the list is sorted by listing count) and count the rest.
+const zipsShown = zips.slice(0, 6);
+const zipsRest = zips.length - zipsShown.length;
+// Year over year is the noisiest figure here, so a thin sample hides it entirely
+// rather than presenting a swing that reflects a handful of listings.
+const yoy = isVolatileSample(stats) ? null : fmtYoY(stats.priceYoY);
+
 const title = `${city.name}, WI Home Values | RRS Realty Group`;
-const description = `${city.name}, WI market snapshot: median list price, days on market, and price per sq ft for ZIP ${city.zip}. Get a free local home valuation.`;
+const description = `${city.name}, WI market snapshot: median list price, days on market, and price per sq ft across ${zipLabel}. Get a free local home valuation.`;
 
 const origin = new URL(Astro.site).origin;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
@@ -40,7 +52,8 @@ const place = {
     '@type': 'PostalAddress',
     addressLocality: city.name,
     addressRegion: 'WI',
-    postalCode: city.zip,
+    // Only claim a postal code when the page really covers just that one.
+    ...(zips.length === 1 ? { postalCode: zips[0] } : {}),
     addressCountry: 'US',
   },
   containedInPlace: {
@@ -66,7 +79,7 @@ const webPage = {
     <div class="wrap" style="max-width:52rem">
       <p class="breadcrumb"><a href="/">Home</a> › <a href="/home-values/">Market Data</a> › {city.name}</p>
       <h1>{city.name}, WI home values &amp; market trends</h1>
-      <p>A market snapshot for the {city.name} area (ZIP {city.zip}) in {city.county}. These are current <em>listing</em> figures, not closed sales. For what <em>your</em> specific home is worth, get matched with a local agent below.</p>
+      <p>A market snapshot for the {city.name} area in {city.county}, covering {zipLabel}. These are current <em>listing</em> figures, not closed sales. For what <em>your</em> specific home is worth, get matched with a local agent below.</p>
     </div>
   </section>
 
@@ -78,12 +91,19 @@ const webPage = {
         </div>
       )}
 
-      <div class="stat-grid">
+      <div class={yoy ? 'stat-grid stat-grid-5' : 'stat-grid'}>
         <div class="stat">
           <p class="label">Median list price</p>
           <p class="value">{fmtPrice(stats.medianPrice)}</p>
-          <p class="sub">Median asking price in {city.zip}</p>
+          <p class="sub">Median asking price</p>
         </div>
+        {yoy && (
+          <div class="stat">
+            <p class="label">Year over year</p>
+            <p class="value">{yoy}</p>
+            <p class="sub">Change in median list price</p>
+          </div>
+        )}
         <div class="stat">
           <p class="label">Days on market</p>
           <p class="value">{fmtNum(stats.daysOnMarket)}</p>
@@ -104,7 +124,8 @@ const webPage = {
       {sampleCaveat && <p class="sample-note">{sampleCaveat}</p>}
 
       <p class="data-note" style="text-align:center">
-        Listing data for ZIP {city.zip} via <a href="https://www.realtor.com/research/data/" rel="nofollow">Realtor.com</a> · Updated {updated}
+        Covers {zips.length === 1 ? 'ZIP' : 'ZIPs'} {zipsShown.join(', ')}{zipsRest > 0 ? ` and ${zipsRest} more` : ''} ·
+        Listing data via <a href="https://www.realtor.com/research/data/" rel="nofollow">Realtor.com</a> · Updated {updated}
       </p>
     </div>
   </section>
@@ -146,7 +167,7 @@ const webPage = {
   </section>
 
   <p class="disclaimer wrap">
-    Market statistics shown are aggregate, ZIP-level listing figures for general informational purposes and are not an appraisal or valuation of any specific property. They reflect homes currently or recently listed, not closed sales, and vary by condition, location, and features. For a valuation of your home, consult a licensed real estate professional.
+    Market statistics shown are aggregate listing figures for the ZIP codes noted above, combined across ZIPs and weighted by the number of active listings in each. ZIP code areas are set by the postal service and do not match city limits exactly, so the coverage is an approximation of the {city.name} market rather than an exact match for it. These figures are for general informational purposes and are not an appraisal or valuation of any specific property. They reflect homes currently or recently listed, not closed sales, and vary by condition, location, and features. For a valuation of your home, consult a licensed real estate professional.
   </p>
   <div style="height:64px"></div>
 </Layout>
