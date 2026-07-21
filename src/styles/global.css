@@ -66,9 +66,18 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 
 /* TRUST BAR */
 .trustbar{background:var(--ink);color:#cfe0f7}
-.trustbar .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 40px;padding:18px 24px;text-align:center}
+.trustbar .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 40px;padding:18px 24px 10px;text-align:center}
 .trustbar b{color:#fff;font-family:"Spectral";font-weight:600}
 .trustbar span{font-size:14.5px;letter-spacing:.01em}
+.trustbar-note{text-align:center;font-size:12px;color:#8fa8cc;padding:0 24px 16px;margin:0;line-height:1.5}
+.decade{background:#fff}
+.decade-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:44rem;margin:0 auto}
+.decade-stat{background:var(--cream);border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;text-align:center}
+.decade-stat .value{font-family:"Spectral",Georgia,serif;font-weight:700;font-size:clamp(2.6rem,6vw,3.6rem);color:var(--brick);margin:0 0 6px;line-height:1}
+.decade-stat .label{font-weight:600;color:var(--ink);margin:0 0 8px;font-size:1.05rem}
+.decade-stat .sub{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.5}
+.decade-note{max-width:44rem;margin:26px auto 0;font-size:13.5px;color:var(--muted);line-height:1.65;text-align:center}
+@media (max-width:640px){.decade-grid{grid-template-columns:1fr}}
 
 /* STEPS */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}

@@ -4,6 +4,8 @@ import LeadForm from '../components/LeadForm.astro';
 import { getCollection } from 'astro:content';
 import { getCity, citiesByCounty } from '../data/cities.js';
 import ServiceMap from '../components/ServiceMap.astro';
+import { getRegionSnapshot, getRegionTrend } from '../lib/marketRegion.js';
+import { fmtPrice, fmtNum } from '../lib/marketData.js';
 
 const posts = (await getCollection('guides', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date - a.data.date)
@@ -15,6 +17,14 @@ const thumbs = ['', 'b2', 'b3'];
 const featuredCities = ['milwaukee', 'wauwatosa', 'brookfield', 'waukesha', 'new-berlin', 'mequon', 'cedarburg', 'menomonee-falls', 'oak-creek', 'franklin', 'west-bend', 'germantown', 'racine', 'kenosha', 'lake-geneva', 'watertown']
   .map(getCity)
   .filter(Boolean);
+
+// Live figures instead of assertions. Both refresh on every data import.
+const region = getRegionSnapshot();
+const trend = getRegionTrend();
+const trendMonth = new Date(Number(region.month.slice(0, 4)), Number(region.month.slice(4)) - 1, 1)
+  .toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+const pctUp = Math.round(trend.priceChange * 100);
+const pctDown = Math.round(Math.abs(trend.listingChange) * 100);
 
 // What we actually offer, stated explicitly: free agent matching across the same
 // counties cities.js covers, so the service area never drifts from the site.
@@ -61,13 +71,16 @@ const service = {
   </section>
 
   <!-- TRUST BAR -->
+  <!-- TRUST BAR: measured figures, not claims. Regenerates on every import. -->
   <div class="trustbar">
     <div class="wrap">
-      <span><b>Licensed</b> Wisconsin agents</span>
-      <span><b>8</b> counties covered</span>
+      <span><b>{fmtNum(region.activeListings)}</b> homes for sale</span>
+      <span><b>{fmtPrice(region.typicalPrice)}</b> typical asking price</span>
+      <span><b>{fmtNum(region.daysOnMarket)}</b> days on market</span>
+      <span><b>{region.marketCount}</b> markets, {region.countyCount} counties</span>
       <span><b>$0</b> cost to homeowners</span>
-      <span><b>Local</b>, not a national call center</span>
     </div>
+    <p class="trustbar-note">Southeast Wisconsin listing data, {trendMonth}. Prices are a 12-month median of asking prices, not closed sales.</p>
   </div>
 
   <!-- HOW IT WORKS -->
@@ -84,6 +97,36 @@ const service = {
         <div class="step"><div class="num">3</div><h3>We Connect You With the Right Agent</h3><p>We partner with a team of trusted agents across Southeast Wisconsin. Based on that conversation, we personally connect you with the right one for your situation, plus any other resources you need. A tailored fit, with no pressure and no obligation.</p></div>
       </div>
       <div class="center" style="margin-top:36px"><a class="btn btn-ghost" href="/how-it-works/">See how it works →</a></div>
+    </div>
+  </section>
+
+  <!-- THE DECADE: two measured numbers that make the case by themselves -->
+  <section class="section decade">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The last {trend.years} years</p>
+        <h2>Fewer Homes, Higher Prices</h2>
+      </div>
+      <div class="decade-grid">
+        <div class="decade-stat">
+          <p class="value">+{pctUp}%</p>
+          <p class="label">Asking prices</p>
+          <p class="sub">{fmtPrice(trend.fromPrice)} in {trend.fromYear} to {fmtPrice(trend.toPrice)} over the past year</p>
+        </div>
+        <div class="decade-stat">
+          <p class="value">-{pctDown}%</p>
+          <p class="label">Homes on the market</p>
+          <p class="sub">{fmtNum(trend.fromListings)} a month in {trend.fromYear} to {fmtNum(trend.toListings)} a month over the past year</p>
+        </div>
+      </div>
+      <p class="decade-note">
+        Measured across all {region.marketCount} Southeast Wisconsin markets we track, comparing 12-month periods
+        at each end so a quiet month cannot skew it. Asking prices, not closed sales. Less choice and higher prices
+        is exactly the market where the agent you pick matters, which is the part we help with.
+      </p>
+      <div class="center" style="margin-top:30px">
+        <a class="btn btn-ghost" href="/home-values/compare/">Compare all {region.marketCount} markets →</a>
+      </div>
     </div>
   </section>
 
