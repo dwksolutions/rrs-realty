@@ -65,6 +65,11 @@ belongs to exactly one city page (the city that names it in `cities.js`, else it
 `zip_name` city), so pages never double-count. Medians combine weighted by active
 listing count. Milwaukee spans 22 ZIPs; most suburbs have one.
 
+**Retiring a city page:** set `marketPage: false` in `cities.js` (keeps it in the
+service area, drops the market page) AND add a 301 in `vercel.json` redirects, since
+the URL is already indexed. `vercel.json` is schema-validated and rejects unknown keys,
+so it cannot carry comments; that is why this note lives here.
+
 **Do not generate comparative claims from this data** (rankings, "X% above the county
 median", cross-market comparisons). ZIP areas are postal, not municipal, so some
 cities are represented by a ZIP that mostly covers somewhere else. A number in a stat

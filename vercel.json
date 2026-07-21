@@ -8,7 +8,6 @@
       "permanent": true
     },
     {
-      "_comment": "Retired market pages. These URLs were indexed, so they 301 to the hub rather than 404. Add a line here whenever a city gets marketPage:false in cities.js.",
       "source": "/home-values/caledonia",
       "destination": "/home-values/",
       "permanent": true
