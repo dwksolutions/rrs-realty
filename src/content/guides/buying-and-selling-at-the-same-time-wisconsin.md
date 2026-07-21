@@ -4,6 +4,8 @@ metaTitle: "Buying and Selling at the Same Time in WI"
 description: "Most movers have to do both, and the order you do them in decides how much risk you carry. Here are the options, the tradeoffs, and what to sort out first."
 category: "Selling"
 date: 2026-07-21
+hero: "/blog_images/Used/guide-buying-and-selling-at-the-same-time-wisconsin.jpg"
+heroAlt: "A couple sitting on the floor among stacked moving boxes, looking at home listings on a laptop in a partly packed living room"
 cta:
   heading: "Moving Within Southeast Wisconsin?"
   text: "One local agent can handle both sides and keep the timing lined up. Get matched, free and with no obligation."

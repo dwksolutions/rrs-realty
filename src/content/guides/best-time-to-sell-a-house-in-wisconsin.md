@@ -4,6 +4,8 @@ metaTitle: "Best Time to Sell a House in Wisconsin"
 description: "Ten years of Southeast Wisconsin listing data show a clear seasonal pattern: winter inventory sits about twice as long as spring inventory, every year."
 category: "Selling"
 date: 2026-07-21
+hero: "/blog_images/Used/guide-best-time-to-sell-a-house-in-wisconsin.jpg"
+heroAlt: "A blank real estate yard sign outside a craftsman home in early spring, with patches of snow still on the lawn and trees beginning to bud"
 cta:
   heading: "Thinking About Timing Your Sale?"
   text: "Get matched with a local listing agent who can tell you what is actually happening on your street, not just across the region. Free, no obligation."
