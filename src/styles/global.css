@@ -142,7 +142,12 @@ header.site{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.86);ba
 
 /* HERO */
 .hero{position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center;padding:72px 0 64px}
+/* align-items:start, not center. The lead form is around 890px tall against
+   roughly 450px of copy, and centring split that 440px difference evenly above
+   and below, pushing the h1 nearly halfway down the screen. Starting both
+   columns at the top puts the headline beside the form's own heading and moves
+   all the slack below, where it reads as breathing room instead of a gap. */
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:start;padding:72px 0 64px}
 .hero h1{font-size:clamp(2.5rem,5vw,3.85rem)}
 .hero h1 em{font-style:italic;color:var(--brick);font-weight:500}
 .hero p.lead{font-size:19px;color:var(--ink-soft);max-width:30em;margin:22px 0 0}
