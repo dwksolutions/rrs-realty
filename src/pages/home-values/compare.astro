@@ -1,0 +1,180 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { marketCities } from '../../data/cities.js';
+import { getMarketStats, fmtPrice, fmtNum, fmtYoY } from '../../lib/marketData.js';
+import { isVolatileSample } from '../../lib/marketCaveats.js';
+
+// One row per city that has publishable figures. Sorting happens in the browser
+// so the page stays a static file, but every row is rendered server side, which
+// means the whole table is in the HTML for search engines and for anyone with
+// JavaScript off. They lose the sorting, not the data.
+const rows = marketCities()
+  .map((city) => {
+    const stats = getMarketStats(city);
+    if (!stats) return null;
+    const thin = isVolatileSample(stats);
+    return {
+      slug: city.slug,
+      name: city.name,
+      county: city.county.replace(' County', ''),
+      price: stats.medianPrice,
+      yoy: thin ? null : stats.priceYoY,
+      ppsf: stats.pricePerSqft,
+      dom: stats.daysOnMarket,
+      active: stats.activeListings,
+      zips: stats.zips.length,
+      thin,
+      updated: stats.updated,
+    };
+  })
+  .filter(Boolean)
+  .sort((a, b) => b.price - a.price);
+
+const counties = [...new Set(rows.map((r) => r.county))].sort();
+const updated = rows[0].updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+const thinCount = rows.filter((r) => r.thin).length;
+
+const title = 'Compare Home Prices by City | RRS Realty Group';
+const description = `Median list price, days on market, and price per square foot for ${rows.length} Southeast Wisconsin cities in one sortable table. Updated ${updated}.`;
+
+const origin = new URL(Astro.site).origin;
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: origin + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Market Data', item: origin + '/home-values/' },
+    { '@type': 'ListItem', position: 3, name: 'Compare Cities', item: origin + '/home-values/compare/' },
+  ],
+};
+---
+<Layout current="values" title={title} description={description} jsonLd={[breadcrumb]}>
+  <section class="page-head" style="padding-bottom:8px">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="/">Home</a> › <a href="/home-values/">Market Data</a> › Compare Cities</p>
+      <h1>Compare Southeast Wisconsin Home Prices</h1>
+      <p>Every market we track in one table, sorted however you like. These are current <em>listing</em> figures for the ZIP codes covering each city, not closed sales. Click any column heading to sort.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:32px">
+    <div class="wrap">
+      <div class="cmp-controls">
+        <label for="countyFilter">County</label>
+        <select id="countyFilter">
+          <option value="">All counties</option>
+          {counties.map((c) => <option value={c}>{c}</option>)}
+        </select>
+        <span class="cmp-count" id="cmpCount">{rows.length} cities</span>
+      </div>
+
+      <div class="cmp-scroll">
+        <table class="cmp" id="cmpTable">
+          <thead>
+            <tr>
+              <th data-sort="name" data-type="text" aria-sort="none">City</th>
+              <th data-sort="county" data-type="text" aria-sort="none">County</th>
+              <th data-sort="price" data-type="num" class="num" aria-sort="descending">Median list</th>
+              <th data-sort="yoy" data-type="num" class="num" aria-sort="none">Year over year</th>
+              <th data-sort="ppsf" data-type="num" class="num" aria-sort="none">$ / sq ft</th>
+              <th data-sort="dom" data-type="num" class="num" aria-sort="none">Days on market</th>
+              <th data-sort="active" data-type="num" class="num" aria-sort="none">Listings</th>
+              <th data-sort="zips" data-type="num" class="num" aria-sort="none">ZIPs</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr
+                data-county={r.county}
+                data-name={r.name}
+                data-price={r.price}
+                data-yoy={r.yoy ?? ''}
+                data-ppsf={r.ppsf ?? ''}
+                data-dom={r.dom ?? ''}
+                data-active={r.active}
+                data-zips={r.zips}
+              >
+                <td>
+                  <a href={`/home-values/${r.slug}/`}>{r.name}</a>
+                  {r.thin && <span class="cmp-flag" title="Fewer than 12 active listings, so this median moves on a single listing">thin data</span>}
+                </td>
+                <td>{r.county}</td>
+                <td class="num">{fmtPrice(r.price)}</td>
+                <td class="num">{r.yoy == null ? <span class="cmp-na">n/a</span> : fmtYoY(r.yoy)}</td>
+                <td class="num">{fmtPrice(r.ppsf)}</td>
+                <td class="num">{fmtNum(r.dom)}</td>
+                <td class="num">{fmtNum(r.active)}</td>
+                <td class="num">{r.zips}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="data-note" style="text-align:center">
+        Listing data via <a href="https://www.realtor.com/research/data/" rel="nofollow">Realtor.com</a> · Updated {updated}
+      </p>
+
+      <p class="sample-note">
+        Sorting compares cities against each other, which the figures only partly support. Each city is measured
+        from the ZIP codes covering it, and postal areas do not match city limits, so a city whose ZIP reaches well
+        beyond its borders will look different from one whose ZIP sits inside them. {thinCount} of these {rows.length} markets
+        carry fewer than 12 active listings and are marked "thin data"; their year over year figure is withheld
+        because at that sample it reflects which handful of homes happen to be listed. Read the table as a starting
+        point for a conversation, not a ranking.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <h2>Want Your Home's Real Value?</h2>
+      <p>A table of medians cannot price your house. Get matched with a local agent for a free, no-obligation valuation of your specific home.</p>
+      <a class="btn btn-primary" href="/get-started/">Find my agent →</a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const table = document.getElementById('cmpTable');
+  const tbody = table.querySelector('tbody');
+  const filter = document.getElementById('countyFilter');
+  const count = document.getElementById('cmpCount');
+  const all = Array.from(tbody.rows);
+  let sortKey = 'price';
+  let dir = -1;
+
+  function visible() {
+    const c = filter.value;
+    return all.filter((r) => !c || r.dataset.county === c);
+  }
+
+  function render() {
+    const type = table.querySelector(`th[data-sort="${sortKey}"]`).dataset.type;
+    const rows = visible().sort((a, b) => {
+      const x = a.dataset[sortKey];
+      const y = b.dataset[sortKey];
+      // Blanks always sort last, whichever direction, so "n/a" never tops the table.
+      if (x === '' && y === '') return 0;
+      if (x === '') return 1;
+      if (y === '') return -1;
+      if (type === 'num') return (Number(x) - Number(y)) * dir;
+      return x.localeCompare(y) * dir;
+    });
+    tbody.replaceChildren(...rows);
+    count.textContent = rows.length + (rows.length === 1 ? ' city' : ' cities');
+    table.querySelectorAll('th[data-sort]').forEach((th) => {
+      th.setAttribute('aria-sort', th.dataset.sort !== sortKey ? 'none' : dir === 1 ? 'ascending' : 'descending');
+    });
+  }
+
+  table.querySelectorAll('th[data-sort]').forEach((th) => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.sort;
+      // New column starts descending for numbers, ascending for names.
+      if (key === sortKey) dir = -dir;
+      else { sortKey = key; dir = th.dataset.type === 'num' ? -1 : 1; }
+      render();
+    });
+  });
+  filter.addEventListener('change', render);
+</script>

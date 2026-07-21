@@ -1,8 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { cities, citiesByCounty } from '../../data/cities.js';
+import { marketCities, citiesByCounty } from '../../data/cities.js';
 
-const counties = citiesByCounty();
+// Only cities with a page. Some communities we serve have too little listing
+// activity to publish figures for, and they live on the service area page.
+const withPages = marketCities();
+const counties = citiesByCounty(withPages);
 
 const title = 'Southeast Wisconsin Market Data by City | RRS Realty Group';
 const description = 'Explore market data across Southeast Wisconsin: median list price, days on market, and price per square foot by city. Get a free local home valuation.';
@@ -21,7 +24,7 @@ const breadcrumb = {
 const itemList = {
   '@type': 'ItemList',
   '@id': hubUrl + '#list',
-  numberOfItems: cities.length,
+  numberOfItems: withPages.length,
   itemListElement: counties
     .flatMap((g) => g.cities)
     .map((c, i) => ({
@@ -38,6 +41,7 @@ const itemList = {
       <p class="eyebrow">Market data</p>
       <h1>Southeast Wisconsin Home Values</h1>
       <p>Median prices and market trends by city. Pick your town for a local snapshot, then get a free valuation of your specific home.</p>
+      <p style="margin-top:14px"><a class="btn btn-ghost" href="/home-values/compare/">Compare all {withPages.length} cities in one table →</a></p>
     </div>
   </section>
 

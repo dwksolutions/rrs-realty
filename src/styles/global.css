@@ -222,6 +222,32 @@ footer ul a:hover{color:#fff}
 .data-note{font-size:13px;color:var(--muted);margin-top:22px}
 .data-note a{color:var(--brick)}
 .sample-note{max-width:52rem;margin:26px auto 0;background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:14px;color:var(--ink-soft);line-height:1.6}
+.pricechart{max-width:52rem;margin:34px auto 0;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:24px 26px 20px;box-shadow:var(--shadow)}
+.pricechart figcaption{margin-bottom:14px}
+.pricechart .pc-title{font-weight:600;color:var(--ink);font-size:15px}
+.pricechart svg{display:block;width:100%;height:150px}
+.pc-axis{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px;border-top:1px solid var(--line);padding-top:8px}
+.pc-range{font-size:14px;color:var(--ink-soft);line-height:1.6;margin:14px 0 0}
+.pc-note{font-size:13px;color:var(--muted);line-height:1.6;margin:10px 0 0}
+.cmp-controls{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.cmp-controls label{font-size:14px;font-weight:600;color:var(--ink)}
+.cmp-controls select{padding:8px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:14px;background:#fff;color:var(--ink)}
+.cmp-count{font-size:14px;color:var(--muted)}
+.cmp-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:#fff;box-shadow:var(--shadow)}
+table.cmp{border-collapse:collapse;width:100%;font-size:14.5px;min-width:720px}
+table.cmp th,table.cmp td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+table.cmp th{background:var(--cream);font-size:12.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);cursor:pointer;user-select:none;position:sticky;top:0}
+table.cmp th:hover{color:var(--brick)}
+table.cmp th::after{content:"";opacity:.45;margin-left:6px}
+table.cmp th[aria-sort="ascending"]::after{content:"\2191";opacity:1;color:var(--brick)}
+table.cmp th[aria-sort="descending"]::after{content:"\2193";opacity:1;color:var(--brick)}
+table.cmp td.num,table.cmp th.num{text-align:right;font-variant-numeric:tabular-nums}
+table.cmp tbody tr:hover{background:var(--cream)}
+table.cmp tbody tr:last-child td{border-bottom:0}
+table.cmp td a{color:var(--brick);text-decoration:none;font-weight:500}
+table.cmp td a:hover{text-decoration:underline}
+.cmp-flag{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;background:var(--cream);border:1px solid var(--line);font-size:11px;color:var(--muted);text-transform:none;letter-spacing:0}
+.cmp-na{color:var(--muted)}
 .context-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;box-shadow:var(--shadow);max-width:52rem;margin:0 auto}
 .context-card h2{font-size:1.5rem;margin-bottom:12px}
 .context-card p{color:var(--ink-soft);font-size:16px;margin:0;line-height:1.65}

@@ -1,12 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import LeadForm from '../../components/LeadForm.astro';
-import { cities, getCity } from '../../data/cities.js';
+import { marketCities, getCity, hasMarketPage } from '../../data/cities.js';
 import { getMarketStats, fmtPrice, fmtNum, fmtYoY } from '../../lib/marketData.js';
 import { getCaveats, isVolatileSample } from '../../lib/marketCaveats.js';
+import { getHistory } from '../../lib/marketHistory.js';
+import PriceHistory from '../../components/PriceHistory.astro';
 
 export async function getStaticPaths() {
-  return cities.map((city) => ({ params: { city: city.slug }, props: { city } }));
+  return marketCities().map((city) => ({ params: { city: city.slug }, props: { city } }));
 }
 
 const { city } = Astro.props;
@@ -14,10 +16,13 @@ const { city } = Astro.props;
 // the gap, so every branch below has to cope with there being no numbers.
 const stats = await getMarketStats(city);
 const updated = stats ? stats.updated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) : null;
-const nearby = (city.nearby || []).map(getCity).filter(Boolean);
+// Only nearby cities that actually have a page, or we would link to a 404.
+const nearby = (city.nearby || []).filter(hasMarketPage).map(getCity).filter(Boolean);
 // Flags thin samples and big monthly swings so the numbers are not read as more
 // precise, or more meaningful, than they are.
 const caveats = getCaveats(city, stats);
+// Five years of this city's own median. Null when there is too little history.
+const history = stats ? getHistory(city.slug, 60) : null;
 
 // Figures cover every ZIP assigned to this city, which is 22 for Milwaukee and
 // one for most suburbs. The page says which, rather than implying full coverage.
@@ -133,6 +138,8 @@ const webPage = {
       )}
 
       {caveats.map((c) => <p class="sample-note">{c}</p>)}
+
+      {history && <PriceHistory history={history} cityName={city.name} />}
 
       {stats && (
         <p class="data-note" style="text-align:center">

@@ -1,9 +1,14 @@
 // SINGLE SOURCE OF TRUTH for service area + market data.
 //
 // HARD RULE: the Service Area page (/service-area/) and the Market Data pages
-// (/home-values/) are BOTH generated from this list. Every city here gets a
-// market-data page AND is shown as an area we serve. To add or remove a city,
+// (/home-values/) are BOTH generated from this list. To add or remove a city,
 // edit ONLY this file. Do not hardcode cities anywhere else, or the two will drift.
+//
+// `marketPage: false` is the single exception and it means one thing: we serve
+// this community, but its ZIP carries too little listing activity to publish a
+// market page anyone should rely on. The city still shows in the service area.
+// It is NOT a way to quietly stop covering somewhere. Use marketCities() for
+// anything linking to /home-values/, and `cities` for describing where we work.
 //
 // ABOUT THE BLURBS: keep them to geography and civic description, things anyone
 // can verify on a map or a municipal website. They previously carried claims we
@@ -62,7 +67,11 @@ export const cities = [
   // ---- Racine County ----
   { slug: 'racine', name: 'Racine', county: 'Racine County', zip: '53403', nearby: ['mount-pleasant', 'caledonia', 'sturtevant'], blurb: "A Lake Michigan city with a walkable downtown and historic housing stock." },
   { slug: 'mount-pleasant', name: 'Mount Pleasant', county: 'Racine County', zip: '53406', nearby: ['racine', 'sturtevant', 'caledonia'], blurb: "Mount Pleasant has seen new development in recent years, with newer subdivisions in a suburban setting." },
-  { slug: 'caledonia', name: 'Caledonia', county: 'Racine County', zip: '53108', nearby: ['racine', 'mount-pleasant', 'oak-creek'], blurb: "Sitting between Racine and Milwaukee County, Caledonia has larger lots and a semi-rural feel." },
+  // No market page: ZIP 53108 held under 12 active listings in 107 of the 120
+  // months from 2016-07 to 2026-06 (89%). A median drawn from that few listings
+  // swings on a single new one, so there is no honest snapshot to publish. We
+  // still serve Caledonia and it stays on the service area page.
+  { slug: 'caledonia', name: 'Caledonia', county: 'Racine County', zip: '53108', marketPage: false, nearby: ['racine', 'mount-pleasant', 'oak-creek'], blurb: "Sitting between Racine and Milwaukee County, Caledonia has larger lots and a semi-rural feel." },
   { slug: 'burlington', name: 'Burlington', county: 'Racine County', zip: '53105', nearby: ['racine', 'east-troy', 'mount-pleasant'], blurb: "Known as Chocolate City, Burlington has a historic downtown and riverfront on the county's western side." },
   { slug: 'sturtevant', name: 'Sturtevant', county: 'Racine County', zip: '53177', nearby: ['mount-pleasant', 'racine', 'caledonia'], blurb: "A small village between Racine and the interstate, with a rail and highway location." },
 
@@ -89,10 +98,22 @@ export function getCity(slug) {
   return cities.find((c) => c.slug === slug) || null;
 }
 
+// Cities that have a /home-values/ page. Anything that LINKS to a market page
+// must use this, not `cities`, or it will link somewhere that does not exist.
+export function marketCities() {
+  return cities.filter((c) => c.marketPage !== false);
+}
+
+export function hasMarketPage(slug) {
+  const c = getCity(slug);
+  return !!c && c.marketPage !== false;
+}
+
 // Cities grouped by county, county names sorted, cities sorted within each.
-export function citiesByCounty() {
+// Pass marketCities() when the output will be turned into /home-values/ links.
+export function citiesByCounty(list = cities) {
   const groups = {};
-  for (const c of cities) (groups[c.county] ||= []).push(c);
+  for (const c of list) (groups[c.county] ||= []).push(c);
   for (const k of Object.keys(groups)) groups[k].sort((a, b) => a.name.localeCompare(b.name));
   return Object.keys(groups)
     .sort()

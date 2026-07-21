@@ -1,0 +1,64 @@
+---
+// Five-year median list price chart for a city page.
+//
+// Static inline SVG on purpose: no library, no client JS, nothing to hydrate.
+// It is decorative to a screen reader (aria-hidden) because the figures that
+// matter are stated in the text underneath it, which is more useful than an
+// SVG description would be.
+import { monthLabel } from '../lib/marketHistory.js';
+
+const { history, cityName } = Astro.props;
+
+const { series, min, max, from, to, thinMonths, coverageChanged } = history;
+
+// Geometry in a fixed viewBox, scaled by CSS. Padded so the line never touches
+// the edges and the endpoint dot is not clipped.
+const W = 640;
+const H = 150;
+const PAD = { top: 12, right: 10, bottom: 12, left: 10 };
+const span = Math.max(1, max - min);
+
+const pts = series.map((p, i) => {
+  const x = PAD.left + (i / (series.length - 1)) * (W - PAD.left - PAD.right);
+  const y = PAD.top + (1 - (p.price - min) / span) * (H - PAD.top - PAD.bottom);
+  return { x, y, ...p };
+});
+
+const line = pts.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+const area = `${PAD.left},${H - PAD.bottom} ${line} ${(W - PAD.right).toFixed(1)},${H - PAD.bottom}`;
+const last = pts[pts.length - 1];
+const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+
+const notes = [];
+if (thinMonths > 0) {
+  notes.push(
+    `${thinMonths} of the ${series.length} months shown had fewer than 12 homes listed, where the median moves on a single listing.`
+  );
+}
+if (coverageChanged) {
+  notes.push('The number of ZIP codes reporting changed during this period, so part of a step in the line may be a change in coverage rather than in prices.');
+}
+---
+<figure class="pricechart">
+  <figcaption>
+    <span class="pc-title">Median list price, {monthLabel(from)} to {monthLabel(to)}</span>
+  </figcaption>
+
+  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <polygon points={area} fill="var(--brick)" opacity="0.07" />
+    <polyline points={line} fill="none" stroke="var(--brick)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+    <circle cx={last.x} cy={last.y} r="3.5" fill="var(--brick)" vector-effect="non-scaling-stroke" />
+  </svg>
+
+  <div class="pc-axis">
+    <span>{monthLabel(from, true)}</span>
+    <span>{monthLabel(to, true)}</span>
+  </div>
+
+  <p class="pc-range">
+    Over these {series.length} months the {cityName} median ranged from {money(min)} to {money(max)},
+    finishing at {money(last.price)}. Asking prices, not closed sales.
+  </p>
+
+  {notes.map((n) => <p class="pc-note">{n}</p>)}
+</figure>

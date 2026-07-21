@@ -42,7 +42,7 @@ const breadcrumb = {
             <h3>{group.county}</h3>
             <p class="county-cities">
               {group.cities.map((c, i) => (
-                <Fragment>{i > 0 ? ' · ' : ''}<a href={`/home-values/${c.slug}/`}>{c.name}</a></Fragment>
+                <Fragment>{i > 0 ? ' · ' : ''}{c.marketPage === false ? <span>{c.name}</span> : <a href={`/home-values/${c.slug}/`}>{c.name}</a>}</Fragment>
               ))}
             </p>
           </div>
