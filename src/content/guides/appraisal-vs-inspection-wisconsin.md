@@ -4,6 +4,8 @@ metaTitle: "Appraisal vs Inspection in Wisconsin"
 description: "They happen around the same time and get confused constantly. One protects your lender, the other protects you. Here is what each covers and who pays."
 category: "Buying"
 date: 2026-07-21
+hero: "/blog_images/Used/guide-appraisal-vs-inspection-wisconsin.jpg"
+heroAlt: "A real estate professional measuring an empty room with a laser distance measurer, a clipboard under one arm and a camera on the windowsill"
 cta:
   heading: "Buying in Southeast Wisconsin?"
   text: "Get matched with a local buyer agent who can tell you which findings matter and which are noise. Free, no obligation."
