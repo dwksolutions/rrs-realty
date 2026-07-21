@@ -32,51 +32,12 @@
 
 import { cities } from '../src/data/cities.js';
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+// Shared with import-rdc-history.mjs so the newest month and the archive are
+// combined by identical maths. See the note at the top of rdc-shared.mjs.
+import { parseLine, num, makeZipResolver, aggregate } from './rdc-shared.mjs';
 
 const DEFAULT_SRC = `${process.env.USERPROFILE || process.env.HOME}/Downloads/RDC_Inventory_Core_Metrics_Zip.csv`;
 const SRC = process.argv[2] || DEFAULT_SRC;
-
-function parseLine(line) {
-  const out = [];
-  let cur = '';
-  let q = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    if (q) {
-      if (ch === '"') {
-        if (line[i + 1] === '"') { cur += '"'; i++; } else q = false;
-      } else cur += ch;
-    } else {
-      if (ch === '"') q = true;
-      else if (ch === ',') { out.push(cur); cur = ''; }
-      else cur += ch;
-    }
-  }
-  out.push(cur);
-  return out;
-}
-
-const num = (v) => (v !== '' && v != null && !isNaN(parseFloat(v)) ? parseFloat(v) : null);
-
-// Median of ZIP-level medians, weighted by how many listings each ZIP holds.
-function weightedMedian(pairs) {
-  const rows = pairs.filter((p) => p.value != null && p.weight > 0).sort((a, b) => a.value - b.value);
-  if (!rows.length) return null;
-  const total = rows.reduce((s, r) => s + r.weight, 0);
-  let run = 0;
-  for (const r of rows) {
-    run += r.weight;
-    if (run >= total / 2) return Math.round(r.value);
-  }
-  return Math.round(rows[rows.length - 1].value);
-}
-
-function weightedMean(pairs) {
-  const rows = pairs.filter((p) => p.value != null && p.weight > 0);
-  if (!rows.length) return null;
-  const total = rows.reduce((s, r) => s + r.weight, 0);
-  return rows.reduce((s, r) => s + r.value * r.weight, 0) / total;
-}
 
 const text = readFileSync(SRC, 'utf8');
 const lines = text.split(/\r?\n/).filter((l) => l.length);
@@ -120,17 +81,11 @@ for (let i = 1; i < lines.length; i++) {
 }
 
 // Rule 1: every ZIP lands on exactly one city page.
-const claimed = new Set(cities.map((c) => c.zip));
+const resolve = makeZipResolver(cities);
 const zipsFor = new Map(cities.map((c) => [c.slug, []]));
-
-for (const c of cities) {
-  const own = rowsByZip.get(c.zip);
-  if (own) zipsFor.get(c.slug).push(own);
-}
 for (const row of rowsByZip.values()) {
-  if (claimed.has(row.zip)) continue;
-  const match = cities.find((c) => row.name === `${c.name.toLowerCase()}, wi`);
-  if (match) zipsFor.get(match.slug).push(row);
+  const slug = resolve(row.zip, row.name);
+  if (slug) zipsFor.get(slug).push(row);
 }
 
 const out = [
@@ -150,29 +105,20 @@ const missing = [];
 const report = [];
 
 for (const c of cities) {
-  const rows = zipsFor.get(c.slug).filter((r) => r.price != null);
-  if (!rows.length) { missing.push(`${c.name} (${c.zip})`); continue; }
-
-  const w = (key) => rows.map((r) => ({ value: r[key], weight: r.active }));
-  const price = weightedMedian(w('price'));
-  const ppsf = weightedMedian(w('ppsf'));
-  const dom = weightedMedian(w('dom'));
-  const active = rows.reduce((s, r) => s + r.active, 0);
-  const yy = weightedMean(w('priceYY'));
-  const mm = weightedMean(w('priceMM'));
-
-  // Biggest ZIP first so the page leads with the most representative one.
-  const zipList = rows.slice().sort((a, b) => b.active - a.active).map((r) => r.zip);
+  // aggregate() also sorts the ZIP list biggest first, so the page leads with
+  // the most representative one.
+  const a = aggregate(zipsFor.get(c.slug));
+  if (!a) { missing.push(`${c.name} (${c.zip})`); continue; }
 
   out.push(
     [
-      c.slug, price, ppsf ?? '', dom ?? '', active,
-      yy == null ? '' : yy.toFixed(4),
-      mm == null ? '' : mm.toFixed(4),
-      zipList.join(' '), updated,
+      c.slug, a.medianPrice, a.pricePerSqft ?? '', a.daysOnMarket ?? '', a.activeListings,
+      a.priceYoY == null ? '' : a.priceYoY.toFixed(4),
+      a.priceMoM == null ? '' : a.priceMoM.toFixed(4),
+      a.zips.join(' '), updated,
     ].join(',')
   );
-  report.push({ name: c.name, zips: rows.length, active });
+  report.push({ name: c.name, zips: a.zipCount, active: a.activeListings });
 }
 
 writeFileSync('src/data/market-data.csv', out.join('\n') + '\n');

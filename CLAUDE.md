@@ -48,8 +48,17 @@ figures (median list price, year-over-year change, $/sqft, days on market, activ
 listings), labeled as such.
 To refresh: download "RDC Inventory Core Metrics by ZIP" from realtor.com/research/data,
 then `npm run import:market` (or `node scripts/import-rdc.mjs <path>`), then deploy.
-Each run also writes a dated copy to `src/data/history/`; keep those, they are the
-only way real trends can be shown later (the published file holds one month only).
+Each run also writes a dated copy to `src/data/history/`, a record of what we actually
+published that month.
+
+**Ten years of history** lives in `src/data/market-history.csv` (one row per city per
+month, 2016-07 to 2026-06). Built by `npm run import:history` from Realtor.com's
+separate "history" download, which is ~800MB and 3.4M rows, so that script streams it
+rather than reading it into memory. Both importers share `scripts/rdc-shared.mjs`, so
+the newest month and the archive aggregate identically; verified that every city's last
+history row equals its current figure. Coverage is stable across the decade (only
+Milwaukee ever varies, 21 vs 22 ZIPs), so long-run comparisons are not a coverage
+artefact. `zipCount` per month is recorded so that stays checkable.
 
 **Each city aggregates every ZIP assigned to it**, not one hand-picked ZIP. A ZIP
 belongs to exactly one city page (the city that names it in `cities.js`, else its
