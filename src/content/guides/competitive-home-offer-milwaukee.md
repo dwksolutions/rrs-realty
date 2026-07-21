@@ -39,7 +39,7 @@ Price matters, but these levers often decide a close call:
 ## Consider these tools, carefully
 
 - **Escalation clause.** This automatically raises your offer up to a set ceiling if another buyer beats it. It can win a bidding situation, but only set a ceiling you are genuinely comfortable paying.
-- **Appraisal gap coverage.** If you offer above list, the appraisal may come in lower. Agreeing to cover part of the gap in cash can strengthen your offer, but only commit what you can actually afford, and understand the risk.
+- **Appraisal gap coverage.** If you offer above list, the appraisal may come in lower. Agreeing to cover part of the gap in cash can strengthen your offer, but only commit what you can actually afford, and understand the risk. Our guide to [appraisals and inspections](/guides/appraisal-vs-inspection-wisconsin/) explains what happens when an appraisal falls short, and what your options are.
 
 Your agent will help you weigh these against your budget and how much you want the home.
 

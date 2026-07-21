@@ -25,17 +25,19 @@ National real estate news blends thousands of very different markets into one nu
 
 Timing within the year matters here more than in milder climates. Buyer activity typically builds through spring and stays strong into summer, as families try to move before the school year and everyone takes advantage of the weather. Listings can sit longer in deep winter, but there's a flip side: fewer homes compete in winter, and the buyers who are out looking in January tend to be serious. A well-priced home can do well in any season.
 
+We checked this against ten years of our own regional data, and the seasonal pattern is real and strikingly consistent: [the best time to sell in Southeast Wisconsin](/guides/best-time-to-sell-a-house-in-wisconsin/) breaks down what the figures actually show, and what they do not.
+
 ## The real question: is it a good time for *you*?
 
 The market sets the backdrop, but your circumstances usually decide the outcome:
 
 - **Do you have equity?** If you've owned for several years, you likely have meaningful equity to work with.
-- **Where are you going next?** If you're buying again locally, remember you're also a buyer in the same market, a high sale price helps less if you turn around and overpay.
+- **Where are you going next?** If you're buying again locally, remember you're also a buyer in the same market, a high sale price helps less if you turn around and overpay. Our guide to [buying and selling at the same time](/guides/buying-and-selling-at-the-same-time-wisconsin/) covers how to sequence the two.
 - **What's your timeline?** Forced, rushed sales rarely get top dollar. Flexibility is leverage.
 - **How's your home's condition?** A move-in-ready home in a sought-after area sells well in almost any market.
 
 ## How to get a real answer
 
-A generic online estimate can't tell you whether now is right, it doesn't know your neighborhood, your home's condition, or what's selling on your street this month. A [local listing agent](/sell/) can give you a grounded read on current demand for homes like yours, recent comparable sales nearby, and what a realistic timeline and price look like right now.
+A generic online estimate can't tell you whether now is right, it doesn't know your neighborhood, your home's condition, or what's selling on your street this month. Our guide on [what your home is actually worth](/guides/whats-my-home-worth-southeast-wisconsin/) explains why those estimates miss. A [local listing agent](/sell/) can give you a grounded read on current demand for homes like yours, recent comparable sales nearby, and what a realistic timeline and price look like right now.
 
 That conversation costs nothing and carries no obligation, and it's the fastest way to replace "I wonder if it's a good time" with a clear, local answer.

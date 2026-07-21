@@ -83,13 +83,15 @@ What you cannot fairly take from it is a promise. "List in May and sell in 32 da
 
 The honest answer is that the season matters less than the four things you control.
 
-**Your pricing.** A well-priced home in January outperforms an overpriced one in May, and it is not close. Seasonality moves the number of buyers looking at your home. Price moves whether they make an offer.
+**Your pricing.** A well-priced home in January outperforms an overpriced one in May, and it is not close. Seasonality moves the number of buyers looking at your home. Price moves whether they make an offer. Our guide to [what your home is actually worth](/guides/whats-my-home-worth-southeast-wisconsin/) covers how that number gets set, and why online estimates are a poor place to start.
 
 **Your condition and presentation.** Spring flatters a house. Good photography and genuine preparation flatter it in any month, and matter more.
 
 **Your competition.** This is the argument for listing outside peak season that most sellers never hear. In February the typical market carries 42 listings; in July it carries 73. Fewer buyers are looking in late winter, but yours may be one of very few homes they have to choose from. If your home shows well, less competition can be worth more than more foot traffic.
 
-**Your own timeline.** A forced sale rarely gets top dollar, whatever the month. Flexibility is leverage, and if waiting three months means you are not negotiating under pressure, that is usually worth more than any seasonal edge.
+**Your own timeline.** A forced sale rarely gets top dollar, whatever the month. Flexibility is leverage, and if waiting three months means you are not negotiating under pressure, that is usually worth more than any seasonal edge. If you are buying as well as selling, [sequencing the two](/guides/buying-and-selling-at-the-same-time-wisconsin/) will drive your timing far more than the season will.
+
+For the wider question of whether conditions favour sellers right now, rather than which month to pick, see [is now a good time to sell](/guides/is-now-a-good-time-to-sell-milwaukee/). And once you have a month in mind, [the full selling process](/guides/how-to-sell-your-house-in-wisconsin/) lays out what happens from listing to closing, while [what it costs to sell](/guides/cost-to-sell-a-house-wisconsin/) covers what you actually walk away with.
 
 ## The local caveat
 

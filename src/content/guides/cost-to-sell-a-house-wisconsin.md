@@ -68,4 +68,6 @@ Everything except the mortgage payoff and commission is relatively modest; those
 
 The biggest hidden cost in a sale is mispricing. Overprice and the home sits, goes stale, and often sells for less than a well-priced listing would have. Ground your price in recent local sales, not hope. Start with [current market data for your city](/home-values/) and our guide on [what your home is worth](/guides/whats-my-home-worth-southeast-wisconsin/).
 
+If your proceeds are funding your next purchase, work out that number before you start looking: our guide to [buying and selling at the same time](/guides/buying-and-selling-at-the-same-time-wisconsin/) covers how the two transactions fit together, and [when to list](/guides/best-time-to-sell-a-house-in-wisconsin/) covers the timing.
+
 When you are ready, RRS can [match you with a vetted local listing agent](/sell/) who will prepare a real net sheet for your specific home, free and with no obligation.

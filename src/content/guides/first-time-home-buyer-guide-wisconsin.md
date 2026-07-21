@@ -63,7 +63,7 @@ When you find the one, your agent writes an offer on Wisconsin's standard reside
 
 ## 8. Inspection and appraisal
 
-After your offer is accepted, you will typically order a home inspection, and if you are financing, your lender orders an appraisal.
+After your offer is accepted, you will typically order a home inspection, and if you are financing, your lender orders an appraisal. They are easy to confuse and they do very different jobs, so it is worth knowing [what each one is actually for](/guides/appraisal-vs-inspection-wisconsin/) before either report lands.
 
 The inspection is your protection. In Wisconsin, pay special attention to the basement (water and moisture), the roof, the furnace age, and radon, all of which our climate makes worth checking. Use our [Wisconsin home inspection checklist](/guides/wisconsin-home-inspection-checklist/) so you know what to look for. If the inspection turns up problems, this is a normal point to renegotiate.
 

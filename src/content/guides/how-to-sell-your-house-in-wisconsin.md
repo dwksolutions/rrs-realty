@@ -13,11 +13,11 @@ Selling a home in Wisconsin follows a fairly predictable path, but the details m
 
 ## 1. Decide on your timeline
 
-Before anything else, get clear on when you need to be out and why you're selling. A spring listing behaves very differently from a December one in Southeast Wisconsin, where buyer activity tends to pick up as the snow clears and families aim to move before the next school year. Your timeline shapes nearly every decision that follows, so start here.
+Before anything else, get clear on when you need to be out and why you're selling. A spring listing behaves very differently from a December one in Southeast Wisconsin, where buyer activity tends to pick up as the snow clears and families aim to move before the next school year. Ten years of our own regional figures back that up, and [the best time to sell](/guides/best-time-to-sell-a-house-in-wisconsin/) shows exactly how much the seasons differ here. If you're buying as well, [doing both at once](/guides/buying-and-selling-at-the-same-time-wisconsin/) is its own problem worth planning early. Your timeline shapes nearly every decision that follows, so start here.
 
 ## 2. Get a realistic sense of your home's value
 
-The single most important decision in a home sale is the asking price. Price too high and your listing sits, goes stale, and ultimately sells for less than it should. Price it right and you can attract competing offers. A local agent will prepare a comparative market analysis, a look at what similar nearby homes have actually sold for recently, to ground your price in real data rather than hope or a generic online estimate. You can also browse [current market data for cities across Southeast Wisconsin](/home-values/) to see how homes are priced near you.
+The single most important decision in a home sale is the asking price. Price too high and your listing sits, goes stale, and ultimately sells for less than it should. Price it right and you can attract competing offers. A local agent will prepare a comparative market analysis, a look at what similar nearby homes have actually sold for recently, to ground your price in real data rather than hope or a generic online estimate. Our guide to [what your home is really worth](/guides/whats-my-home-worth-southeast-wisconsin/) explains why those estimates go wrong. You can also browse [current market data for cities across Southeast Wisconsin](/home-values/), or [compare every market side by side](/home-values/compare/), to see how homes are priced near you.
 
 ## 3. Prepare the home
 
@@ -33,7 +33,7 @@ Once live, your home goes through showings and, ideally, receives offers. An off
 
 ## 6. Inspection and appraisal
 
-After you accept an offer, the buyer typically orders a home inspection and, if they're financing, their lender orders an appraisal. Issues found here can reopen negotiation. This is a common point where deals wobble, and experienced representation matters most.
+After you accept an offer, the buyer typically orders a home inspection and, if they're financing, their lender orders an appraisal. These are two different things with two different purposes, and [understanding what each one covers](/guides/appraisal-vs-inspection-wisconsin/) helps you read what comes back. Issues found here can reopen negotiation. This is a common point where deals wobble, and experienced representation matters most.
 
 ## 7. Closing
 

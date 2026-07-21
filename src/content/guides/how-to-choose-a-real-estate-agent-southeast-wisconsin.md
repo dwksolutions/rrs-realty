@@ -44,4 +44,6 @@ You'll work closely with this person through a stressful, high-stakes process. B
 
 ## A shortcut to a good match
 
-Vetting agents on your own takes time most people don't have. That's exactly the gap RRS Realty Group fills, we connect you with vetted, licensed agents who actively work your Southeast Wisconsin area, whether you're [selling](/sell/) or [buying](/buy/), so you start from a short list of qualified locals instead of a search-engine guess. It's free, and there's no obligation to hire anyone.
+Vetting agents on your own takes time most people don't have. That's exactly the gap RRS Realty Group fills, we connect you with vetted, licensed agents who actively work your Southeast Wisconsin area, whether you're [selling](/sell/) or [buying](/buy/), so you start from a short list of qualified locals instead of a search-engine guess. It's free, and there's no obligation to hire anyone. [Here's exactly how the matching works](/how-it-works/), start to finish.
+
+Once you've found the right person, [the full selling process](/guides/how-to-sell-your-house-in-wisconsin/) walks through what happens next, and [what your home is really worth](/guides/whats-my-home-worth-southeast-wisconsin/) covers the pricing conversation you should expect to have early on.

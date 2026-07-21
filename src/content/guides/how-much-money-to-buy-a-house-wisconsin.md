@@ -46,7 +46,7 @@ You pay for the home inspection out of pocket, usually shortly after your offer 
 
 ## Appraisal
 
-If you are financing, your lender orders an appraisal to confirm the home is worth what you are paying. It typically costs a few hundred dollars and is often rolled into your closing costs. If the appraisal comes in below your offer, that can reopen negotiation, so it matters.
+If you are financing, your lender orders an appraisal to confirm the home is worth what you are paying. It typically costs a few hundred dollars and is often rolled into your closing costs. If the appraisal comes in below your offer, that can reopen negotiation, so it matters. It is not the same thing as your inspection, and [the difference is worth understanding](/guides/appraisal-vs-inspection-wisconsin/) before you pay for both.
 
 ## Closing costs
 
